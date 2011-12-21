@@ -1,0 +1,3 @@
+* any way to get bitnesscompile to use the relative path of the script it is executed from? (ie pass it the working path that compile is running under so we dont have to do the push/pop/cd in bitness)
+* same thing for Dahlia, that way it can be in the bld directory and only the cmds are at the root
+* see if there is a way to use RemoveDirectory instead of rmdir -r when removing empty directories after the web copy in Assemble

@@ -1,0 +1,15 @@
+@model ???
+
+@{
+    ViewBag.Title = "Current Retreats"
+}
+
+<h2>Current Retreats</h2>
+<p>
+    <ul>
+@foreach (var retreat in Model)
+{
+        <li>@retreat.Date.ToShortDateString() (@retreat.Description)</li>
+}
+    </ul>
+</p>
