@@ -1,14 +1,15 @@
 namespace Dahlia.DataStore.Handlers
 {
+    using System;
     using System.Data.SqlClient;
     using NServiceBus;
-    using PreviousRetreatCreatedEvent = Dahlia.Events.RetreatCreatedEvent.Version1;
+    using CurrentRetreatCreatedEvent = Events.RetreatCreatedEvent.Version1;
 
-    public class RetreatCreatedEventHandlerDuplicate : IHandleMessages<PreviousRetreatCreatedEvent>
+    public class RetreatCreatedEventHandlerDuplicate : IHandleMessages<CurrentRetreatCreatedEvent>
     {
-        public void Handle(PreviousRetreatCreatedEvent @event)
+        public void Handle(CurrentRetreatCreatedEvent @event)
         {
-            System.Console.WriteLine("duplicate got the event");
+            Console.WriteLine("duplicate got the event");
         }
     }
 }

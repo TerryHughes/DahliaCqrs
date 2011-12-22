@@ -3,7 +3,7 @@ namespace Dahlia.DataStore.Handlers
     using System.Configuration;
     using System.Data.SqlClient;
     using NServiceBus;
-    using Dahlia.Events;
+    using Events;
 
     public class ProcessedCommandHandler : IHandleMessages<Event>
     {

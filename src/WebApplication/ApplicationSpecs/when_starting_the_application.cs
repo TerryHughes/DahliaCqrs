@@ -1,4 +1,4 @@
-namespace Dahlia.Web.Mvc.ApplicationSpecs
+namespace Dahlia.WebApplication.ApplicationSpecs
 {
     using System.Linq;
     using Machine.Specifications;
@@ -11,6 +11,6 @@ namespace Dahlia.Web.Mvc.ApplicationSpecs
 
         It should_ =()=> { };
 
-        static Application application;
+        static DahliaApplication application;
     }
 }

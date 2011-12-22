@@ -1,4 +1,4 @@
-namespace Dahlia.Web.Mvc.Controllers.RetreatControllerSpecs
+namespace Dahlia.WebApplication.Controllers.RetreatControllerSpecs
 {
     using System;
     using System.Collections.Generic;

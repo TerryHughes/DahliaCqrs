@@ -1,13 +1,14 @@
 namespace Dahlia.DataStore.Handlers
 {
+    using System;
     using NServiceBus;
-    using Dahlia.Events;
+    using Events;
 
     public class LogEventHandler : IHandleMessages<Event>
     {
         public void Handle(Event @event)
         {
-            System.Console.WriteLine("Logging event handler says: " + @event.GetType());
+            Console.WriteLine("Logging event handler says: " + @event.GetType());
         }
     }
 }

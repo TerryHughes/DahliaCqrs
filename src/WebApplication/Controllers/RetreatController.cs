@@ -1,57 +1,82 @@
 namespace Dahlia.WebApplication.Controllers
 {
     using System;
+    using System.Dynamic;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using System.Web.Mvc;
     using NServiceBus;
-    using CurrentCreateRetreatCommand = Commands.CreateRetreatCommand.Version1;
-    using Data.Common;
-    using Framework;
+    using PreviousCreateRetreatCommand = Commands.CreateRetreatCommand.Version1;
+    using CurrentCreateRetreatCommand = Commands.CreateRetreatCommand.Version2;
+    using Repositories;
 
     public class RetreatController : Controller
     {
-        readonly ReadRepository repository;
-        readonly IBus bus;
+        private readonly RetreatRepository repository;
+        private readonly IBus bus;
 
-        public RetreatController(IBus bus)
+        public RetreatController(RetreatRepository repository, IBus bus)
         {
-            repository = new ReadRepository(new ConfigConnectionSettings());
+            this.repository = repository;
             this.bus = bus;
         }
 
-        public IBus Bus { get; set; }
-
-        public ActionResult New()
+        public ActionResult List()
         {
-            return View();
-        }
-
-        public ActionResult Create(DateTime date, string description)
-        {
-            bus.Send(new CurrentCreateRetreatCommand { Date = date, Description = description });
-
-            return RedirectToAction("Current");
-        }
-
-        public ActionResult Current()
-        {
-            var today = DateTime.Today;
-
-            // show one year (365 days) worth [back 30 days, forward the rest]
-            var start = new KeyValuePair<string, object>("@start", today.AddDays(-30));
-            var end = new KeyValuePair<string, object>("@end", today.AddDays(335));
-
-            var retreats = repository.All("SELECT * FROM [Retreats] WHERE @start < [Date] AND [Date] < @end ORDER BY [Date]", new[] { start, end });
+            var retreats = repository.GetAll().OrderBy(r => r.Date);
 
             return View(retreats);
         }
 
-        public ActionResult Msg()
+        public ActionResult Dynamic()
         {
-            var str = Bus == null ? "is null" : "has value";
-            bus.Send(new CurrentCreateRetreatCommand { Date = DateTime.Today, Description = DateTime.Now.TimeOfDay + " from the web " + str });
-System.Threading.Thread.Sleep(100);
-            return RedirectToAction("Current");
+            return View(repository.GetAllAsDynamic().OrderBy(r => r.Date));
+        }
+
+        public ActionResult DynamicFromStatic()
+        {
+            var vms = repository.GetAll().OrderBy(r => r.Date);
+           
+            var objs = vms.Select(x => {
+                                dynamic o = new ExpandoObject();
+                                var properties = x.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                                foreach (var p in properties)
+                                {
+                                    (o as IDictionary<string,object>)[p.Name] = p.GetValue(x, null);
+                                }
+                                return o;
+                            });
+            
+            return View(objs);
+        }
+
+        public ActionResult NewCurrent()
+        {
+            return View();
+        }
+
+        public ActionResult NewPrevious()
+        {
+            return View();
+        }
+
+        public ActionResult CreateCurrent(DateTime date, string description)
+        {
+            var command = new CurrentCreateRetreatCommand(date, description);
+            HomeController.Cache.Add(command.Id);
+            bus.Send(command);
+
+            return RedirectToAction("List");
+        }
+
+        public ActionResult CreatePrevious(DateTime date, string description)
+        {
+            var command = new PreviousCreateRetreatCommand(date, description);
+            HomeController.Cache.Add(command.Id);
+            bus.Send(command);
+
+            return RedirectToAction("List");
         }
     }
 }

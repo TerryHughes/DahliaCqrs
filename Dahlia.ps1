@@ -14,6 +14,8 @@ Properties {
     $specFile = `
     $viewModelFile = `
     $webMvcFile = `
+    $webMvcNServiceBusFile = `
+    $webApplicationFile = `
         "bin\$applicationName"
 
     $specFile += ".Specs.dll"
@@ -27,7 +29,7 @@ Task Publish -preaction {
         mkdir app\web | Out-Null
     }
 } {
-    gci src\Web.Mvc -ex *.cs, *.config -r | cpi -des { Join-Path app\web $_.FullName.Substring((rvpa src\Web.Mvc).Path.Length) }
+    gci src\WebApplication -ex *.cs, *.config -r | cpi -des { Join-Path app\web $_.FullName.Substring((rvpa src\WebApplication).Path.Length) }
     gci app\web -r | ? { $_.PSIsContainer } | ? { @(gci $_.FullName -r | ? { !$_.PSIsContainer }).Count -eq 0 } | rmdir -r
 
     if (!(Test-Path app\web\bin))
@@ -55,6 +57,8 @@ Task Publish -preaction {
     cpi bin\Dahlia.Commands.dll app\web\bin
     cpi bin\Dahlia.Repositories.dll app\web\bin
     cpi bin\Dahlia.Web.Mvc.dll app\web\bin
+    cpi bin\Dahlia.Web.Mvc.NServiceBus.dll app\web\bin
+    cpi bin\Dahlia.WebApplication.dll app\web\bin
 
     cpi lib\jQuery\Content\Scripts\jquery-1.6.1.min.js app\web\Scripts
     cpi ref\timeago\jquery.timeago.js app\web\Scripts
@@ -92,7 +96,7 @@ Task Publish -preaction {
     cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Deployment.dll" app\web\bin
     cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll" app\web\bin
 
-    gci bin\TransformWebConfig\transformed\src\Web.Mvc -r | ? { !$_.PSIsContainer } | cpi -des { Join-Path app\web $_.FullName.Substring((rvpa bin\TransformWebConfig\transformed\src\Web.Mvc).Path.Length) }
+    gci bin\TransformWebConfig\transformed\src\WebApplication -r | ? { !$_.PSIsContainer } | cpi -des { Join-Path app\web $_.FullName.Substring((rvpa bin\TransformWebConfig\transformed\src\WebApplication).Path.Length) }
 }
 
 Task Verify -depends Compile {
@@ -113,6 +117,8 @@ Task Compile -preaction {
     $repositoryFile += ".Repositories.dll"
     $viewModelFile += ".ViewModels.dll"
     $webMvcFile += ".Web.Mvc.dll"
+    $webMvcNServiceBusFile += ".Web.Mvc.NServiceBus.dll"
+    $webApplicationFile += ".WebApplication.dll"
 
     $sharedAssemblyInfoFile = "src\SharedAssemblyInfo.cs"
 
@@ -125,6 +131,8 @@ Task Compile -preaction {
     $repositorySourceFiles = @(gci src\Repositories -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $viewModelSourceFiles = @(gci src\ViewModels -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $webMvcSourceFiles = @(gci src\Web.Mvc -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+    $webMvcNServiceBusSourceFiles = @(gci src\Web.Mvc.NServiceBus -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+    $webApplicationSourceFiles = @(gci src\WebApplication -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
 
     $commandReferences = `
         @() + `
@@ -153,6 +161,15 @@ Task Compile -preaction {
         $frameworkFile + `
         $viewModelFile
     $webMvcReferences = `
+        @() + `
+        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll"
+    $webMvcNServiceBusReferences = `
+        @($webMvcReferences) + `
+        $webMvcFile + `
+        "lib\nservicebus\lib\net40\log4net.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.dll"
+    $webApplicationReferences = `
         @($repositoryReferences) + `
         @($commandReferences) + `
         "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" + `
@@ -161,15 +178,17 @@ Task Compile -preaction {
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\log4net.dll" + `
         $commandFile + `
-        $repositoryFile
+        $repositoryFile + `
+        @($webMvcNServiceBusReferences) + `
+        $webMvcNServiceBusFile
     $specReferences = `
-        @($webMvcReferences) + `
+        @($webApplicationReferences) + `
         @($repositoryReferences) + `
         @($eventReferences) + `
         @($dataStoreReferences) + `
         @($commandReferences) + `
         "lib\Machine.Specifications\lib\Machine.Specifications.dll" + `
-        $webMvcFile + `
+        $webApplicationFile + `
         $repositoryFile + `
         $eventFile + `
         $dataStoreFile + `
@@ -183,6 +202,8 @@ Task Compile -preaction {
     GenericCompile $dataStoreFile $dataStoreReferences $dataStoreSourceFiles
     GenericCompile $repositoryFile $repositoryReferences $repositorySourceFiles
     GenericCompile $webMvcFile $webMvcReferences $webMvcSourceFiles
+    GenericCompile $webMvcNServiceBusFile $webMvcNServiceBusReferences $webMvcNServiceBusSourceFiles
+    GenericCompile $webApplicationFile $webApplicationReferences $webApplicationSourceFiles
     GenericCompile $specFile $specReferences $specSourceFiles
 } -postaction {
     cpi lib\Machine.Specifications\lib\Machine.Specifications.dll bin
@@ -194,15 +215,15 @@ Task Compile -preaction {
 
     if ($configuration -eq "Release" -or $views -ne $null)
     {
-        if (!(Test-Path src\Web.Mvc\bin))
+        if (!(Test-Path src\WebApplication\bin))
         {
-            mkdir src\Web.Mvc\bin | Out-Null
+            mkdir src\WebApplication\bin | Out-Null
         }
 
-        cpi bin\Dahlia.*.dll src\Web.Mvc\bin -ex *Specs*
+        cpi bin\Dahlia.*.dll src\WebApplication\bin -ex *Specs*
         Exec { msbuild /t:MvcBuildViews /v:q /nologo tgt\views.proj }
 # need a try catch finally to remove the bin directory?
-        rmdir -r src\Web.Mvc\bin
+        rmdir -r src\WebApplication\bin
     }
 }
 

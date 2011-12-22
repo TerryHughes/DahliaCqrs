@@ -1,4 +1,4 @@
-namespace Dahlia.Web.Mvc.Controllers.HomeControllerSpecs
+namespace Dahlia.WebApplication.Controllers.HomeControllerSpecs
 {
     using System;
     using System.Collections.Generic;

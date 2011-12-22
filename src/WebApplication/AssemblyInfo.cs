@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Dahlia.Web.Mvc")]
+[assembly: AssemblyTitle("Dahlia.WebApplication")]
 [assembly: AssemblyDescription("")]
 
 [assembly: Guid("E973E939-324A-485C-ACC2-8DBA66099C4D")]

@@ -14,8 +14,6 @@ namespace Dahlia.CommandHandlers
         public void Handle(PreviousCreateRetreatCommand command)
         {
             var guid = Guid.NewGuid();
-if (command.Description.StartsWith("kick your knees up "))
-System.Threading.Thread.Sleep(2500);
             Bus.Publish(new PreviousRetreatCreatedEvent(guid, command.Date, command.Description) { CommandId = command.Id });
         }
 

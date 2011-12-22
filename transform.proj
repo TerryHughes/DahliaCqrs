@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="src\Web.Mvc\**\Web*.config" />
+        <Content Include="src\WebApplication\**\Web*.config" />
     </ItemGroup>
 
     <Target Name="Build" />

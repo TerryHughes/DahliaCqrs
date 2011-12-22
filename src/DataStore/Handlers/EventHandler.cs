@@ -3,7 +3,7 @@ namespace Dahlia.DataStore.Handlers
     using System.Configuration;
     using System.Data.SqlClient;
     using NServiceBus;
-    using Dahlia.Events;
+    using Events;
 
     public abstract class EventHandler<T> : IHandleMessages<T> where T : Event
     {

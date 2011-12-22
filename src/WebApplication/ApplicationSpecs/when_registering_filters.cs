@@ -1,4 +1,5 @@
-namespace Dahlia.Web.Mvc.ApplicationSpecs
+/*
+namespace Dahlia.WebApplication.ApplicationSpecs
 {
     using System.Linq;
     using System.Web.Mvc;
@@ -8,7 +9,7 @@ namespace Dahlia.Web.Mvc.ApplicationSpecs
     {
         Establish context =()=> filters = new GlobalFilterCollection();
 
-        Because of =()=> Application.Register(filters);
+        Because of =()=> DahliaApplication.Register(filters);
 
         It should_add_one_filter =()=> filters.Count.ShouldEqual(1);
         It should_add_HandleErrorAttribute =()=> (filters.First().Instance is HandleErrorAttribute).ShouldBeTrue();
@@ -16,3 +17,4 @@ namespace Dahlia.Web.Mvc.ApplicationSpecs
         static GlobalFilterCollection filters;
     }
 }
+*/

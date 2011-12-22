@@ -1,7 +1,7 @@
 namespace Dahlia.WebApplication
 {
-    using Dahlia.Web;
     using NServiceBus;
+    using Web;
 
     public class DahliaApplication : MvcApplication
     {
@@ -11,6 +11,7 @@ namespace Dahlia.WebApplication
                 .WithWeb()
                 .DefaultBuilder()
                 .ForMvc()
+                .WithRepositories()
                 .Log4Net()
                 .XmlSerializer()
                 .MsmqTransport()

@@ -1,4 +1,5 @@
-namespace Dahlia.Web.Mvc.ApplicationSpecs
+/*
+namespace Dahlia.WebApplication.ApplicationSpecs
 {
     using System.Linq;
     using System.Web.Mvc;
@@ -9,7 +10,7 @@ namespace Dahlia.Web.Mvc.ApplicationSpecs
     {
         Establish context =()=> routes = new RouteCollection();
 
-        Because of =()=> Application.Register(routes);
+        Because of =()=> DahliaApplication.Register(routes);
 
         It should_add_two_routes =()=> routes.Count.ShouldEqual(2);
         It should_add_ignore =()=>
@@ -30,3 +31,4 @@ namespace Dahlia.Web.Mvc.ApplicationSpecs
         static RouteCollection routes;
     }
 }
+*/
