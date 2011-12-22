@@ -1,0 +1,7 @@
+install_to 'lib'
+
+chew 'jQuery'
+chew 'Machine.Specifications'
+chew 'MvcContrib.Mvc3-ci'
+chew 'NServiceBus'
+chew 'psake'

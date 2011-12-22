@@ -1,0 +1,12 @@
+@model int
+
+@{
+    Layout = null;
+
+    var loaded = DateTime.Now;
+    var singular = Model == 1;
+    var verb = singular ? "was" : "were";
+    var action = "command" + (singular ? String.Empty : "s");
+}
+
+This page loaded <abbr class="timeago" title="@loaded">@loaded</abbr>, at that time there @verb @Model pending @action

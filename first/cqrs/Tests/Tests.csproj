@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DEEBB3B9-B4B2-4F6C-BEC0-D963B1172999}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dahlia</RootNamespace>
+    <AssemblyName>Dahlia.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\lib\NUnit.2.5.7.10213\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ParticipantHandlerTests\Create.cs" />
+    <Compile Include="ParticipantHandlerTests\CreateIsNotValid.cs" />
+    <Compile Include="ParticipantTests\Create.cs" />
+    <Compile Include="ParticipantTests\CreateWithEmptyFirstName.cs" />
+    <Compile Include="ParticipantTests\CreateWithEmptyLastName.cs" />
+    <Compile Include="ParticipantTests\CreateWithFirstName.cs" />
+    <Compile Include="ParticipantTests\CreateWithLastName.cs" />
+    <Compile Include="ParticipantTests\CreateWithNullFirstName.cs" />
+    <Compile Include="ParticipantTests\CreateWithNullLastName.cs" />
+    <Compile Include="ParticipantTests\CreateWithOnlyWhiteSpaceFirstName.cs" />
+    <Compile Include="ParticipantTests\CreateWithOnlyWhiteSpaceLastName.cs" />
+    <Compile Include="ParticipantTests\Rename.cs" />
+    <Compile Include="ParticipantTests\RenameToTheSame.cs" />
+    <Compile Include="ParticipantTests\RenameWithEmptyFirstName.cs" />
+    <Compile Include="ParticipantTests\RenameWithEmptyLastName.cs" />
+    <Compile Include="ParticipantTests\RenameWithFirstName.cs" />
+    <Compile Include="ParticipantTests\RenameWithLastName.cs" />
+    <Compile Include="ParticipantTests\RenameWithNullFirstName.cs" />
+    <Compile Include="ParticipantTests\RenameWithNullLastName.cs" />
+    <Compile Include="ParticipantTests\RenameWithOnlyWhiteSpaceFirstName.cs" />
+    <Compile Include="ParticipantTests\RenameWithOnlyWhiteSpaceLastName.cs" />
+    <Compile Include="ParticipantTests\RenameWithoutCreate.cs" />
+    <Compile Include="ParticipantTests\UpdateNote.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RetreatTests\Create.cs" />
+    <Compile Include="RetreatTests\CreateWithEmptyName.cs" />
+    <Compile Include="RetreatTests\CreateWithName.cs" />
+    <Compile Include="RetreatTests\CreateWithNullName.cs" />
+    <Compile Include="RetreatTests\CreateWithOnlyWhiteSpaceName.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommandHandlers\CommandHandlers.csproj">
+      <Project>{9709B7B7-F106-4B17-8363-09ADA7756DD6}</Project>
+      <Name>CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Commands\Commands.csproj">
+      <Project>{5A492E2A-DA4C-4884-B21F-FAB5B83F17CB}</Project>
+      <Name>Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{612C30E9-E4DE-4ABA-812B-1E17771EE62F}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventStore\EventStore.csproj">
+      <Project>{0B9C91AB-C3A8-4D3D-8845-0ABF90E8D277}</Project>
+      <Name>EventStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Events\Events.csproj">
+      <Project>{70127B82-7EA5-4F69-8190-CA09A535F179}</Project>
+      <Name>Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{DE10F71A-1ECD-41AC-9617-53327DA13EAE}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Testing\Testing.csproj">
+      <Project>{7A55EEAE-6195-4C9C-B92A-47D1D6E38723}</Project>
+      <Name>Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

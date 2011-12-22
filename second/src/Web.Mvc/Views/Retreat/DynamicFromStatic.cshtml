@@ -1,0 +1,15 @@
+@model IEnumerable<dynamic>
+
+@{
+    ViewBag.Title = "Retreats";
+}
+
+<h2>Current Retreats (as dynamic from static!)</h2>
+<p>
+    <ul>
+@foreach (var retreat in Model)
+{
+        <li>@retreat.Date.ToShortDateString() (@retreat.Description)</li>
+}
+    </ul>
+</p>

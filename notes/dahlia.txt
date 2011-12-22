@@ -1,0 +1,61 @@
+CreateParticipant
+RenameParticipant
+UpdateParticipantNote
+UpdateParticipantPhysicalStatus
+DeleteParticipant
+
+AddBed
+RecodeBed
+RelocateBed
+RemoveBed
+
+AddPhysicalStatus
+RenamePhysicalStatus
+RemovePhysicalStatus
+
+ScheduleRetreat
+RescheduleRetreat
+RenameRetreat
+CancelRetreat
+
+AddParticipantToRetreat
+AddParticipantToWaitlist
+RegisterParticipantToRetreat
+ConfirmParticipantForRetreat
+RemoveParticipantFromRetreat
+
+==========
+
+BedAvailableForRetreat
+BedInUseForRetreat
+
+==========
+
+rename test ARs and Es to be more descriptive
+thread safe event store naming of Action(string) method
+have the ARId in Event and Commands with a constructor override to the default ctor?
+have a default Message object that Command and Event inherit from?
+
+null checks for eventcomparer.equals && .gethashcode?
+CreateParticipantCommandIsNotValidHandler is not fully fleshed out
+tests for TestEventStore
+verify that the commands ARId is not use for creates
+remove ", for testing" comment
+verify on create that we check to see if its already created
+
+events need the version of the AR they represent (really we need a way to order the events so we play them back in the correct order)
+
+==========
+
+make CreateTestEvent public?
+put CreateTestEvent in TestingEvents namespace?
+make event specs not have Specifications in the namespace?
+
+rename EventStore project to EventStores.EventStore?
+move InMemoryEventStore to it's own project? (although it isn't currently used)
+
+what to do with ParticipantHandlerTests, ParticipantTests namespace? would be nice if it was under Participant
+
+what to do with AggregateRootSpecifications? would be nice if it was under AggregateRoot
+
+what to do with EventStoreSpecifications and InMemoryEventStoreSpecifications? would be nice if it was under EventStores

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+    <Import Project="tgt\Microsoft\Microsoft.Web.Publishing.targets" />
+
+    <PropertyGroup>
+        <_SGenDllCreated>false</_SGenDllCreated>
+        <_DocumentationFileProduced>false</_DocumentationFileProduced>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="src\Web.Mvc\**\Web*.config" />
+    </ItemGroup>
+
+    <Target Name="Build" />
+    <Target Name="ResolveAssemblyReferences" />
+</Project>

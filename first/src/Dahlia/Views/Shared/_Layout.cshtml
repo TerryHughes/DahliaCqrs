@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/sunny/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.min.js")" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="main_header">
+        <img src="@Url.Content("~/Content/images/dahlia.jpg")" height="92" style="float:left;" />
+        <h1>Dahlia</h1>
+        <ul id="main_navigation">
+            <li>
+                <a target="_blank" href="/Retreat/GenerateReport">Report on Retreats</a>
+            </li>
+            <li>
+                <a href="/Retreat/Create">Add a new retreat</a>
+            </li>
+            <li>
+                <form action='/Participant/ReassignSearchResults'>
+                    <label for="searchString">Re-assign:</label>
+                    <input type='textbox' name='searchString' />
+                    <input type='submit' value='Search' />
+                </form>
+            </li>
+        </ul>
+    </div>
+    @RenderBody()
+</body>
+</html>
