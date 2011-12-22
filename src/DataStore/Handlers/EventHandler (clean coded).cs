@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.DataStore.Handlers
 {
     using System.Collections.Generic;
@@ -6,11 +7,11 @@ namespace Dahlia.DataStore.Handlers
     using Events;
     using Framework;
 
-    public abstract class EventHandler<T> : IHandleMessages<T> where T : Event
+    public abstract class EventHandler_Clean<T> : IHandleMessages<T> where T : Event
     {
         readonly WriteRepository repository;
 
-        public EventHandler()
+        public EventHandler_Clean()
         {
             repository = new WriteRepository(new ConfigConnectionSettings());
         }
@@ -33,3 +34,4 @@ namespace Dahlia.DataStore.Handlers
         protected abstract IEnumerable<KeyValuePair<string, object>> ComposePairs(T @event);
     }
 }
+*/

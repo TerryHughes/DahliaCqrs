@@ -1,8 +1,9 @@
+/*
 namespace Dahlia.DataStore.Handlers
 {
     using System.Collections.Generic;
 
-    public class RetreatCreatedEventHandler : EventHandler<Events.RetreatCreatedEvent.Version1>
+    public class RetreatCreatedEventHandler_Clean : EventHandler_Clean<Events.RetreatCreatedEvent.Version1>
     {
         protected override string Statement
         {
@@ -16,3 +17,4 @@ namespace Dahlia.DataStore.Handlers
         }
     }
 }
+*/
