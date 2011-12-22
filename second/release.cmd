@@ -1,5 +1,5 @@
 @ECHO OFF
 
-make.cmd "-properties @{configuration='Release'}"
+make.cmd "-properties @{ configuration = 'Release' }"
 
 @ECHO ON

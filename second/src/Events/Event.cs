@@ -2,7 +2,7 @@ namespace Dahlia.Events
 {
     using System;
     using NServiceBus;
-    using Dahlia.Framework;
+    using Framework;
 
     public abstract class Event : IMessage
     {

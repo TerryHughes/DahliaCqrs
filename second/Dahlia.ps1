@@ -19,7 +19,7 @@ Properties {
     $specFile += ".Specs.dll"
 }
 
-Task default -depends Clean, Compile, Publish
+Task default -depends Clean, Compile, Verify, Publish
 
 Task Publish -preaction {
     if (!(Test-Path app\web))
@@ -57,12 +57,12 @@ Task Publish -preaction {
     cpi bin\Dahlia.Web.Mvc.dll app\web\bin
 
     cpi lib\jQuery\Content\Scripts\jquery-1.6.1.min.js app\web\Scripts
-    cpi lib\timeago\jquery.timeago.js app\web\Scripts
+    cpi ref\timeago\jquery.timeago.js app\web\Scripts
 
     cpi bin\Dahlia.Framework.dll app\data
     cpi bin\Dahlia.Events.dll app\data
     cpi lib\nservicebus\lib\net40\log4net.dll app\data
-    cpi lib\nservicebus\lib\net40\NServiceBus.Host.* app\data
+    cpi lib\nservicebus\lib\net40\NServiceBus.Host.exe app\data
     cpi lib\nservicebus\lib\net40\NServiceBus.dll app\data
     cpi lib\nservicebus\lib\net40\NServiceBus.Core.dll app\data
     cpi bin\Dahlia.DataStore.dll app\data
@@ -72,7 +72,7 @@ Task Publish -preaction {
     cpi bin\Dahlia.Events.dll app\cmd
     cpi bin\Dahlia.Commands.dll app\cmd
     cpi lib\nservicebus\lib\net40\log4net.dll app\cmd
-    cpi lib\nservicebus\lib\net40\NServiceBus.Host.* app\cmd
+    cpi lib\nservicebus\lib\net40\NServiceBus.Host.exe app\cmd
     cpi lib\nservicebus\lib\net40\NServiceBus.dll app\cmd
     cpi lib\nservicebus\lib\net40\NServiceBus.Core.dll app\cmd
     cpi bin\Dahlia.CommandHandlers.dll app\cmd
@@ -84,13 +84,13 @@ Task Publish -preaction {
     cpi lib\nservicebus\lib\net40\log4net.dll app\web\bin
     cpi lib\nservicebus\lib\net40\NServiceBus.dll app\web\bin
 
-    cpi "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Helpers.dll" app\web\bin
-    cpi "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" app\web\bin
-    cpi "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.dll" app\web\bin
-    cpi "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\Microsoft.Web.Infrastructure.dll" app\web\bin
-    cpi "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Razor.dll" app\web\bin
-    cpi "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Deployment.dll" app\web\bin
-    cpi "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll" app\web\bin    
+    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Helpers.dll" app\web\bin
+    cpi "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" app\web\bin
+    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.dll" app\web\bin
+    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\Microsoft.Web.Infrastructure.dll" app\web\bin
+    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Razor.dll" app\web\bin
+    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Deployment.dll" app\web\bin
+    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll" app\web\bin
 
     gci bin\TransformWebConfig\transformed\src\Web.Mvc -r | ? { !$_.PSIsContainer } | cpi -des { Join-Path app\web $_.FullName.Substring((rvpa bin\TransformWebConfig\transformed\src\Web.Mvc).Path.Length) }
 }
@@ -156,7 +156,7 @@ Task Compile -preaction {
         @($repositoryReferences) + `
         @($commandReferences) + `
         "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" + `
-        "C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
+        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\log4net.dll" + `
@@ -183,11 +183,12 @@ Task Compile -preaction {
     GenericCompile $dataStoreFile $dataStoreReferences $dataStoreSourceFiles
     GenericCompile $repositoryFile $repositoryReferences $repositorySourceFiles
     GenericCompile $webMvcFile $webMvcReferences $webMvcSourceFiles
-#    GenericCompile $specFile $specReferences $specSourceFiles
+    GenericCompile $specFile $specReferences $specSourceFiles
 } -postaction {
     cpi lib\Machine.Specifications\lib\Machine.Specifications.dll bin
     cpi lib\Mvc3Futures\lib\Microsoft.Web.Mvc.dll bin
     cpi lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll bin
+    cpi lib\nservicebus\lib\net40\NServiceBus.dll bin
 
     Exec { msbuild /t:TransformWebConfig /p:IntermediateOutputPath=bin\ /p:Configuration=$configuration /v:q /nologo transform.proj }
 

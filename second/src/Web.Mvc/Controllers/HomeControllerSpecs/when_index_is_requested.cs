@@ -1,11 +1,15 @@
 namespace Dahlia.Web.Mvc.Controllers.HomeControllerSpecs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Machine.Specifications;
+    using Repositories;
 
     public class when_index_is_requested
     {
-        Establish context =()=> controller = new HomeController();
+        Establish context =()=> controller = new HomeController(new TestProcessCommandRepository());
 
         Because of =()=> result = controller.Index();
 
@@ -15,5 +19,13 @@ namespace Dahlia.Web.Mvc.Controllers.HomeControllerSpecs
 
         private static HomeController controller;
         private static ActionResult result;
+
+        class TestProcessCommandRepository : ProcessCommandRepository
+        {
+            public IEnumerable<Guid> CommandsSince(DateTime date)
+            {
+                return Enumerable.Empty<Guid>();
+            }
+        }
     }
 }

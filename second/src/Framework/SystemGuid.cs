@@ -4,7 +4,7 @@ namespace Dahlia.Framework
 
     public static class SystemGuid
     {
-        private static Guid? staticGuid;
+        static Guid? staticGuid;
 
         public static Guid NewGuid()
         {

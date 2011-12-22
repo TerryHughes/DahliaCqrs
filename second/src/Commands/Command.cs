@@ -2,7 +2,7 @@ namespace Dahlia.Commands
 {
     using System;
     using NServiceBus;
-    using Dahlia.Framework;
+    using Framework;
 
     public abstract class Command : IMessage
     {

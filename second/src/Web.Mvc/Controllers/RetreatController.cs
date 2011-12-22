@@ -53,17 +53,17 @@ namespace Dahlia.Web.Mvc
             return View(objs);
         }
 
-        public ActionResult New()
+        public ActionResult NewCurrent()
         {
             return View();
         }
 
-        public ActionResult New2()
+        public ActionResult NewPrevious()
         {
             return View();
         }
 
-        public ActionResult Create(DateTime date, string description)
+        public ActionResult CreateCurrent(DateTime date, string description)
         {
             var command = new PreviousCreateRetreatCommand(date, description);
             HomeController.Cache.Add(command.Id);
@@ -72,7 +72,7 @@ namespace Dahlia.Web.Mvc
             return RedirectToAction("List");
         }
 
-        public ActionResult Create2(DateTime date, string description)
+        public ActionResult CreatePrevious(DateTime date, string description)
         {
             var command = new CurrentCreateRetreatCommand(date, description);
             HomeController.Cache.Add(command.Id);
@@ -102,7 +102,7 @@ namespace Dahlia.Web.Mvc
             var command = new PreviousCreateRetreatCommand(date.Date, date.TimeOfDay + " from the future web: " + str);
             HomeController.Cache.Add(command.Id);
             b.Send(command);
-System.Threading.Thread.Sleep(100);
+
             return RedirectToAction("List");
         }
     }
