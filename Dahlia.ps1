@@ -7,7 +7,11 @@ Properties {
 
     $commandFile = `
     $commandProcessorFile = `
+    $dataFile = `
+    $dataCommonFile = `
     $dataStoreFile = `
+    $dataSqlClientFile = `
+    $dataSqliteFile = `
     $eventFile = `
     $frameworkFile = `
     $repositoryFile = `
@@ -20,6 +24,9 @@ Properties {
 
     $specFile += ".Specs.dll"
 }
+
+Include bld\MakeDirectory.ps1
+Include bld\GenericCompile.ps1
 
 Task default -depends Clean, Compile, Verify, Publish
 
@@ -65,6 +72,9 @@ Task Publish -preaction {
 
     cpi bin\Dahlia.Framework.dll app\data
     cpi bin\Dahlia.Events.dll app\data
+    cpi bin\Dahlia.Data.dll app\data
+    cpi bin\Dahlia.Data.Common.dll app\data
+    cpi bin\Dahlia.Data.SqlClient.dll app\data
     cpi lib\nservicebus\lib\net40\log4net.dll app\data
     cpi lib\nservicebus\lib\net40\NServiceBus.Host.exe app\data
     cpi lib\nservicebus\lib\net40\NServiceBus.dll app\data
@@ -111,7 +121,11 @@ Task Compile -preaction {
 } {
     $commandFile += ".Commands.dll"
     $commandProcessorFile += ".CommandProcessor.dll"
+    $dataFile += ".Data.dll"
+    $dataCommonFile += ".Data.Common.dll"
     $dataStoreFile += ".DataStore.dll"
+    $dataSqlClientFile += ".Data.SqlClient.dll"
+    $dataSqliteFile += ".Data.SQLite.dll"
     $eventFile += ".Events.dll"
     $frameworkFile += ".Framework.dll"
     $repositoryFile += ".Repositories.dll"
@@ -125,7 +139,11 @@ Task Compile -preaction {
     $specSourceFiles = @(gci src -i *.cs -r | ? { $_ -match "Specs" }) + $sharedAssemblyInfoFile
     $commandSourceFiles = @(gci src\Commands -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $commandProcessorSourceFiles = @(gci src\CommandProcessor -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+    $dataSourceFiles = @(gci src\Data -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+    $dataCommonSourceFiles = @(gci src\Data.Common -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $dataStoreSourceFiles = @(gci src\DataStore -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+    $dataSqlClientSourceFiles = @(gci src\Data.SqlClient -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+    $dataSqliteSourceFiles = @(gci src\Data.SQLite -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $eventSourceFiles = @(gci src\Events -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $frameworkSourceFiles = @(gci src\Framework -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $repositorySourceFiles = @(gci src\Repositories -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
@@ -133,6 +151,38 @@ Task Compile -preaction {
     $webMvcSourceFiles = @(gci src\Web.Mvc -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $webMvcNServiceBusSourceFiles = @(gci src\Web.Mvc.NServiceBus -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $webApplicationSourceFiles = @(gci src\WebApplication -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+
+    $version = $null
+    $frameworkVersion = $framework.Substring(0, 3)
+    switch ($frameworkVersion) {
+        "4.0" {
+            $version = @("v4.0.30319")
+        }
+    }
+
+    $bitness = $null
+    $nsbBitness = "net40"
+    switch ($framework.Substring(3)) {
+        "x86" {
+            $bitness = "Framework"
+            $nsbBitness = "net40\x86"
+        }
+        "x64" {
+            $bitness = "Framework64"
+        }
+        $null {
+            $ptrSize = [System.IntPtr]::Size
+            switch ($ptrSize) {
+                4 {
+                    $bitness = "Framework"
+                    $nsbBitness = "net40\x86"
+                }
+                8 {
+                    $bitness = "Framework64"
+                }
+            }
+        }
+    }
 
     $commandReferences = `
         @() + `
@@ -151,11 +201,32 @@ Task Compile -preaction {
         $commandFile + `
         $eventFile + `
         $frameworkFile
+    $dataReferences = `
+        @() +`
+        $frameworkFile
+    $dataCommonReferences = `
+        @($dataReferences) + `
+        $dataFile + `
+        "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll"
     $dataStoreReferences = `
         @($eventReferences) + `
+        @($dataCommonReferences) + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe" + `
-        $eventFile
+        $eventFile + `
+        $dataCommonFile
+    $dataSqlClientReferences = `
+        @($dataCommonReferences) + `
+        $dataCommonFile
+    $dataSqliteReferences = `
+        @($dataCommonReferences) + `
+        $dataCommonFile
+    $dataSqlite86References = `
+        @($dataSqliteReferences) + `
+        "lib\System.Data.SQLite.x86\lib\net40\System.Data.SQLite.dll"
+    $dataSqlite64References = `
+        @($dataSqliteReferences) + `
+        "lib\System.Data.SQLite.x64\lib\net40\System.Data.SQLite.dll"
     $repositoryReferences = `
         @() + `
         $frameworkFile + `
@@ -194,17 +265,40 @@ Task Compile -preaction {
         $dataStoreFile + `
         $commandFile
 
-    GenericCompile $frameworkFile -source $frameworkSourceFiles
-    GenericCompile $viewModelFile -source $viewModelSourceFiles
-    GenericCompile $commandFile $commandReferences $commandSourceFiles
-    GenericCompile $eventFile $eventReferences $eventSourceFiles
-    GenericCompile $commandProcessorFile $commandProcessorReferences $commandProcessorSourceFiles
-    GenericCompile $dataStoreFile $dataStoreReferences $dataStoreSourceFiles
-    GenericCompile $repositoryFile $repositoryReferences $repositorySourceFiles
-    GenericCompile $webMvcFile $webMvcReferences $webMvcSourceFiles
-    GenericCompile $webMvcNServiceBusFile $webMvcNServiceBusReferences $webMvcNServiceBusSourceFiles
-    GenericCompile $webApplicationFile $webApplicationReferences $webApplicationSourceFiles
-    GenericCompile $specFile $specReferences $specSourceFiles
+    GenericCompile $frameworkFile $frameworkSourceFiles
+    GenericCompile $viewModelFile $viewModelSourceFiles
+    GenericCompile $commandFile $commandSourceFiles $commandReferences
+    GenericCompile $eventFile $eventSourceFiles $eventReferences
+    GenericCompile $commandProcessorFile $commandProcessorSourceFiles $commandProcessorReferences
+    GenericCompile $dataFile $dataSourceFiles $dataReferences
+    GenericCompile $dataCommonFile $dataCommonSourceFiles $dataCommonReferences
+    GenericCompile $repositoryFile $repositorySourceFiles $repositoryReferences
+    GenericCompile $dataStoreFile $dataStoreSourceFiles $dataStoreReferences
+    GenericCompile $dataSqlClientFile $dataSqlClientSourceFiles $dataSqlClientReferences
+    GenericCompile $webMvcFile $webMvcSourceFiles $webMvcReferences
+    GenericCompile $webMvcNServiceBusFile $webMvcNServiceBusSourceFiles $webMvcNServiceBusReferences
+    GenericCompile $webApplicationFile $webApplicationSourceFiles $webApplicationReferences
+
+    MakeDirectory "bin\x86"
+    MakeDirectory "bin\x64"
+
+    $sqlite = @{}
+    $sqlite.sourceFiles = $dataSqliteSourceFiles
+
+    $sqlite.referenceAssemblies = $dataSqlite86References
+    $sqlite.outFile = "bin\x86\Dahlia.Data.SQLite.dll"
+    $frameworkVersion86 = $frameworkVersion + "x86"
+    Invoke-psake "bld\BitnessCompile.ps1" "BitnessCompile" $frameworkVersion86 -parameters $sqlite | Out-Null
+
+    $sqlite.referenceAssemblies = $dataSqlite64References
+    $sqlite.outFile = "bin\x64\Dahlia.Data.SQLite.dll"
+    $frameworkVersion64 = $frameworkVersion + "x64"
+    Invoke-psake "bld\BitnessCompile.ps1" "BitnessCompile" $frameworkVersion64 -parameters $sqlite | Out-Null
+
+    cpi "lib\System.Data.SQLite.x86\lib\net40\System.Data.SQLite.dll" "bin\x86"
+    cpi "lib\System.Data.SQLite.x64\lib\net40\System.Data.SQLite.dll" "bin\x64"
+
+    GenericCompile $specFile $specSourceFiles $specReferences
 } -postaction {
     cpi lib\Machine.Specifications\lib\Machine.Specifications.dll bin
     cpi lib\Mvc3Futures\lib\Microsoft.Web.Mvc.dll bin
@@ -237,32 +331,4 @@ Task Clean {
     {
         rmdir -r bin
     }
-}
-
-function GenericCompile
-{
-    [CmdletBinding()]
-    param(
-        [Parameter(Position=0,Mandatory=1)] [string]$outFile = $null,
-        [Parameter(Position=1,Mandatory=0)] [string[]]$references = @(),
-        [Parameter(Position=2,Mandatory=1)] [string[]]$sourceFiles = @()
-    )
-
-    if ($configuration -eq "Debug")
-    {
-        $emitDebugInformation = "/debug+"
-        $debugType = "full"
-        $optimize = "/o-"
-        $defineConstants = "DEBUG;TRACE;"
-    }
-
-    if ($configuration -eq "Release")
-    {
-        $emitDebugInformation = "/debug-"
-        $debugType = "pdbonly"
-        $optimize = "/o+"
-        $defineConstants = "TRACE;"
-    }
-
-    Exec { csc /out:$outFile /t:library ($references | % { "/r:" + $_ }) $emitDebugInformation /debug:$debugType $optimize /d:$defineConstants /nologo $sourceFiles }
 }

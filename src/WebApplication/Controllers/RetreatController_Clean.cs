@@ -16,7 +16,7 @@ namespace Dahlia.WebApplication.Controllers
 
         public RetreatController_Clean(IBus bus)
         {
-            repository = new ReadRepository(new ConfigConnectionSettings());
+            repository = new ReadRepository(new ConfigConnectionSettings("data"));
             this.bus = bus;
         }
 

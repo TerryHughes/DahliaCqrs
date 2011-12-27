@@ -6,9 +6,9 @@ namespace Dahlia.Framework
     {
         readonly ConnectionStringSettings connectionSettings;
 
-        public ConfigConnectionSettings()
+        public ConfigConnectionSettings(string name)
         {
-            connectionSettings = ConfigurationManager.ConnectionStrings[0];
+            connectionSettings = ConfigurationManager.ConnectionStrings[name];
         }
 
         public string ConnectionString

@@ -1,40 +1,35 @@
 namespace Dahlia.DataStore.Handlers
 {
-    using System.Configuration;
-    using System.Data.SqlClient;
+    using System.Collections.Generic;
     using NServiceBus;
+    using Data.Common;
     using Events;
+    using Framework;
 
     public abstract class EventHandler<T> : IHandleMessages<T> where T : Event
     {
-        protected abstract string Query { get; }
+        readonly WriteRepository repository;
+
+        public EventHandler()
+        {
+            repository = new WriteRepository(new ConfigConnectionSettings("data"));
+        }
+
+        protected abstract string Statement { get; }
 
         public void Handle(T @event)
         {
-var watch = System.Diagnostics.Stopwatch.StartNew();
-System.Console.WriteLine("handling");
-            var connectionString = ConfigurationManager.ConnectionStrings["data"].ConnectionString;
-
-            using (var connection = new SqlConnection(connectionString))
-            {
-                using (var command = new SqlCommand(Query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", @event.AggregateRootId);
-                    AddParameters(command, @event);
-
-System.Console.WriteLine(watch.ElapsedMilliseconds + " opening conn");
-                    command.Connection.Open();
-System.Console.WriteLine(watch.ElapsedMilliseconds + " conn opened | executing query");
-                    command.ExecuteNonQuery();
-System.Console.WriteLine(watch.ElapsedMilliseconds + " query executed | closing conn");
-                    command.Connection.Close();
-System.Console.WriteLine(watch.ElapsedMilliseconds + " conn closed");
-                }
-            }
-System.Console.WriteLine(watch.ElapsedMilliseconds + " handled");
-watch.Stop();
+            repository.Do(Statement, ComposePairsWithId(@event));
         }
 
-        protected abstract void AddParameters(SqlCommand command, T @event);
+        IEnumerable<KeyValuePair<string, object>> ComposePairsWithId(T @event)
+        {
+            yield return new KeyValuePair<string, object>("@Id", @event.AggregateRootId);
+
+            foreach (var pair in ComposePairs(@event))
+                yield return pair;
+        }
+
+        protected abstract IEnumerable<KeyValuePair<string, object>> ComposePairs(T @event);
     }
 }

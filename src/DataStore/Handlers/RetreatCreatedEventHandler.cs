@@ -1,19 +1,18 @@
 namespace Dahlia.DataStore.Handlers
 {
-    using System.Data.SqlClient;
-    using RetreatCreatedEvent = Dahlia.Events.RetreatCreatedEvent.Version1;
+    using System.Collections.Generic;
 
-    public class RetreatCreatedEventHandler : EventHandler<RetreatCreatedEvent>
+    public class RetreatCreatedEventHandler : EventHandler<Events.RetreatCreatedEvent.Version1>
     {
-        protected override string Query
+        protected override string Statement
         {
-            get { return "INSERT INTO [dbo].[Retreats] ([Id], [Date], [Description]) VALUES (@Id, @Date, @Description)"; }
+            get { return "INSERT INTO [Retreats] ([Id], [Date], [Description]) VALUES (@Id, @Date, @Description)"; }
         }
 
-        protected override void AddParameters(SqlCommand command, RetreatCreatedEvent @event)
+        protected override IEnumerable<KeyValuePair<string, object>> ComposePairs(Events.RetreatCreatedEvent.Version1 @event)
         {
-            command.Parameters.AddWithValue("@Date", @event.Date);
-            command.Parameters.AddWithValue("@Description", @event.Description);
+            yield return new KeyValuePair<string, object>("@Date", @event.Date);
+            yield return new KeyValuePair<string, object>("@Description", @event.Description);
         }
     }
 }
