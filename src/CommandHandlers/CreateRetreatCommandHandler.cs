@@ -2,25 +2,17 @@ namespace Dahlia.CommandHandlers
 {
     using System;
     using NServiceBus;
-    using PreviousCreateRetreatCommand = Dahlia.Commands.CreateRetreatCommand.Version1;
-    using CurrentCreateRetreatCommand = Dahlia.Commands.CreateRetreatCommand.Version2;
-    using PreviousRetreatCreatedEvent = Dahlia.Events.RetreatCreatedEvent.Version1;
-    using CurrentRetreatCreatedEvent = Dahlia.Events.RetreatCreatedEvent.Version2;
+    using CreateRetreatCommand = Dahlia.Commands.CreateRetreatCommand.Version1;
+    using RetreatCreatedEvent = Dahlia.Events.RetreatCreatedEvent.Version1;
 
-    public class CreateRetreatCommandHandler : IHandleMessages<PreviousCreateRetreatCommand>, IHandleMessages<CurrentCreateRetreatCommand>
+    public class CreateRetreatCommandHandler : IHandleMessages<CreateRetreatCommand>
     {
         public IBus Bus { get; set; }
 
-        public void Handle(PreviousCreateRetreatCommand command)
+        public void Handle(CreateRetreatCommand command)
         {
             var guid = Guid.NewGuid();
-            Bus.Publish(new PreviousRetreatCreatedEvent(guid, command.Date, command.Description) { CommandId = command.Id });
-        }
-
-        public void Handle(CurrentCreateRetreatCommand command)
-        {
-            var guid = Guid.NewGuid();
-            Bus.Publish(new CurrentRetreatCreatedEvent(guid, command.Date, command.Description) { CommandId = command.Id });
+            Bus.Publish(new RetreatCreatedEvent(guid, command.Date, command.Description) { CommandId = command.Id });
         }
     }
 }

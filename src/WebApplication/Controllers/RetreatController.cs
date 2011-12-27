@@ -7,8 +7,7 @@ namespace Dahlia.WebApplication.Controllers
     using System.Reflection;
     using System.Web.Mvc;
     using NServiceBus;
-    using PreviousCreateRetreatCommand = Commands.CreateRetreatCommand.Version1;
-    using CurrentCreateRetreatCommand = Commands.CreateRetreatCommand.Version2;
+    using CreateRetreatCommand = Commands.CreateRetreatCommand.Version1;
     using Repositories;
 
     public class RetreatController : Controller
@@ -29,28 +28,14 @@ namespace Dahlia.WebApplication.Controllers
             return View(retreats);
         }
 
-        public ActionResult NewCurrent()
+        public ActionResult New()
         {
             return View();
         }
 
-        public ActionResult NewPrevious()
+        public ActionResult Create(DateTime date, string description)
         {
-            return View();
-        }
-
-        public ActionResult CreateCurrent(DateTime date, string description)
-        {
-            var command = new CurrentCreateRetreatCommand(date, description);
-            HomeController.Cache.Add(command.Id);
-            bus.Send(command);
-
-            return RedirectToAction("List");
-        }
-
-        public ActionResult CreatePrevious(DateTime date, string description)
-        {
-            var command = new PreviousCreateRetreatCommand(date, description);
+            var command = new CreateRetreatCommand(date, description);
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
