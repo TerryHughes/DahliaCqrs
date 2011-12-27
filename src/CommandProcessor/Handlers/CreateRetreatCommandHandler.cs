@@ -12,7 +12,7 @@ namespace Dahlia.CommandProcessor
         public void Handle(CurrentCreateRetreatCommand command)
         {
             var guid = Guid.NewGuid();
-            Bus.Publish(new CurrentRetreatCreatedEvent { AggregateRootId = guid, Date = command.Date, Description = command.Description });
+            Bus.Publish(new CurrentRetreatCreatedEvent { AggregateRootId = guid, Date = command.Date, Description = command.Description,  CommandId = command.Id });
         }
     }
 }

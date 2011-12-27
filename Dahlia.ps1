@@ -6,7 +6,7 @@ Properties {
     $configuration = "Debug"
 
     $commandFile = `
-    $commandHandlerFile = `
+    $commandProcessorFile = `
     $dataStoreFile = `
     $eventFile = `
     $frameworkFile = `
@@ -79,8 +79,8 @@ Task Publish -preaction {
     cpi lib\nservicebus\lib\net40\NServiceBus.Host.exe app\cmd
     cpi lib\nservicebus\lib\net40\NServiceBus.dll app\cmd
     cpi lib\nservicebus\lib\net40\NServiceBus.Core.dll app\cmd
-    cpi bin\Dahlia.CommandHandlers.dll app\cmd
-    cpi src\CommandHandlers\App.config app\cmd\Dahlia.CommandHandlers.dll.config
+    cpi bin\Dahlia.CommandProcessor.dll app\cmd
+    cpi src\CommandProcessor\App.config app\cmd\Dahlia.CommandProcessor.dll.config
 
     cpi bin\MvcContrib.dll app\web\bin
     cpi bin\Microsoft.Web.Mvc.dll app\web\bin
@@ -110,7 +110,7 @@ Task Compile -preaction {
     }
 } {
     $commandFile += ".Commands.dll"
-    $commandHandlerFile += ".CommandHandlers.dll"
+    $commandProcessorFile += ".CommandProcessor.dll"
     $dataStoreFile += ".DataStore.dll"
     $eventFile += ".Events.dll"
     $frameworkFile += ".Framework.dll"
@@ -124,7 +124,7 @@ Task Compile -preaction {
 
     $specSourceFiles = @(gci src -i *.cs -r | ? { $_ -match "Specs" }) + $sharedAssemblyInfoFile
     $commandSourceFiles = @(gci src\Commands -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
-    $commandHandlerSourceFiles = @(gci src\CommandHandlers -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
+    $commandProcessorSourceFiles = @(gci src\CommandProcessor -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $dataStoreSourceFiles = @(gci src\DataStore -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $eventSourceFiles = @(gci src\Events -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
     $frameworkSourceFiles = @(gci src\Framework -i *.cs -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyInfoFile
@@ -142,7 +142,7 @@ Task Compile -preaction {
         @() + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         $frameworkFile
-    $commandHandlerReferences = `
+    $commandProcessorReferences = `
         @($commandReferences) + `
         @($eventReferences) + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
@@ -198,7 +198,7 @@ Task Compile -preaction {
     GenericCompile $viewModelFile -source $viewModelSourceFiles
     GenericCompile $commandFile $commandReferences $commandSourceFiles
     GenericCompile $eventFile $eventReferences $eventSourceFiles
-    GenericCompile $commandHandlerFile $commandHandlerReferences $commandHandlerSourceFiles
+    GenericCompile $commandProcessorFile $commandProcessorReferences $commandProcessorSourceFiles
     GenericCompile $dataStoreFile $dataStoreReferences $dataStoreSourceFiles
     GenericCompile $repositoryFile $repositoryReferences $repositorySourceFiles
     GenericCompile $webMvcFile $webMvcReferences $webMvcSourceFiles

@@ -12,7 +12,7 @@ namespace Dahlia.Events.RetreatCreatedEvent.Specs
             description = "description";
         };
 
-        Because of =()=> @event = new Version1(aggregateRootId, date, description);
+        Because of =()=> @event = new Version1 { AggregateRootId = aggregateRootId, Date = date, Description = description };
 
         It should_not_alter_the_aggregate_root_id =()=> @event.AggregateRootId.ShouldEqual(aggregateRootId);
         It should_not_alter_the_date =()=> @event.Date.ShouldEqual(date);
