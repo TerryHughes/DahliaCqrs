@@ -12,6 +12,8 @@ Task Compile -preaction { MakeDirectory "bin" } {
     $eventsFile = "$applicationName.Events.dll"
     $commandsFile = "$applicationName.Commands.dll"
     $commandProcessorFile = "$applicationName.CommandProcessor.dll"
+    $repositoryFile = "$applicationName.Repositories.dll"
+    $viewModelFile = "$applicationName.ViewModels.dll"
     $dataFile = "$applicationName.Data.dll"
     $dataCommonFile = "$applicationName.Data.Common.dll"
     $dataStoreFile = "$applicationName.DataStore.dll"
@@ -28,6 +30,8 @@ Task Compile -preaction { MakeDirectory "bin" } {
     $eventsSourceFiles = @(gci "src\Events" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $commandsSourceFiles = @(gci "src\Commands" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $commandProcessorSourceFiles = @(gci "src\CommandProcessor" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
+    $repositorySourceFiles = @(gci "src\Repositories" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
+    $viewModelSourceFiles = @(gci "src\ViewModels" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $dataSourceFiles = @(gci "src\Data" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $dataCommonSourceFiles = @(gci "src\Data.Common" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $dataStoreSourceFiles = @(gci "src\DataStore" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
@@ -70,85 +74,91 @@ Task Compile -preaction { MakeDirectory "bin" } {
         }
     }
 
-    $eventsReferenceAssemblies = `
-        @() + `
+    $eventsReferenceAssemblies = @() + `
         "bin\$frameworkFile" + `
         "lib\nservicebus\lib\net40\NServiceBus.dll"
 
-    $commandsReferenceAssemblies = `
-        @() + `
+    $commandsReferenceAssemblies = @() + `
         "bin\$frameworkFile" + `
         "lib\nservicebus\lib\net40\NServiceBus.dll"
 
-    $commandProcessorReferenceAssemblies = `
-        @($commandsReferenceAssemblies) + `
+    $commandProcessorReferenceAssemblies = @() + `
         "bin\$commandsFile" + `
-        @($eventsReferenceAssemblies) + `
         "bin\$eventsFile" + `
+        "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
-        "lib\NServiceBus.Host\lib\$nsbBitness\NServiceBus.Host.exe"
+        "lib\nservicebus\lib\net40\NServiceBus.Host.exe"
 
-    $dataReferenceAssemblies = `
-        @() + `
+    $dataReferenceAssemblies = @() + `
         "bin\$frameworkFile"
 
-    $dataCommonReferenceAssemblies = `
-        @($dataReferenceAssemblies) + `
+    $dataCommonReferenceAssemblies = @() + `
+        "bin\$frameworkFile" + `
         "bin\$dataFile" + `
         "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll"
 
-    $dataStoreReferenceAssemblies = `
-        @($eventsReferenceAssemblies) + `
+    $dataStoreReferenceAssemblies = @() + `
+        "bin\$frameworkFile" + `
         "bin\$eventsFile" + `
-        @($dataCommonReferenceAssemblies) + `
         "bin\$dataCommonFile" + `
-        "lib\NServiceBus.Host\lib\$nsbBitness\NServiceBus.Host.exe"
+        "lib\nservicebus\lib\net40\NServiceBus.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.Host.exe"
 
-    $dataSqlClientReferenceAssemblies = `
-        @($dataCommonReferenceAssemblies) + `
+    $dataSqlClientReferenceAssemblies = @() + `
+        "bin\$frameworkFile" + `
+        "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll" + `
         "bin\$dataCommonFile"
 
-    $dataSqliteReferenceAssemblies = `
-        @($dataCommonReferenceAssemblies) + `
+    $dataSqliteReferenceAssemblies = @() + `
+        "bin\$frameworkFile" + `
+        "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll" + `
         "bin\$dataCommonFile"
 
-    $dataSqlite86ReferenceAssemblies = `
-        @($dataSqliteReferenceAssemblies) + `
+    $dataSqlite86ReferenceAssemblies = @($dataSqliteReferenceAssemblies) + `
         "lib\System.Data.SQLite.x86\lib\net40\System.Data.SQLite.dll"
 
-    $dataSqlite64ReferenceAssemblies = `
-        @($dataSqliteReferenceAssemblies) + `
+    $dataSqlite64ReferenceAssemblies = @($dataSqliteReferenceAssemblies) + `
         "lib\System.Data.SQLite.x64\lib\net40\System.Data.SQLite.dll"
 
-    $webMvcReferenceAssemblies = `
-        @() + `
+    $webMvcReferenceAssemblies = @() + `
         "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll"
 
-    $webMvcNServiceBusReferenceAssemblies = `
-        @($webMvcReferenceAssemblies) + `
+    $webMvcNServiceBusReferenceAssemblies = @() + `
+        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
         "bin\$webMvcFile" + `
-        "lib\log4net\lib\2.0\log4net.dll" + `
-        "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
-        "lib\nservicebus\lib\net40\NServiceBus.dll"
+        "lib\nservicebus\lib\net40\log4net.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.Core.dll"
 
-    $webApplicationReferenceAssemblies = `
-        @($webMvcNServiceBusReferenceAssemblies) + `
+    $repositoryReferenceAssemblies = @() + `
+        "bin\$frameworkFile" + `
+        "bin\$viewModelFile"
+
+    $webApplicationReferenceAssemblies = @() + `
+        "bin\$webMvcFile" + `
         "bin\$webMvcNServiceBusFile" + `
-        @($commandsReferenceAssemblies) + `
         "bin\$commandsFile" + `
-        @($dataCommonReferenceAssemblies) + `
-        "bin\$dataCommonFile" + `
-        "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll"
+        "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" + `
+        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.dll" + `
+        "lib\nservicebus\lib\net40\log4net.dll" + `
+        "bin\$repositoryFile"
 
-    $specsReferenceAssemblies = `
-        @($dataSqlClientReferenceAssemblies) + `
-        "bin\$dataSqlClientFile" + `
-        @($dataSqlite64ReferenceAssemblies) + `
-        "bin\x64\$dataSqliteFile" + `
-        @($webApplicationReferenceAssemblies) + `
-        "bin\$webApplicationFile"
+    $specsReferenceAssemblies = @() + `
+        "lib\Machine.Specifications\lib\Machine.Specifications.dll" + `
+        "bin\$frameworkFile" + `
+        "bin\$webMvcFile" + `
+        "bin\$webApplicationFile" + `
+        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
+        "bin\$eventsFile" + `
+        "lib\nservicebus\lib\net40\NServiceBus.dll" + `
+        "bin\$viewModelFile" + `
+        "bin\$repositoryFile"
+
 
     GenericCompile "bin\$frameworkFile" $frameworkSourceFiles
+    GenericCompile "bin\$viewModelFile" $viewModelSourceFiles
+    GenericCompile "bin\$repositoryFile" $repositorySourceFiles $repositoryReferenceAssemblies
     GenericCompile "bin\$eventsFile" $eventsSourceFiles $eventsReferenceAssemblies
     GenericCompile "bin\$commandsFile" $commandsSourceFiles $commandsReferenceAssemblies
     GenericCompile "bin\$commandProcessorFile" $commandProcessorSourceFiles $commandProcessorReferenceAssemblies
@@ -186,7 +196,7 @@ Task Compile -preaction { MakeDirectory "bin" } {
     cpi "lib\Mvc3Futures\lib\Microsoft.Web.Mvc.dll" "bin"
     cpi "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" "bin"
 
-    cpi "lib\log4net\lib\2.0\log4net.dll" "bin"
+    cpi "lib\nservicebus\lib\net40\log4net.dll" "bin"
     cpi "lib\nservicebus\lib\net40\NServiceBus.Core.dll" "bin"
     cpi "lib\nservicebus\lib\net40\NServiceBus.dll" "bin"
 
@@ -197,6 +207,7 @@ Task Compile -preaction { MakeDirectory "bin" } {
 
         cpi "bin\Dahlia.*.dll" "src\WebApplication\bin" -ex "*Specs*"
         Exec { msbuild /t:"MvcBuildViews" /v:"q" /nologo "tgt\views.proj" }
+# need a try catch finally to remove the bin directory?
         RemoveDirectory "src\WebApplication\bin"
     }
 }
