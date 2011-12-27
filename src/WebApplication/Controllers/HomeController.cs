@@ -30,7 +30,7 @@ namespace Dahlia.WebApplication.Controllers
             repository.CommandsSince(last).ToList().ForEach(id => Cache.Remove(id));
             last = mark;
 
-            return View(Cache.Count);
+            return View(Cache);
         }
     }
 }

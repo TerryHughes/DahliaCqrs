@@ -19,6 +19,7 @@ create table ProcessedCommands
 delete from retreats where Description like 'kick your knees up %'
 
 select * from retreats
+select * from processedcommands
 
 truncate table processedcommands
 truncate table retreats

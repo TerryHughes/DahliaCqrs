@@ -8,12 +8,12 @@ namespace Dahlia.DataStore.Handlers
     {
         protected override string Statement
         {
-            get { return "INSERT INTO [ProcessedCommands] ([Id]) VALUES (@Id)"; }
+            get { return "INSERT INTO [ProcessedCommands] ([Id]) VALUES (@CommandId)"; }
         }
 
         protected override IEnumerable<KeyValuePair<string, object>> ComposePairs(Event @event)
         {
-            return Enumerable.Empty<KeyValuePair<string, object>>();
+            yield return new KeyValuePair<string, object>("@CommandId", @event.CommandId);
         }
     }
 }
