@@ -29,11 +29,6 @@ namespace Dahlia.WebApplication.Controllers
             return View(retreats);
         }
 
-        public ActionResult Dynamic()
-        {
-            return View(repository.GetAllAsDynamic().OrderBy(r => r.Date));
-        }
-
         public ActionResult NewCurrent()
         {
             return View();

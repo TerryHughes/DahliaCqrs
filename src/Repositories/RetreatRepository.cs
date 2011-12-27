@@ -5,7 +5,6 @@ namespace Dahlia.Repositories
 
     public interface RetreatRepository
     {
-        IEnumerable<RetreatViewModel> GetAll();
         IEnumerable<dynamic> GetAllAsDynamic();
     }
 }

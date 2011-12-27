@@ -18,12 +18,12 @@ namespace Dahlia.Repositories.InMemoryRetreatRepositorySpecs
             }
         };
 
-        Because of =()=> retreats = repository.GetAll();
+        Because of =()=> retreats = repository.GetAllAsDynamic();
 
         It should_return_all_the_retreats =()=> retreats.Count().ShouldEqual(retreatCount);
 
         static int retreatCount;
         static InMemoryRetreatRepository repository;
-        static IEnumerable<RetreatViewModel> retreats;
+        static IEnumerable<dynamic> retreats;
     }
 }
