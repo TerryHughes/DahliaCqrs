@@ -24,7 +24,7 @@ namespace Dahlia.WebApplication.Controllers
 
         public ActionResult List()
         {
-            var retreats = repository.GetAll().OrderBy(r => r.Date);
+            var retreats = repository.GetAllAsDynamic().OrderBy(r => r.Date);
 
             return View(retreats);
         }
@@ -32,23 +32,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Dynamic()
         {
             return View(repository.GetAllAsDynamic().OrderBy(r => r.Date));
-        }
-
-        public ActionResult DynamicFromStatic()
-        {
-            var vms = repository.GetAll().OrderBy(r => r.Date);
-           
-            var objs = vms.Select(x => {
-                                dynamic o = new ExpandoObject();
-                                var properties = x.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                                foreach (var p in properties)
-                                {
-                                    (o as IDictionary<string,object>)[p.Name] = p.GetValue(x, null);
-                                }
-                                return o;
-                            });
-            
-            return View(objs);
         }
 
         public ActionResult NewCurrent()
