@@ -32,26 +32,25 @@ Task Assemble -preaction { MakeDirectory "app" } {
 
     cpi "bin\Dahlia.Framework.*" "app\web\bin"
     cpi "bin\Dahlia.Commands.*" "app\web\bin"
-    cpi "bin\Dahlia.Data.*" "app\web\bin"
+    cpi "bin\Dahlia.ViewModels.*" "app\web\bin"
+    cpi "bin\Dahlia.Repositories.*" "app\web\bin"
+#    cpi "bin\Dahlia.Data.*" "app\web\bin"
     cpi "bin\Dahlia.Web.Mvc.*" "app\web\bin"
-    cpi "bin\Dahlia.Web.Mvc.NServiceBus.*" "app\web\bin"
+#    cpi "bin\Dahlia.Web.Mvc.NServiceBus.*" "app\web\bin"
     cpi "bin\Dahlia.WebApplication.*" "app\web\bin"
-    cpi "bin\$bitness\*.*" "app\web\bin" -ex "*Specs*"
+#    cpi "bin\$bitness\*.*" "app\web\bin" -ex "*Specs*"
     cpi "bin\Microsoft.Web.Mvc.dll" "app\web\bin"
     cpi "bin\MvcContrib.dll" "app\web\bin"
     cpi "lib\nservicebus\lib\$nsbBitness\log4net.dll" "app\web\bin"
     cpi "lib\nservicebus\lib\$nsbBitness\NServiceBus.Core.dll" "app\web\bin"
     cpi "lib\nservicebus\lib\$nsbBitness\NServiceBus.dll" "app\web\bin"
-    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Helpers.dll" "app\web\bin"
-    cpi "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" "app\web\bin"
-    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.dll" "app\web\bin"
-    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\Microsoft.Web.Infrastructure.dll" "app\web\bin"
-    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Razor.dll" "app\web\bin"
-    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Deployment.dll" "app\web\bin"
-    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll" "app\web\bin"
-
-    cpi bin\Dahlia.ViewModels.dll app\web\bin
-    cpi bin\Dahlia.Repositories.dll app\web\bin
+#    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Helpers.dll" "app\web\bin"
+#    cpi "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" "app\web\bin"
+#    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.dll" "app\web\bin"
+#    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\Microsoft.Web.Infrastructure.dll" "app\web\bin"
+#    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Razor.dll" "app\web\bin"
+#    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Deployment.dll" "app\web\bin"
+#    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll" "app\web\bin"
 
     MakeDirectory "app\web\Scripts"
 
@@ -68,7 +67,8 @@ Task Assemble -preaction { MakeDirectory "app" } {
 
     cpi "bin\Dahlia.Framework.*" "app\data"
     cpi "bin\Dahlia.Events.*" "app\data"
-    cpi "bin\Dahlia.Data.*" "app\web\bin"
+    cpi "bin\Dahlia.Data.Common.*" "app\data"
+    cpi "bin\Dahlia.Data.SqlClient.*" "app\data"
     cpi "bin\Dahlia.DataStore.dll" "app\data"
     cpi "src\DataStore\App.config" "app\data\Dahlia.DataStore.dll.config"
     cpi "lib\nservicebus\lib\$nsbBitness\log4net.dll" "app\data"
