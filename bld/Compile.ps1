@@ -29,25 +29,19 @@ write-host compile says $foobar
 
     $sharedAssemblyFile = "src\SharedAssemblyInfo.cs"
 
-    $frameworkSourceFiles = @(gci "src\Framework" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + (gci $sharedAssemblyFile)
-    $eventsSourceFiles = @(gci "src\Events" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $commandsSourceFiles = @(gci "src\Commands" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $commandProcessorSourceFiles = @(gci "src\CommandProcessor" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $dataSourceFiles = @(gci "src\Data" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $dataCommonSourceFiles = @(gci "src\Data.Common" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $dataStoreSourceFiles = @(gci "src\DataStore" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $dataSqlClientSourceFiles = @(gci "src\Data.SqlClient" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $dataSqliteSourceFiles = @(gci "src\Data.SQLite" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $webMvcSourceFiles = @(gci "src\Web.Mvc" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $webMvcNServiceBusSourceFiles = @(gci "src\Web.Mvc.NServiceBus" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $webApplicationSourceFiles = @(gci "src\WebApplication" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $specsSourceFiles = @(gci "src" -i "*.cs" -r | ? { $_ -match "Specs" }) + $sharedAssemblyFile
-
-write-host "original:"
-$frameworkSourceFiles | Printable
-
-write-host "updated:"
-"Framework" | Get-FilesToCompile
+    $frameworkSourceFiles = "Framework" | Get-FilesToCompile
+    $eventsSourceFiles = "Events" | Get-FilesToCompile
+    $commandsSourceFiles = "Commands" | Get-FilesToCompile
+    $commandProcessorSourceFiles = "CommandProcessor" | Get-FilesToCompile
+    $dataSourceFiles = "Data" | Get-FilesToCompile
+    $dataCommonSourceFiles = "Data.Common" | Get-FilesToCompile
+    $dataStoreSourceFiles = "DataStore" | Get-FilesToCompile
+    $dataSqlClientSourceFiles = "Data.SqlClient" | Get-FilesToCompile
+    $dataSqliteSourceFiles = "Data.SQLite" | Get-FilesToCompile
+    $webMvcSourceFiles = "Web.Mvc" | Get-FilesToCompile
+    $webMvcNServiceBusSourceFiles = "Web.Mvc.NServiceBus" | Get-FilesToCompile
+    $webApplicationSourceFiles = "WebApplication" | Get-FilesToCompile
+    $specsSourceFiles = "." | CorrectPath | Get-SourceFiles | Remove-NonSpecFiles | Add-SharedAssemblyInfo | Printable
 
     $version = $null
     $frameworkVersion = $framework.Substring(0, 3)

@@ -1,13 +1,3 @@
-Task CompileSource {
-write-host
-write-host framework and data
-    "Framework", "Data" | Get-FilesToCompile
-
-write-host
-write-host specs
-    "." | CorrectPath | Get-SourceFiles | Remove-NonSpecFiles | Add-SharedAssemblyInfo | Printable
-}
-
 function Get-FilesToCompile
 {
     return $input | CorrectPath | Get-SourceFiles | Remove-SpecFiles | Add-SharedAssemblyInfo | Printable
