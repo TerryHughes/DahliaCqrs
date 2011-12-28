@@ -3,11 +3,16 @@ Split-Path $MyInvocation.MyCommand.Path | cd
 
 Include MakeDirectory.ps1
 Include GenericCompile.ps1
+Include CompileOne.ps1
+Include CompileTwo.ps1
+Include CompileSource.ps1
 
 popd
 
 
-Task Compile -preaction { MakeDirectory "bin" } {
+$foobar = "comp"
+Task Compile -preaction { MakeDirectory "bin" } -depends CompileOne, CompileTwo {
+write-host compile says $foobar
     $frameworkFile = "$applicationName.Framework.dll"
     $eventsFile = "$applicationName.Events.dll"
     $commandsFile = "$applicationName.Commands.dll"
@@ -24,7 +29,7 @@ Task Compile -preaction { MakeDirectory "bin" } {
 
     $sharedAssemblyFile = "src\SharedAssemblyInfo.cs"
 
-    $frameworkSourceFiles = @(gci "src\Framework" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
+    $frameworkSourceFiles = @(gci "src\Framework" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + (gci $sharedAssemblyFile)
     $eventsSourceFiles = @(gci "src\Events" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $commandsSourceFiles = @(gci "src\Commands" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $commandProcessorSourceFiles = @(gci "src\CommandProcessor" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
@@ -37,6 +42,12 @@ Task Compile -preaction { MakeDirectory "bin" } {
     $webMvcNServiceBusSourceFiles = @(gci "src\Web.Mvc.NServiceBus" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $webApplicationSourceFiles = @(gci "src\WebApplication" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $specsSourceFiles = @(gci "src" -i "*.cs" -r | ? { $_ -match "Specs" }) + $sharedAssemblyFile
+
+write-host "original:"
+$frameworkSourceFiles | Printable
+
+write-host "updated:"
+"Framework" | Get-FilesToCompile
 
     $version = $null
     $frameworkVersion = $framework.Substring(0, 3)
