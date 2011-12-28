@@ -4,28 +4,39 @@
     ViewBag.Title = "Schedule a Retreat";
 }
 
-<p>
+<h2>Schedule a Retreat</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
 @using (Html.BeginForm("Create", "Retreat"))
 {
-    <div>
-        <fieldset>
-            <legend>Enter the info</legend>
-            <div class="editor-label">
-    @Html.LabelFor(vm => vm.Date)
-            </div>
-            <div class="editor-field">
-    @Html.TextBoxFor(vm => vm.Date)
-            </div>
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Enter the info</legend>
 
-            <div class="editor-label">
-    @Html.LabelFor(vm => vm.Description)
-            </div>
-            <div class="editor-field">
-    @Html.TextBoxFor(vm => vm.Description)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(vm => vm.Date)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(vm => vm.Date)
+            @Html.ValidationMessageFor(vm => vm.Date)
+        </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(vm => vm.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(vm => vm.Description)
+            @Html.ValidationMessageFor(vm => vm.Description)
+        </div>
+
+        <p>
             <input type="submit" value="Schedule" />
-        </fieldset>
-     </div>
+        </p>
+    </fieldset>
 }
-</p>
+
+<div>
+    @Html.ActionLink("Back to List", "Current")
+</div>
