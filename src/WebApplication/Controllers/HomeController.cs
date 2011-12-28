@@ -6,17 +6,18 @@ namespace Dahlia.WebApplication.Controllers
     using System.Linq;
     using System.Web.Mvc;
     using MvcContrib;
-    using Repositories;
+    using Data.Common;
+    using Framework;
 
     public class HomeController : Controller
     {
         public static readonly List<Guid> Cache = new List<Guid>();
         static DateTime last = (DateTime)SqlDateTime.MinValue;
-        readonly ProcessCommandRepository repository;
+        readonly ReadRepository repository;
 
-        public HomeController(ProcessCommandRepository repository)
+        public HomeController()
         {
-            this.repository = repository;
+            repository = new ReadRepository(new ConfigConnectionSettings("data"));
         }
 
         public ActionResult Index()
@@ -26,9 +27,11 @@ namespace Dahlia.WebApplication.Controllers
 
         public ActionResult Pending()
         {
-            var mark = DateTime.Now;
-            repository.CommandsSince(last).ToList().ForEach(id => Cache.Remove(id));
-            last = mark;
+            var date = new KeyValuePair<string, object>("@date", last);
+
+            last = DateTime.Now;
+
+            repository.All("SELECT [Id] FROM [ProcessedCommands] WHERE [Date] > @date", new[] { date }).ToList().ForEach(id => Cache.Remove(id.Id));
 
             return View(Cache);
         }

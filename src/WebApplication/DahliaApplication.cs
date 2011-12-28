@@ -11,7 +11,6 @@ namespace Dahlia.WebApplication
                 .WithWeb()
                 .DefaultBuilder()
                 .ForMvc()
-                .WithRepositories()
                 .Log4Net()
                 .XmlSerializer()
                 .MsmqTransport()
