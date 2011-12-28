@@ -32,12 +32,8 @@ Task Assemble -preaction { MakeDirectory "app" } {
 
     cpi "bin\Dahlia.Framework.*" "app\web\bin"
     cpi "bin\Dahlia.Commands.*" "app\web\bin"
-    cpi "bin\Dahlia.Data.dll" "app\web\bin"
-    cpi "bin\Dahlia.Data.pdb" "app\web\bin"
     cpi "bin\Dahlia.Data.Common.*" "app\web\bin"
     cpi "bin\Dahlia.Data.SqlClient.*" "app\web\bin"
-    cpi "bin\Dahlia.Web.Mvc.*" "app\web\bin"
-#    cpi "bin\Dahlia.Web.Mvc.NServiceBus.*" "app\web\bin"
     cpi "bin\Dahlia.WebApplication.*" "app\web\bin"
 #    cpi "bin\$bitness\*.*" "app\web\bin" -ex "*Specs*"
     cpi "lib\Mvc3Futures\lib\Microsoft.Web.Mvc.dll" "bin"

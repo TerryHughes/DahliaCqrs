@@ -1,3 +1,4 @@
+/*
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -7,3 +8,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("C7BDB747-74B0-4D22-99AB-7806D772746F")]
 
 [assembly: AssemblyFileVersion("1.0.0.0")]
+*/

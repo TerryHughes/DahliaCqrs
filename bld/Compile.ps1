@@ -17,7 +17,6 @@ write-host compile says $foobar
     $eventsFile = "$applicationName.Events.dll"
     $commandsFile = "$applicationName.Commands.dll"
     $commandProcessorFile = "$applicationName.CommandProcessor.dll"
-    $dataFile = "$applicationName.Data.dll"
     $dataCommonFile = "$applicationName.Data.Common.dll"
     $dataStoreFile = "$applicationName.DataStore.dll"
     $dataSqlClientFile = "$applicationName.Data.SqlClient.dll"
@@ -33,14 +32,11 @@ write-host compile says $foobar
     $eventsSourceFiles = "Events" | Get-FilesToCompile
     $commandsSourceFiles = "Commands" | Get-FilesToCompile
     $commandProcessorSourceFiles = "CommandProcessor" | Get-FilesToCompile
-    $dataSourceFiles = "Data" | Get-FilesToCompile
-    $dataCommonSourceFiles = "Data.Common" | Get-FilesToCompile
+    $dataCommonSourceFiles = "Data", "Data.Common" | Get-FilesToCompile
     $dataStoreSourceFiles = "DataStore" | Get-FilesToCompile
     $dataSqlClientSourceFiles = "Data.SqlClient" | Get-FilesToCompile
     $dataSqliteSourceFiles = "Data.SQLite" | Get-FilesToCompile
-    $webMvcSourceFiles = "Web.Mvc" | Get-FilesToCompile
-    $webMvcNServiceBusSourceFiles = "Web.Mvc.NServiceBus" | Get-FilesToCompile
-    $webApplicationSourceFiles = "WebApplication" | Get-FilesToCompile
+    $webApplicationSourceFiles = "Web.Mvc", "Web.Mvc.NServiceBus", "WebApplication" | Get-FilesToCompile
     $specsSourceFiles = "." | CorrectPath | Get-SourceFiles | Remove-NonSpecFiles | Add-SharedAssemblyInfo | Printable
 
     $version = $null
@@ -90,12 +86,8 @@ write-host compile says $foobar
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe"
 
-    $dataReferenceAssemblies = @() + `
-        "bin\$frameworkFile"
-
     $dataCommonReferenceAssemblies = @() + `
         "bin\$frameworkFile" + `
-        "bin\$dataFile" + `
         "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll"
 
     $dataStoreReferenceAssemblies = @() + `
@@ -121,18 +113,7 @@ write-host compile says $foobar
     $dataSqlite64ReferenceAssemblies = @($dataSqliteReferenceAssemblies) + `
         "lib\System.Data.SQLite.x64\lib\net40\System.Data.SQLite.dll"
 
-    $webMvcReferenceAssemblies = @() + `
-        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll"
-
-    $webMvcNServiceBusReferenceAssemblies = @() + `
-        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
-        "bin\$webMvcFile" + `
-        "lib\nservicebus\lib\net40\log4net.dll" + `
-        "lib\nservicebus\lib\net40\NServiceBus.Core.dll"
-
     $webApplicationReferenceAssemblies = @() + `
-        "bin\$webMvcFile" + `
-        "bin\$webMvcNServiceBusFile" + `
         "bin\$commandsFile" + `
         "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" + `
         "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
@@ -145,7 +126,6 @@ write-host compile says $foobar
     $specsReferenceAssemblies = @() + `
         "lib\Machine.Specifications\lib\Machine.Specifications.dll" + `
         "bin\$frameworkFile" + `
-        "bin\$webMvcFile" + `
         "bin\$webApplicationFile" + `
         "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
         "bin\$eventsFile" + `
@@ -156,12 +136,9 @@ write-host compile says $foobar
     GenericCompile "bin\$eventsFile" $eventsSourceFiles $eventsReferenceAssemblies
     GenericCompile "bin\$commandsFile" $commandsSourceFiles $commandsReferenceAssemblies
     GenericCompile "bin\$commandProcessorFile" $commandProcessorSourceFiles $commandProcessorReferenceAssemblies
-    GenericCompile "bin\$dataFile" $dataSourceFiles $dataReferenceAssemblies
     GenericCompile "bin\$dataCommonFile" $dataCommonSourceFiles $dataCommonReferenceAssemblies
     GenericCompile "bin\$dataStoreFile" $dataStoreSourceFiles $dataStoreReferenceAssemblies
     GenericCompile "bin\$dataSqlClientFile" $dataSqlClientSourceFiles $dataSqlClientReferenceAssemblies
-    GenericCompile "bin\$webMvcFile" $webMvcSourceFiles $webMvcReferenceAssemblies
-    GenericCompile "bin\$webMvcNServiceBusFile" $webMvcNServiceBusSourceFiles $webMvcNServiceBusReferenceAssemblies
     GenericCompile "bin\$webApplicationFile" $webApplicationSourceFiles $webApplicationReferenceAssemblies
 
     MakeDirectory "bin\x86"
