@@ -180,15 +180,6 @@ Task Compile -preaction { MakeDirectory "bin" } {
 
     GenericCompile "bin\$specsFile" $specsSourceFiles $specsReferenceAssemblies
 
-    cpi "lib\Machine.Specifications\lib\Machine.Specifications.dll" "bin"
-
-    cpi "lib\Mvc3Futures\lib\Microsoft.Web.Mvc.dll" "bin"
-    cpi "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" "bin"
-
-    cpi "lib\nservicebus\lib\net40\log4net.dll" "bin"
-    cpi "lib\nservicebus\lib\net40\NServiceBus.Core.dll" "bin"
-    cpi "lib\nservicebus\lib\net40\NServiceBus.dll" "bin"
-
     Exec { msbuild /t:"TransformWebConfig" /p:"IntermediateOutputPath=bin\" /p:"Configuration=$configuration" /v:"q" /nologo "transform.proj" }
 
     if ($configuration -eq "Release" -or $views -ne $null) {
