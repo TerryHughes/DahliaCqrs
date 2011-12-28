@@ -15,7 +15,7 @@ namespace Dahlia.WebApplication.Controllers.HomeControllerSpecs
 
         It should_be_a_RedirectToRouteResult =()=> (result as RedirectToRouteResult).ShouldNotBeNull();
         It should_redirect_to_the_retreat_controller =()=> (result as RedirectToRouteResult).RouteValues["controller"].ShouldEqual("Retreat");
-        It should_redirect_to_the_list_action =()=> (result as RedirectToRouteResult).RouteValues["action"].ShouldEqual("List");
+        It should_redirect_to_the_list_action =()=> (result as RedirectToRouteResult).RouteValues["action"].ShouldEqual("Current");
 
         private static HomeController controller;
         private static ActionResult result;

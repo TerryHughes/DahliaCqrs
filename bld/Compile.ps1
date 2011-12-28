@@ -142,6 +142,8 @@ Task Compile -preaction { MakeDirectory "bin" } {
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\log4net.dll" + `
+        "bin\$dataCommonFile" + `
+        "bin\$frameworkFile" + `
         "bin\$repositoryFile"
 
     $specsReferenceAssemblies = @() + `

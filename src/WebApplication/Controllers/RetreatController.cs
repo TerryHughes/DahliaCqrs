@@ -1,29 +1,33 @@
 namespace Dahlia.WebApplication.Controllers
 {
     using System;
-    using System.Dynamic;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using System.Web.Mvc;
     using NServiceBus;
     using CreateRetreatCommand = Commands.CreateRetreatCommand.Version1;
-    using Repositories;
+    using Data.Common;
+    using Framework;
 
     public class RetreatController : Controller
     {
-        private readonly RetreatRepository repository;
-        private readonly IBus bus;
+        readonly ReadRepository repository;
+        readonly IBus bus;
 
-        public RetreatController(RetreatRepository repository, IBus bus)
+        public RetreatController(IBus bus)
         {
-            this.repository = repository;
+            repository = new ReadRepository(new ConfigConnectionSettings("data"));
             this.bus = bus;
         }
 
-        public ActionResult List()
+        public ActionResult Current()
         {
-            var retreats = repository.GetAllAsDynamic().OrderBy(r => r.Date);
+            var today = DateTime.Today;
+
+            // show one year (365 days) worth [back 30 days, forward the rest]
+            var start = new KeyValuePair<string, object>("@start", today.AddDays(-30));
+            var end = new KeyValuePair<string, object>("@end", today.AddDays(335));
+
+            var retreats = repository.All("SELECT * FROM [Retreats] WHERE @start < [Date] AND [Date] < @end ORDER BY [Date]", new[] { start, end });
 
             return View(retreats);
         }
@@ -35,11 +39,11 @@ namespace Dahlia.WebApplication.Controllers
 
         public ActionResult Create(DateTime date, string description)
         {
-            var command = new CreateRetreatCommand(date, description);
+            var command = new CreateRetreatCommand { Date = date, Description = description };
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
-            return RedirectToAction("List");
+            return RedirectToAction("Current");
         }
     }
 }

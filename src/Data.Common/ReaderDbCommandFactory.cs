@@ -25,7 +25,7 @@ namespace Dahlia.Data.Common
 
         void Initialize()
         {
-            var catalog = new DirectoryCatalog(".");
+            var catalog = new DirectoryCatalog("bin");
             var container = new CompositionContainer(catalog);
             var descriptors = container.GetExportedValues<ReaderDbCommandDescriptor>();
 

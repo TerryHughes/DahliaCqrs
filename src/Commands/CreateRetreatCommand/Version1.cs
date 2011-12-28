@@ -6,11 +6,5 @@ namespace Dahlia.Commands.CreateRetreatCommand
     {
         public DateTime Date { get; set; }
         public string Description { get; set; }
-
-        public Version1(DateTime date, string description)
-        {
-            Date = date;
-            Description = description;
-        }
     }
 }

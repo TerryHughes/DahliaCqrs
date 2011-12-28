@@ -21,7 +21,7 @@ namespace Dahlia.WebApplication.Controllers
 
         public ActionResult Index()
         {
-            return this.RedirectToAction<RetreatController>(c => c.List());
+            return this.RedirectToAction<RetreatController>(c => c.Current());
         }
 
         public ActionResult Pending()
