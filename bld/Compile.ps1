@@ -13,7 +13,6 @@ Task Compile -preaction { MakeDirectory "bin" } {
     $commandsFile = "$applicationName.Commands.dll"
     $commandProcessorFile = "$applicationName.CommandProcessor.dll"
     $repositoryFile = "$applicationName.Repositories.dll"
-    $viewModelFile = "$applicationName.ViewModels.dll"
     $dataFile = "$applicationName.Data.dll"
     $dataCommonFile = "$applicationName.Data.Common.dll"
     $dataStoreFile = "$applicationName.DataStore.dll"
@@ -31,7 +30,6 @@ Task Compile -preaction { MakeDirectory "bin" } {
     $commandsSourceFiles = @(gci "src\Commands" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $commandProcessorSourceFiles = @(gci "src\CommandProcessor" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $repositorySourceFiles = @(gci "src\Repositories" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
-    $viewModelSourceFiles = @(gci "src\ViewModels" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $dataSourceFiles = @(gci "src\Data" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $dataCommonSourceFiles = @(gci "src\Data.Common" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
     $dataStoreSourceFiles = @(gci "src\DataStore" -i "*.cs" -r | ? { $_ -notmatch "Specs" }) + $sharedAssemblyFile
@@ -130,8 +128,7 @@ Task Compile -preaction { MakeDirectory "bin" } {
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll"
 
     $repositoryReferenceAssemblies = @() + `
-        "bin\$frameworkFile" + `
-        "bin\$viewModelFile"
+        "bin\$frameworkFile"
 
     $webApplicationReferenceAssemblies = @() + `
         "bin\$webMvcFile" + `
@@ -154,12 +151,10 @@ Task Compile -preaction { MakeDirectory "bin" } {
         "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
         "bin\$eventsFile" + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
-        "bin\$viewModelFile" + `
         "bin\$repositoryFile"
 
 
     GenericCompile "bin\$frameworkFile" $frameworkSourceFiles
-    GenericCompile "bin\$viewModelFile" $viewModelSourceFiles
     GenericCompile "bin\$repositoryFile" $repositorySourceFiles $repositoryReferenceAssemblies
     GenericCompile "bin\$eventsFile" $eventsSourceFiles $eventsReferenceAssemblies
     GenericCompile "bin\$commandsFile" $commandsSourceFiles $commandsReferenceAssemblies

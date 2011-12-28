@@ -32,7 +32,6 @@ Task Assemble -preaction { MakeDirectory "app" } {
 
     cpi "bin\Dahlia.Framework.*" "app\web\bin"
     cpi "bin\Dahlia.Commands.*" "app\web\bin"
-    cpi "bin\Dahlia.ViewModels.*" "app\web\bin"
     cpi "bin\Dahlia.Repositories.*" "app\web\bin"
     cpi "bin\Dahlia.Data.dll" "app\web\bin"
     cpi "bin\Dahlia.Data.pdb" "app\web\bin"
