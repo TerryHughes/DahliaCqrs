@@ -27,7 +27,7 @@ namespace Dahlia.WebApplication.Controllers
             var start = new KeyValuePair<string, object>("@start", today.AddDays(-30));
             var end = new KeyValuePair<string, object>("@end", today.AddDays(335));
 
-            var retreats = repository.All("SELECT * FROM [Retreats] WHERE @start < [Date] AND [Date] < @end ORDER BY [Date]", new[] { start, end });
+            var retreats = repository.All("SELECT * FROM [Retreats] WHERE @start < [Date] AND [Date] < @end ORDER BY [Date], [Description]", new[] { start, end });
 
             return View(retreats);
         }
