@@ -9,7 +9,6 @@ namespace NServiceBus
     {
         public static Configure WithRepositories(this Configure configure)
         {
-            configure.Configurer.RegisterSingleton(typeof(RetreatRepository), new SqlServerRetreatRepository());
             configure.Configurer.RegisterSingleton(typeof(ProcessCommandRepository), new SqlServerProcessCommandRepository());
 
             return configure;
