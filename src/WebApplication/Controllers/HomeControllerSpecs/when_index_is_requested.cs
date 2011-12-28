@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.WebApplication.Controllers.HomeControllerSpecs
 {
     using System;
@@ -20,3 +21,4 @@ namespace Dahlia.WebApplication.Controllers.HomeControllerSpecs
         private static ActionResult result;
     }
 }
+*/
