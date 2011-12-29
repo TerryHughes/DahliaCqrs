@@ -1,10 +1,4 @@
-pushd
-Split-Path $MyInvocation.MyCommand.Path | cd
-
-Include RemoveDirectory.ps1
-
-popd
-
+Include bld\RemoveDirectory.ps1
 
 Task Clean {
     RemoveDirectory "app"

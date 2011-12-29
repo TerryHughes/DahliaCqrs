@@ -1,3 +1,6 @@
+# TODO: why is this not needed?
+#Include bld\GenericCompile.ps1
+
 Task BitnessCompile {
     pushd
     cd ".."
