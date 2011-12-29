@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\MakeDirectory.ps1
+Include bld\Make-Directory.ps1
 
 function Compile-DataSqlite
 {
@@ -13,7 +13,7 @@ function Compile-DataSqliteBitness
         [Parameter(Mandatory = 1)] [string]$bitness
     )
 
-    MakeDirectory "bin\$bitness"
+    Make-Directory "bin\$bitness"
 
     $sqliteBitnessFile = "lib\System.Data.SQLite.$bitness\lib\net40\System.Data.SQLite.dll"
 

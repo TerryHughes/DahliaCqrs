@@ -1,4 +1,4 @@
-Include bld\MakeDirectory.ps1
+Include bld\Make-Directory.ps1
 Include bld\Compile\Compile-CommandProcessor.ps1
 Include bld\Compile\Compile-Commands.ps1
 Include bld\Compile\Compile-DataCommon.ps1
@@ -59,7 +59,7 @@ Properties {
 }
 
 Task Compile {
-    MakeDirectory "bin"
+    Make-Directory "bin"
 
     Compile-Framework
     Compile-DataCommon

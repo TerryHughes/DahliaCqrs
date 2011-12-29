@@ -1,4 +1,4 @@
-function MakeDirectory
+function Make-Directory
 {
     param(
         [Parameter(Mandatory = 1)] [string]$path

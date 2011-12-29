@@ -1,5 +1,6 @@
 Include bld\CompileSource.ps1
 Include bld\GenericCompile.ps1
+Include bld\Make-Directory.ps1
 
 function Compile-WebApplication
 {
@@ -21,7 +22,7 @@ function Compile-WebApplication
     Exec { msbuild /t:"TransformWebConfig" /p:"IntermediateOutputPath=bin\" /p:"Configuration=$configuration" /v:"q" /nologo "transform.proj" }
 
     if ($configuration -eq "Release" -or $views -ne $null) {
-        MakeDirectory "src\WebApplication\bin"
+        Make-Directory "src\WebApplication\bin"
 
         cpi "bin\Dahlia.*.dll" "src\WebApplication\bin" -ex "*Specs*"
         Exec { msbuild /t:"MvcBuildViews" /v:"q" /nologo "tgt\views.proj" }

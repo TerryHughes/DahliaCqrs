@@ -1,19 +1,19 @@
 pushd
 Split-Path $MyInvocation.MyCommand.Path | cd
 
-Include MakeDirectory.ps1
+Include Make-Directory.ps1
 
 popd
 
 
-Task Assemble -preaction { MakeDirectory "app" } {
-    MakeDirectory "app\web"
+Task Assemble -preaction { Make-Directory "app" } {
+    Make-Directory "app\web"
 
     gci "src\WebApplication" -ex "*.cs", "*.config" -r | cpi -des { Join-Path "app\web" $_.FullName.Substring((rvpa "src\WebApplication").Path.Length) }
     # removes empty folders
     gci "app\web" -r | ? { $_.PSIsContainer } | ? { @(gci $_.FullName -r | ? { !$_.PSIsContainer }).Count -eq 0 } | rmdir -r
 
-    MakeDirectory "app\web\bin"
+    Make-Directory "app\web\bin"
 
     $bitness = $framework.Substring(3)
     $nsbBitness = "net40"
@@ -49,18 +49,18 @@ Task Assemble -preaction { MakeDirectory "app" } {
 #    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.WebPages.Deployment.dll" "app\web\bin"
 #    cpi "ref\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies\System.Web.Razor.dll" "app\web\bin"
 
-    MakeDirectory "app\web\Scripts"
+    Make-Directory "app\web\Scripts"
 
     cpi "lib\jQuery\Content\Scripts\jquery-1.6.1.min.js" "app\web\Scripts"
     cpi "ref\timeago\jquery.timeago.js" "app\web\Scripts"
 
     # only needed when we update the build script to use view content but there isnt any
-#    MakeDirectory "app\web\Views"
+#    Make-Directory "app\web\Views"
 
     gci "bin\TransformWebConfig\transformed\src\WebApplication" -r | ? { !$_.PSIsContainer } | cpi -des { Join-Path "app\web" $_.FullName.Substring((rvpa "bin\TransformWebConfig\transformed\src\WebApplication").Path.Length) }
 
 
-    MakeDirectory "app\data"
+    Make-Directory "app\data"
 
     cpi "bin\Dahlia.Framework.*" "app\data"
     cpi "bin\Dahlia.Events.*" "app\data"
@@ -75,7 +75,7 @@ Task Assemble -preaction { MakeDirectory "app" } {
     cpi "lib\nservicebus\lib\$nsbBitness\NServiceBus.Host.exe" "app\data"
 
 
-    MakeDirectory "app\cmd"
+    Make-Directory "app\cmd"
 
     cpi "bin\Dahlia.Framework.*" "app\cmd"
     cpi "bin\Dahlia.Events.*" "app\cmd"
