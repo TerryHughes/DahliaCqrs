@@ -21,8 +21,6 @@ write-host compile says $foobar
     $dataStoreFile = "$applicationName.DataStore.dll"
     $dataSqlClientFile = "$applicationName.Data.SqlClient.dll"
     $dataSqliteFile = "$applicationName.Data.SQLite.dll"
-    $webMvcFile = "$applicationName.Web.Mvc.dll"
-    $webMvcNServiceBusFile = "$applicationName.Web.Mvc.NServiceBus.dll"
     $webApplicationFile = "$applicationName.WebApplication.dll"
     $specsFile = "$applicationName.Specs.dll"
 
