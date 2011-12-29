@@ -1,7 +1,7 @@
 pushd
 Split-Path $MyInvocation.MyCommand.Path | cd
 
-Include Make-Directory.ps1
+Include Utilities\Make-Directory.ps1
 
 popd
 

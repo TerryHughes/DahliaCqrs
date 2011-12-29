@@ -1,5 +1,5 @@
-Include bld\Get-FilesToCompile.ps1
-Include bld\Generic-Compile.ps1
+Include bld\Utilities\Get-FilesToCompile.ps1
+Include bld\Utilities\Generic-Compile.ps1
 
 function Compile-CommandProcessor
 {

@@ -1,5 +1,5 @@
 # TODO: why is this not needed?
-#Include bld\Generic-Compile.ps1
+#Include bld\Utilities\Generic-Compile.ps1
 
 Task BitnessCompile {
     pushd

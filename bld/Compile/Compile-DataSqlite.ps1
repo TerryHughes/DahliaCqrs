@@ -1,5 +1,5 @@
-Include bld\Get-FilesToCompile.ps1
-Include bld\Make-Directory.ps1
+Include bld\Utilities\Get-FilesToCompile.ps1
+Include bld\Utilities\Make-Directory.ps1
 
 function Compile-DataSqlite
 {
