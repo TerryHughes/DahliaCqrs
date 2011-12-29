@@ -1,5 +1,3 @@
-# TODO: what to do with this?
-
 function Get-FilesToCompile
 {
     return $input | CorrectPath | Get-SourceFiles | Remove-SpecFiles | Add-SharedAssemblyInfo | Printable

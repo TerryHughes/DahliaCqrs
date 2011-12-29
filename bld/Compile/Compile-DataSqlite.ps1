@@ -1,4 +1,4 @@
-Include bld\CompileSource.ps1
+Include bld\Get-FilesToCompile.ps1
 Include bld\Make-Directory.ps1
 
 function Compile-DataSqlite
