@@ -97,13 +97,13 @@ write-host compile says $foobar
 
     $dataSqlClientReferenceAssemblies = @() + `
         $frameworkFile + `
-        "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll" + `
-        $dataCommonFile
+        $dataCommonFile + `
+        "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll"
 
     $dataSqliteReferenceAssemblies = @() + `
         $frameworkFile + `
-        "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll" + `
-        $dataCommonFile
+        $dataCommonFile + `
+        "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll"
 
     $dataSqlite86ReferenceAssemblies = @($dataSqliteReferenceAssemblies) + `
         "lib\System.Data.SQLite.x86\lib\net40\System.Data.SQLite.dll"
@@ -112,22 +112,22 @@ write-host compile says $foobar
         "lib\System.Data.SQLite.x64\lib\net40\System.Data.SQLite.dll"
 
     $webApplicationReferenceAssemblies = @() + `
+        $frameworkFile + `
         $commandsFile + `
-        "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" + `
-        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
-        "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
-        "lib\nservicebus\lib\net40\NServiceBus.dll" + `
-        "lib\nservicebus\lib\net40\log4net.dll" + `
         $dataCommonFile + `
-        $frameworkFile
+        "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
+        "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" + `
+        "lib\nservicebus\lib\net40\log4net.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.Core.dll"
 
     $specsReferenceAssemblies = @() + `
-        "lib\Machine.Specifications\lib\Machine.Specifications.dll" + `
         $frameworkFile + `
+        $eventsFile + `
         $webApplicationFile + `
         "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
-        $eventsFile + `
-        "lib\nservicebus\lib\net40\NServiceBus.dll"
+        "lib\nservicebus\lib\net40\NServiceBus.dll" + `
+        "lib\Machine.Specifications\lib\Machine.Specifications.dll"
 
 
     GenericCompile $frameworkFile $frameworkSourceFiles
