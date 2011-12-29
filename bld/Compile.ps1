@@ -10,6 +10,10 @@ Include CompileSource.ps1
 popd
 
 
+Task Doer {
+write-host "        doer is doing it!"
+}
+
 $foobar = "comp"
 Task Compile -preaction { MakeDirectory "bin" } -depends CompileOne, CompileTwo {
 write-host compile says $foobar
