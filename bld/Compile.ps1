@@ -13,16 +13,16 @@ popd
 $foobar = "comp"
 Task Compile -preaction { MakeDirectory "bin" } -depends CompileOne, CompileTwo {
 write-host compile says $foobar
-    $frameworkFile = "$applicationName.Framework.dll"
-    $eventsFile = "$applicationName.Events.dll"
-    $commandsFile = "$applicationName.Commands.dll"
-    $commandProcessorFile = "$applicationName.CommandProcessor.dll"
-    $dataCommonFile = "$applicationName.Data.Common.dll"
-    $dataStoreFile = "$applicationName.DataStore.dll"
-    $dataSqlClientFile = "$applicationName.Data.SqlClient.dll"
+    $frameworkFile = "bin\$applicationName.Framework.dll"
+    $eventsFile = "bin\$applicationName.Events.dll"
+    $commandsFile = "bin\$applicationName.Commands.dll"
+    $commandProcessorFile = "bin\$applicationName.CommandProcessor.dll"
+    $dataCommonFile = "bin\$applicationName.Data.Common.dll"
+    $dataStoreFile = "bin\$applicationName.DataStore.dll"
+    $dataSqlClientFile = "bin\$applicationName.Data.SqlClient.dll"
     $dataSqliteFile = "$applicationName.Data.SQLite.dll"
-    $webApplicationFile = "$applicationName.WebApplication.dll"
-    $specsFile = "$applicationName.Specs.dll"
+    $webApplicationFile = "bin\$applicationName.WebApplication.dll"
+    $specsFile = "bin\$applicationName.Specs.dll"
 
     $sharedAssemblyFile = "src\SharedAssemblyInfo.cs"
 
@@ -70,40 +70,40 @@ write-host compile says $foobar
     }
 
     $eventsReferenceAssemblies = @() + `
-        "bin\$frameworkFile" + `
+        $frameworkFile + `
         "lib\nservicebus\lib\net40\NServiceBus.dll"
 
     $commandsReferenceAssemblies = @() + `
-        "bin\$frameworkFile" + `
+        $frameworkFile + `
         "lib\nservicebus\lib\net40\NServiceBus.dll"
 
     $commandProcessorReferenceAssemblies = @() + `
-        "bin\$commandsFile" + `
-        "bin\$eventsFile" + `
+        $commandsFile + `
+        $eventsFile + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe"
 
     $dataCommonReferenceAssemblies = @() + `
-        "bin\$frameworkFile" + `
+        $frameworkFile + `
         "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll"
 
     $dataStoreReferenceAssemblies = @() + `
-        "bin\$frameworkFile" + `
-        "bin\$eventsFile" + `
-        "bin\$dataCommonFile" + `
+        $frameworkFile + `
+        $eventsFile + `
+        $dataCommonFile + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe"
 
     $dataSqlClientReferenceAssemblies = @() + `
-        "bin\$frameworkFile" + `
+        $frameworkFile + `
         "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll" + `
-        "bin\$dataCommonFile"
+        $dataCommonFile
 
     $dataSqliteReferenceAssemblies = @() + `
-        "bin\$frameworkFile" + `
+        $frameworkFile + `
         "$env:windir\Microsoft.NET\$bitness\$version\System.ComponentModel.Composition.dll" + `
-        "bin\$dataCommonFile"
+        $dataCommonFile
 
     $dataSqlite86ReferenceAssemblies = @($dataSqliteReferenceAssemblies) + `
         "lib\System.Data.SQLite.x86\lib\net40\System.Data.SQLite.dll"
@@ -112,32 +112,32 @@ write-host compile says $foobar
         "lib\System.Data.SQLite.x64\lib\net40\System.Data.SQLite.dll"
 
     $webApplicationReferenceAssemblies = @() + `
-        "bin\$commandsFile" + `
+        $commandsFile + `
         "lib\MvcContrib.Mvc3-ci\lib\MvcContrib.dll" + `
         "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\log4net.dll" + `
-        "bin\$dataCommonFile" + `
-        "bin\$frameworkFile"
+        $dataCommonFile + `
+        $frameworkFile
 
     $specsReferenceAssemblies = @() + `
         "lib\Machine.Specifications\lib\Machine.Specifications.dll" + `
-        "bin\$frameworkFile" + `
-        "bin\$webApplicationFile" + `
+        $frameworkFile + `
+        $webApplicationFile + `
         "ref\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies\System.Web.Mvc.dll" + `
-        "bin\$eventsFile" + `
+        $eventsFile + `
         "lib\nservicebus\lib\net40\NServiceBus.dll"
 
 
-    GenericCompile "bin\$frameworkFile" $frameworkSourceFiles
-    GenericCompile "bin\$eventsFile" $eventsSourceFiles $eventsReferenceAssemblies
-    GenericCompile "bin\$commandsFile" $commandsSourceFiles $commandsReferenceAssemblies
-    GenericCompile "bin\$commandProcessorFile" $commandProcessorSourceFiles $commandProcessorReferenceAssemblies
-    GenericCompile "bin\$dataCommonFile" $dataCommonSourceFiles $dataCommonReferenceAssemblies
-    GenericCompile "bin\$dataStoreFile" $dataStoreSourceFiles $dataStoreReferenceAssemblies
-    GenericCompile "bin\$dataSqlClientFile" $dataSqlClientSourceFiles $dataSqlClientReferenceAssemblies
-    GenericCompile "bin\$webApplicationFile" $webApplicationSourceFiles $webApplicationReferenceAssemblies
+    GenericCompile $frameworkFile $frameworkSourceFiles
+    GenericCompile $eventsFile $eventsSourceFiles $eventsReferenceAssemblies
+    GenericCompile $commandsFile $commandsSourceFiles $commandsReferenceAssemblies
+    GenericCompile $commandProcessorFile $commandProcessorSourceFiles $commandProcessorReferenceAssemblies
+    GenericCompile $dataCommonFile $dataCommonSourceFiles $dataCommonReferenceAssemblies
+    GenericCompile $dataStoreFile $dataStoreSourceFiles $dataStoreReferenceAssemblies
+    GenericCompile $dataSqlClientFile $dataSqlClientSourceFiles $dataSqlClientReferenceAssemblies
+    GenericCompile $webApplicationFile $webApplicationSourceFiles $webApplicationReferenceAssemblies
 
     MakeDirectory "bin\x86"
     MakeDirectory "bin\x64"
@@ -158,7 +158,7 @@ write-host compile says $foobar
     cpi "lib\System.Data.SQLite.x86\lib\net40\System.Data.SQLite.dll" "bin\x86"
     cpi "lib\System.Data.SQLite.x64\lib\net40\System.Data.SQLite.dll" "bin\x64"
 
-    GenericCompile "bin\$specsFile" $specsSourceFiles $specsReferenceAssemblies
+    GenericCompile $specsFile $specsSourceFiles $specsReferenceAssemblies
 
     Exec { msbuild /t:"TransformWebConfig" /p:"IntermediateOutputPath=bin\" /p:"Configuration=$configuration" /v:"q" /nologo "transform.proj" }
 
