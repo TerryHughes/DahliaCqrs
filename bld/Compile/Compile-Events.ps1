@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\GenericCompile.ps1
+Include bld\Generic-Compile.ps1
 
 function Compile-Events
 {
@@ -9,5 +9,5 @@ function Compile-Events
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         $frameworkFile
 
-    GenericCompile $eventsFile $sourceFiles $referenceAssemblies
+    Generic-Compile $eventsFile $sourceFiles $referenceAssemblies
 }

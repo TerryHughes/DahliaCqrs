@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\GenericCompile.ps1
+Include bld\Generic-Compile.ps1
 
 function Compile-CommandProcessor
 {
@@ -12,5 +12,5 @@ function Compile-CommandProcessor
         $commandsFile + `
         $eventsFile
 
-    GenericCompile $commandProcessorFile $sourceFiles $referenceAssemblies
+    Generic-Compile $commandProcessorFile $sourceFiles $referenceAssemblies
 }

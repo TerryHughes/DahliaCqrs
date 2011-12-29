@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\GenericCompile.ps1
+Include bld\Generic-Compile.ps1
 
 function Compile-DataCommon
 {
@@ -9,5 +9,5 @@ function Compile-DataCommon
         $compositionFile + `
         $frameworkFile
 
-    GenericCompile $dataCommonFile $sourceFiles $referenceAssemblies 
+    Generic-Compile $dataCommonFile $sourceFiles $referenceAssemblies 
 }

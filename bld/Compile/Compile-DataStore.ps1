@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\GenericCompile.ps1
+Include bld\Generic-Compile.ps1
 
 function Compile-DataStore
 {
@@ -12,5 +12,5 @@ function Compile-DataStore
         $dataCommonFile + `
         $eventsFile
 
-    GenericCompile $dataStoreFile $sourceFiles $referenceAssemblies
+    Generic-Compile $dataStoreFile $sourceFiles $referenceAssemblies
 }

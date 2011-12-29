@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\GenericCompile.ps1
+Include bld\Generic-Compile.ps1
 Include bld\Make-Directory.ps1
 
 function Compile-WebApplication
@@ -16,7 +16,7 @@ function Compile-WebApplication
         $dataCommonFile + `
         $commandsFile
 
-    GenericCompile $webApplicationFile $sourceFiles $referenceAssemblies
+    Generic-Compile $webApplicationFile $sourceFiles $referenceAssemblies
 
 # TODO: clean up post compile stuff
     Exec { msbuild /t:"TransformWebConfig" /p:"IntermediateOutputPath=bin\" /p:"Configuration=$configuration" /v:"q" /nologo "transform.proj" }

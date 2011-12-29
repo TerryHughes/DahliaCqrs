@@ -1,10 +1,4 @@
-# Debug configuration compiler options
-$script:emitDebugInformation = "/debug+"
-$script:debugType = "full"
-$script:optimize = "/o-"
-$script:defineConstants = "DEBUG;TRACE;"
-
-function GenericCompile
+function Generic-Compile
 {
     [CmdletBinding()]
     param(
@@ -15,20 +9,22 @@ function GenericCompile
         [Parameter(Mandatory = 0)] [string]$options = $null
     )
 
-    if ($configuration -eq "Release")
-    {
-        UpdateCompilerOptionsForReleaseConfiguration
-    }
-
     $references = $referenceAssemblies | % { "/r:" + $_ }
 
-    Exec { csc /out:$outFile /t:$target $options $references $emitDebugInformation /debug:$debugType $optimize /d:$defineConstants /nologo $sourceFiles }
-}
+    if ($configuration -eq "Release")
+    {
+        $emitDebugInformation = "/debug-"
+        $debugType = "pdbonly"
+        $optimize = "/o+"
+        $defineConstants = "TRACE;"
+    }
+    else
+    {
+        $emitDebugInformation = "/debug+"
+        $debugType = "full"
+        $optimize = "/o-"
+        $defineConstants = "DEBUG;TRACE;"
+    }
 
-function UpdateCompilerOptionsForReleaseConfiguration
-{
-    $script:emitDebugInformation = "/debug-"
-    $script:debugType = "pdbonly"
-    $script:optimize = "/o+"
-    $script:defineConstants = "TRACE;"
+    Exec { csc /out:$outFile /t:$target $options $references $emitDebugInformation /debug:$debugType $optimize /d:$defineConstants /nologo $sourceFiles }
 }

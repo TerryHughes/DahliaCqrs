@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\GenericCompile.ps1
+Include bld\Generic-Compile.ps1
 
 function Compile-Specs
 {
@@ -13,5 +13,5 @@ function Compile-Specs
         $eventsFile + `
         $webApplicationFile
 
-    GenericCompile $specsFile $sourceFiles $referenceAssemblies
+    Generic-Compile $specsFile $sourceFiles $referenceAssemblies
 }

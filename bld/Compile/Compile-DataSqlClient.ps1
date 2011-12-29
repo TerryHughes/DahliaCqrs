@@ -1,5 +1,5 @@
 Include bld\CompileSource.ps1
-Include bld\GenericCompile.ps1
+Include bld\Generic-Compile.ps1
 
 function Compile-DataSqlClient
 {
@@ -10,5 +10,5 @@ function Compile-DataSqlClient
         $dataCommonFile + `
         $frameworkFile
 
-    GenericCompile $dataSqlClientFile $sourceFiles $referenceAssemblies
+    Generic-Compile $dataSqlClientFile $sourceFiles $referenceAssemblies
 }
