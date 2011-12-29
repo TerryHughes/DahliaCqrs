@@ -27,6 +27,6 @@ function Compile-WebApplication
         cpi "bin\Dahlia.*.dll" "src\WebApplication\bin" -ex "*Specs*"
         Exec { msbuild /t:"MvcBuildViews" /v:"q" /nologo "tgt\views.proj" }
 # need a try catch finally to remove the bin directory?
-        RemoveDirectory "src\WebApplication\bin"
+        Remove-Directory "src\WebApplication\bin"
     }
 }

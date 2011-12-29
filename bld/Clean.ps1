@@ -1,6 +1,6 @@
-Include bld\RemoveDirectory.ps1
+Include bld\Remove-Directory.ps1
 
 Task Clean {
-    RemoveDirectory "app"
-    RemoveDirectory "bin"
+    Remove-Directory "app"
+    Remove-Directory "bin"
 }
