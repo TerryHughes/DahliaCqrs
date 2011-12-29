@@ -16,6 +16,7 @@ namespace Dahlia.Data.Common
 
         public void Do(string statement, IEnumerable<KeyValuePair<string, object>> pairs)
         {
+System.Console.WriteLine("executing " + statement);
             using (var command = factory.Create(settings.ProviderName, settings.ConnectionString))
                 command.ExecuteWith(statement, pairs);
         }

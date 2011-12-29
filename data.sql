@@ -1,7 +1,6 @@
 use DataStore
-go
 
-/*
+drop table Retreats
 create table Retreats
 (
     [Id] uniqueidentifier not null,
@@ -9,20 +8,16 @@ create table Retreats
     [Description] varchar(100)
 )
 
+drop table ProcessedCommands
 create table ProcessedCommands
 (
     [Id] uniqueidentifier not null,
     [Date] datetime not null default getdate()
 )
-*/
 
-delete from retreats where Description like 'kick your knees up %'
+--select * from retreats
+--select * from processedcommands
 
-select * from retreats
-select * from processedcommands
-
-truncate table processedcommands
-truncate table retreats
 insert into retreats values ('1E4DC51C-107F-4523-93C4-AAB033ADC7DF',DATEADD(dd,-1,GETDATE()),'dumps like a truck')
 insert into retreats values ('B22F809E-1A82-4747-9420-45165C2C3992',DATEADD(dd,1,GETDATE()),'baby move your butt')
 insert into retreats values ('98EFAD72-5A47-434A-AD4C-BB1269C2C292',DATEADD(dd,0,GETDATE()),'thighs like what')

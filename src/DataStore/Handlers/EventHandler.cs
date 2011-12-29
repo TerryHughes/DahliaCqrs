@@ -19,6 +19,7 @@ namespace Dahlia.DataStore.Handlers
 
         public void Handle(T @event)
         {
+System.Console.WriteLine("handling " + @event.Id + " which is a " + @event.GetType() + " in " + this.GetType());
             repository.Do(Statement, ComposePairsWithId(@event));
         }
 

@@ -42,7 +42,7 @@ namespace Dahlia.Data.SQLite
         {
             if (command == null)
                 return;
-
+System.Console.WriteLine("disposing command");
             command.Dispose();
         }
 
@@ -50,8 +50,10 @@ namespace Dahlia.Data.SQLite
         {
             if (connection == null)
                 return;
-
+System.Console.WriteLine("disposing connection");
             connection.Dispose();
+System.Console.WriteLine("sleeping for 5 seconds");
+System.Threading.Thread.Sleep(5000);
         }
     }
 }

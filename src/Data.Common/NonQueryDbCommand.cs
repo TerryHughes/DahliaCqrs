@@ -35,9 +35,13 @@ namespace Dahlia.Data.Common
 
         void ExecuteNonQuery()
         {
+System.Console.WriteLine("sleeping for 5 seconds");
+System.Threading.Thread.Sleep(5000);
+System.Console.WriteLine("opening connection " + this.GetType());
             Command.Connection.Open();
             Command.ExecuteNonQuery();
             Command.Connection.Close();
+System.Console.WriteLine("closing connection " + this.GetType());
         }
     }
 }
