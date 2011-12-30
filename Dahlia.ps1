@@ -1,9 +1,9 @@
 $framework = "4.0"
 
+Include bld\Assemble.ps1
 Include bld\Clean.ps1
 Include bld\Compile.ps1
 Include bld\Verify.ps1
-Include bld\Assemble.ps1
 
 Properties {
     $applicationName = "Dahlia"
