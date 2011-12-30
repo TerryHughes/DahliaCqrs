@@ -1,6 +1,6 @@
-Include bld\Assemble\Assemble-CommandProcessor.ps1
-Include bld\Assemble\Assemble-DataStore.ps1
-Include bld\Assemble\Assemble-WebApplication.ps1
+Include bld\Assemble\CommandProcessor.ps1
+Include bld\Assemble\DataStore.ps1
+Include bld\Assemble\WebApplication.ps1
 Include bld\Utilities\Make-Directory.ps1
 
 Properties {

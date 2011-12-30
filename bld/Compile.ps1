@@ -1,13 +1,13 @@
-Include bld\Compile\Compile-CommandProcessor.ps1
-Include bld\Compile\Compile-Commands.ps1
-Include bld\Compile\Compile-DataCommon.ps1
-Include bld\Compile\Compile-DataSqlClient.ps1
-Include bld\Compile\Compile-DataSqlite.ps1
-Include bld\Compile\Compile-DataStore.ps1
-Include bld\Compile\Compile-Events.ps1
-Include bld\Compile\Compile-Framework.ps1
-Include bld\Compile\Compile-Specs.ps1
-Include bld\Compile\Compile-WebApplication.ps1
+Include bld\Compile\CommandProcessor.ps1
+Include bld\Compile\Commands.ps1
+Include bld\Compile\DataCommon.ps1
+Include bld\Compile\DataSqlClient.ps1
+Include bld\Compile\DataSqlite.ps1
+Include bld\Compile\DataStore.ps1
+Include bld\Compile\Events.ps1
+Include bld\Compile\Framework.ps1
+Include bld\Compile\Specs.ps1
+Include bld\Compile\WebApplication.ps1
 Include bld\Utilities\Make-Directory.ps1
 
 Properties {
