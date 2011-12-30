@@ -1,0 +1,4 @@
+http://elegantcode.com/2010/07/02/using-transactionscope-with-sqlite/
+http://www.sqlite.org/sharedcache.html
+http://stackoverflow.com/questions/4951431/service-account-throwing-sqliteexception-on-nservicebus-startup
+https://github.com/psake/psake/wiki/What-is-the-structure-of-a-psake-build-script%3F
