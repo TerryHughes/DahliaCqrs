@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="Compile">
     <Target Name="Compile">
-        <!-- giles -s .\giles.proj -t .\bin\Dahlia.Specs.dll -p '..\..\Tools\mspec .NET 4' -->
-        <Exec Command="make.cmd Compile" />
+        <!-- giles -s .\giles.proj -t .\tst\Dahlia.Specs.dll -p '..\..\Tools\mspec .NET 4' -->
+        <Exec Command="make.cmd Compile, Giles" />
     </Target>
 </Project>
