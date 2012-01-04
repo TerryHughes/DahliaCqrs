@@ -10,7 +10,9 @@ function Compile-CommandProcessor
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe" + `
         $commandsFile + `
-        $eventsFile
+        $eventsFile + `
+        $domainFile + `
+        $eventStoresFile
 
     Generic-Compile $commandProcessorFile $sourceFiles $referenceAssemblies
 }
