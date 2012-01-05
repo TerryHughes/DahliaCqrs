@@ -4,6 +4,7 @@ namespace Dahlia.Events
     using NServiceBus;
     using Framework;
 
+    [Serializable]
     public abstract class Event : IMessage
     {
         public Guid Id { get; set; }

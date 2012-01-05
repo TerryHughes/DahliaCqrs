@@ -12,7 +12,9 @@ function Compile-CommandProcessor
         $commandsFile + `
         $eventsFile + `
         $domainFile + `
-        $eventStoresFile
+        $eventStoresFile + `
+        $frameworkFile + `
+        $dataCommonFile
 
     Generic-Compile $commandProcessorFile $sourceFiles $referenceAssemblies
 }

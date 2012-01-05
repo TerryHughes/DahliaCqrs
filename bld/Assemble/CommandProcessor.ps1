@@ -11,7 +11,13 @@ function Assemble-CommandProcessor {
     cpi "bin\Dahlia.Events.*" "app\cmd"
     cpi "bin\Dahlia.Domain.*" "app\cmd"
     cpi "bin\Dahlia.EventStores.*" "app\cmd"
+    cpi "bin\Dahlia.Data.Common.*" "app\cmd"
+    cpi "bin\Dahlia.Data.SqlClient.*" "app\cmd"
     cpi "bin\Dahlia.Commands.*" "app\cmd"
     cpi "bin\Dahlia.CommandProcessor.*" "app\cmd"
     cpi "src\CommandProcessor\App.config" "app\cmd\Dahlia.CommandProcessor.dll.config"
+
+    Make-Directory "app\cmd\bin"
+    cpi "app\cmd\Dahlia.Data.SqlClient.*" "app\cmd\bin"
+    cpi "app\cmd\Dahlia.CommandProcessor.dll.config" "app\cmd\bin"
 }
