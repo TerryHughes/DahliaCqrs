@@ -4,7 +4,7 @@ namespace Dahlia.WebApplication.Controllers
     using System.Collections.Generic;
     using System.Web.Mvc;
     using NServiceBus;
-    using CreateRetreatCommand = Commands.CreateRetreatCommand.Version1;
+    using CurrentScheduleRetreatCommand = Commands.ScheduleRetreatCommand.Version1;
     using Data.Common;
     using Framework;
 
@@ -37,9 +37,9 @@ namespace Dahlia.WebApplication.Controllers
             return View();
         }
 
-        public ActionResult Create(DateTime date, string description)
+        public ActionResult Schedule(DateTime date, string description)
         {
-            var command = new CreateRetreatCommand { Date = date, Description = description };
+            var command = new CurrentScheduleRetreatCommand { Date = date, Description = description };
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 

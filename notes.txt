@@ -2,3 +2,4 @@
 * same thing for Dahlia, that way it can be in the bld directory and only the cmds are at the root
 * see if there is a way to use Remove-Directory instead of rmdir -r when removing empty directories after the web copy in Assemble
 * fixup the ConfigConnectionString stuff so DataStore and WebApplication dont have to have a hard dependency on Framework
+* rename aggregateroot not created to not initialized?

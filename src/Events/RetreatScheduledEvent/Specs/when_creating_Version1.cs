@@ -1,4 +1,4 @@
-namespace Dahlia.Events.RetreatCreatedEvent.Specs
+namespace Dahlia.Events.RetreatScheduledEvent.Specs
 {
     using System;
     using Machine.Specifications;

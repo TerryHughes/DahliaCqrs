@@ -1,9 +1,8 @@
-namespace Dahlia.Events.RetreatCreatedEvent
+namespace Dahlia.Commands.ScheduleRetreatCommand
 {
     using System;
 
-    [Serializable]
-    public class Version1 : Event
+    public class Version1 : Command
     {
         public DateTime Date { get; set; }
         public string Description { get; set; }
