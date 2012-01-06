@@ -1,0 +1,29 @@
+@{
+    ViewBag.Title = "Rename a Retreat";
+}
+
+<h2>Rename a Retreat</h2>
+
+@using (Html.BeginForm("Rename", "Retreat"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Enter the info</legend>
+
+        <div class="editor-label">
+            @Html.Label("Description")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Description")
+        </div>
+
+        <p>
+            @Html.Hidden("Id")
+            <input type="submit" value="Rename" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Current")
+</div>

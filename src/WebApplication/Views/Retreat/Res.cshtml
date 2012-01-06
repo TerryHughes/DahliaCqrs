@@ -1,0 +1,29 @@
+@{
+    ViewBag.Title = "Reschedule a Retreat";
+}
+
+<h2>Reschedule a Retreat</h2>
+
+@using (Html.BeginForm("Reschedule", "Retreat"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Enter the info</legend>
+
+        <div class="editor-label">
+            @Html.Label("Date")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Date")
+        </div>
+
+        <p>
+            @Html.Hidden("Id")
+            <input type="submit" value="Reschedule" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Current")
+</div>

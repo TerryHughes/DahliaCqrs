@@ -9,7 +9,7 @@
     <ul>
 @foreach (var retreat in Model)
 {
-        <li>@retreat.Date.ToShortDateString() (@retreat.Description)</li>
+        <li>[@Html.ActionLink("Reschedule", "Res", new { id = retreat.Id }) @Html.ActionLink("Rename", "Ren", new { id = retreat.Id }) @Html.ActionLink("Cancel", "Cancel", new { id = retreat.Id })] @retreat.Date.ToShortDateString() (@retreat.Description)</li>
 }
     </ul>
 </p>
