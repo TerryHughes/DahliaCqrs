@@ -2,6 +2,7 @@ namespace Dahlia.WebApplication.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using NServiceBus;
     using CurrentScheduleRetreatCommand = Commands.ScheduleRetreatCommand.Version1;
@@ -35,6 +36,26 @@ namespace Dahlia.WebApplication.Controllers
             return View(retreats);
         }
 
+        public ActionResult GoTo(Guid? id)
+        {
+            if (id.HasValue)
+            {
+                var idpair = new KeyValuePair<string, object>("@id", id);
+
+                var retreat = repository.One("SELECT * FROM [Retreats] WHERE [Id] = @id", new[] { idpair });
+
+                return View(retreat);
+            }
+
+            var today = DateTime.Today;
+
+            var date = new KeyValuePair<string, object>("@date", today);
+
+            var retreat2 = repository.All("SELECT * FROM [Retreats] WHERE @date <= [Date] ORDER BY [Date], [Description]", new[] { date }).First();
+
+            return View(retreat2);
+        }
+
         public ActionResult New()
         {
             return View();
@@ -46,7 +67,7 @@ namespace Dahlia.WebApplication.Controllers
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
-            return RedirectToAction("Current");
+            return RedirectToAction("GoTo");
         }
 
         public ActionResult Res(Guid id)
@@ -60,7 +81,7 @@ namespace Dahlia.WebApplication.Controllers
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
-            return RedirectToAction("Current");
+            return RedirectToAction("GoTo", new { id = id });
         }
 
         public ActionResult Ren(Guid id)
@@ -74,7 +95,7 @@ namespace Dahlia.WebApplication.Controllers
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
-            return RedirectToAction("Current");
+            return RedirectToAction("GoTo", new { id = id });
         }
 
         public ActionResult Cancel(Guid id)
@@ -83,7 +104,7 @@ namespace Dahlia.WebApplication.Controllers
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
-            return RedirectToAction("Current");
+            return RedirectToAction("GoTo");
         }
     }
 }

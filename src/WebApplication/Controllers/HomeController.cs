@@ -22,7 +22,7 @@ namespace Dahlia.WebApplication.Controllers
 
         public ActionResult Index()
         {
-            return this.RedirectToAction<RetreatController>(c => c.Current());
+            return this.RedirectToAction<RetreatController>(c => c.GoTo(null));
         }
 
         public ActionResult Pending()

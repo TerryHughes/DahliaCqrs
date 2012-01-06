@@ -1,0 +1,13 @@
+@model dynamic
+
+@{
+    ViewBag.Title = "Retreats";
+}
+
+<p>
+    @Html.Action("Current", "Retreat")
+
+    @Html.ActionLink("Reschedule", "Res", new { id = Model.Id }) @Model.Date.ToShortDateString()<br />
+    @Html.ActionLink("Rename", "Ren", new { id = Model.Id }) @Model.Description<br />
+    @Html.ActionLink("Cancel", "Cancel", new { id = Model.Id })<br />
+</p>
