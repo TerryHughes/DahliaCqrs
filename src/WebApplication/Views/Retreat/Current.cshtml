@@ -12,4 +12,11 @@
         <li>[@Html.ActionLink("Reschedule", "Res", new { id = retreat.Id }) @Html.ActionLink("Rename", "Ren", new { id = retreat.Id }) @Html.ActionLink("Cancel", "Cancel", new { id = retreat.Id })] @retreat.Date.ToShortDateString() (@retreat.Description)</li>
 }
     </ul>
+
+    <ul class="nav">
+@foreach (var retreat in Model)
+{
+        <li class="navitem">@retreat.Date.ToShortDateString()</li>
+}
+    </ul>
 </p>

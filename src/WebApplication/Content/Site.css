@@ -1,0 +1,12 @@
+.nav {
+}
+
+.navitem {
+    border: 1px solid #000000;
+    display: inline;
+    padding: 0 10px;
+}
+
+.navitemactive {
+    background: none repeat scroll 0 0 #777777;
+}
