@@ -2,7 +2,6 @@ namespace Dahlia.EventStores
 {
     using System;
     using System.Collections.Generic;
-using System.Linq;
     using Domain;
     using Events;
 
@@ -15,8 +14,6 @@ using System.Linq;
             lock (syncroot)
             {
                 var eventsFor = EventsFor(against);
-Console.WriteLine("attempting a pull");
-Console.WriteLine("there are " + EventsFor(Guid.Parse("55E54863-B185-4DB5-A240-D0FE960699CA")).Count() + " events");
 
                 var aggregateRoot = new T();
                 aggregateRoot.Load(eventsFor);
