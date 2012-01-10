@@ -90,6 +90,13 @@ namespace Dahlia
             var doctorWhoId = Guid.NewGuid();
             var yosaffbridgeId = Guid.NewGuid();
 
+            //Jeffrey Drew Wilschke => Beezow Doo-Doo Zopittybop-Bop-Bop
+            //Bob Loblaw | Author of "The Bob Loblaw Law Blog"
+            //Earl Sinclair | Somewhat thick-headed and very suggestible
+            //Jack Bauer | Doesn't like suprises; looking for a relaxing and uneventful time to unwind
+            //Silent Bob | Doesn't talk much
+            //Kal-El => Clark Kent => Superman | Has trouble relating to others
+
             // no checks for a rename that happens before a create
             var events = new List<Event>
                 {

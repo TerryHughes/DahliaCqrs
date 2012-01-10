@@ -27,6 +27,7 @@
 }
 
 #menu {
+    list-style-type: none;
     margin: 0px;
     padding-left: 0px;
 }
@@ -41,6 +42,10 @@
 #menu a:hover {
     background-color: gray;
     color: #FFFFFF;
+}
+
+#menu hr {
+    width: 90%;
 }
 
 .actions {
@@ -61,5 +66,40 @@
 
 .actions a:hover {
     background: gray;
+    color: #FFFFFF;
+}
+
+.participants {
+    color: #474747;
+    list-style-type: none;
+    max-width: 500px;
+    padding-left: 0px;
+}
+
+.participants li {
+    border: 1px solid #000000;
+    margin: 5px 0px;
+    padding: 5px;
+}
+
+.name a {
+    color: #474747;
+    font-size: large;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.remove a {
+    color: #474747;
+    float: right;
+    font-size: x-small;
+    text-decoration: none;
+}
+
+.participants li:hover {
+    background: gray;
+}
+
+.participants li:hover a {
     color: #FFFFFF;
 }

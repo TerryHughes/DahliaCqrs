@@ -1,7 +1,6 @@
 namespace Dahlia.Domain
 {
     using System;
-    using Events;
     using Framework;
     using CurrentRetreatScheduledEvent = Events.RetreatScheduledEvent.Version1;
     using CurrentRetreatRescheduledEvent = Events.RetreatRescheduledEvent.Version1;

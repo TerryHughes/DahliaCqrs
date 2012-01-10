@@ -1,0 +1,35 @@
+@{
+    ViewBag.Title = "Add a Participant";
+}
+
+<h2>Add a Participant</h2>
+
+@using (Html.BeginForm("Add", "Participant"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Enter the info</legend>
+
+        <div class="editor-label">
+            @Html.Label("Name")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Name")
+        </div>
+
+        <div class="editor-label">
+            @Html.Label("Note")
+        </div>
+        <div class="editor-field">
+            @Html.Editor("Note")
+        </div>
+
+        <p>
+            <input type="submit" value="Add" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>

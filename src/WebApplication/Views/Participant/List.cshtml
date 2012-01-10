@@ -1,0 +1,16 @@
+@model IEnumerable<dynamic>
+
+@{
+    ViewBag.Title = "Participants";
+}
+
+<ul class="participants">
+@foreach (var participant in Model)
+{
+    <li>
+        <span class="name">@Html.ActionLink((string)participant.Name, "Ren", new { id = participant.Id })</span>
+        <span class="remove">@Html.ActionLink("x", "Remove", new { id = participant.Id })</span>
+        <div class="note">@participant.Note</div>
+    </li>
+}
+</ul>
