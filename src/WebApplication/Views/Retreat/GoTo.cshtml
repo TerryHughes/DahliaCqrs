@@ -5,9 +5,12 @@
 }
 
 <p>
-    @Html.Action("Current", "Retreat")
+    @Html.Action("Current", "Retreat", new { selected = Model.Id })
 
-    @Html.ActionLink("Reschedule", "Res", new { id = Model.Id }) @Model.Date.ToShortDateString()<br />
-    @Html.ActionLink("Rename", "Ren", new { id = Model.Id }) @Model.Description<br />
-    @Html.ActionLink("Cancel", "Cancel", new { id = Model.Id })<br />
+    <h2>@Model.Description</h2>
+    <ul class="actions">
+        <li>@Html.ActionLink("Reschedule", "Res", new { id = Model.Id })</li>
+        <li>@Html.ActionLink("Rename", "Ren", new { id = Model.Id })</li>
+        <li>@Html.ActionLink("Cancel", "Cancel", new { id = Model.Id })</li>
+    </ul>
 </p>

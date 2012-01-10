@@ -2,11 +2,17 @@
 
 @{
     Layout = null;
+    var text = String.Empty;
 }
 
-<ul class="nav">
+<ul id="nav">
 @foreach (var retreat in Model)
 {
-    <li class="navitem">@Html.ActionLink((string)retreat.Date.ToShortDateString(), "GoTo", new { id = retreat.Id}, new { title = retreat.Description })</li>
+    if (retreat.IsSelected)
+    {
+        text = "class='navitemselected'";
+    }
+
+    <li @text>@Html.ActionLink((string)retreat.Date.ToShortDateString(), "GoTo", new { id = retreat.Id}, new { title = retreat.Description })</li>
 }
 </ul>

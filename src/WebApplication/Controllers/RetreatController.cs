@@ -23,7 +23,7 @@ namespace Dahlia.WebApplication.Controllers
             this.bus = bus;
         }
 
-        public ActionResult Current()
+        public ActionResult Current(Guid selected)
         {
             var today = DateTime.Today;
 
@@ -32,6 +32,14 @@ namespace Dahlia.WebApplication.Controllers
             var end = new KeyValuePair<string, object>("@end", today.AddDays(335));
 
             var retreats = repository.All("SELECT * FROM [Retreats] WHERE @start < [Date] AND [Date] < @end ORDER BY [Date], [Description]", new[] { start, end });
+
+            foreach (var retreat in retreats)
+            {
+                retreat.IsSelected = false;
+
+                if (retreat.Id == selected)
+                    retreat.IsSelected = true;
+            }
 
             return View(retreats);
         }
