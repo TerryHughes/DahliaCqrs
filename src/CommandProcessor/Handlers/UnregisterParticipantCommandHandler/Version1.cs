@@ -1,10 +1,10 @@
-namespace Dahlia.CommandProcessor.RemoveParticipantCommandHandler
+namespace Dahlia.CommandProcessor.UnregisterParticipantCommandHandler
 {
     using System;
     using NServiceBus;
     using Domain;
     using EventStores;
-    using CurrentCommand = Commands.RemoveParticipantCommand.Version1;
+    using CurrentCommand = Commands.UnregisterParticipantCommand.Version1;
 
     public class Version1 : CommandHandler<CurrentCommand, Participant>
     {
@@ -14,7 +14,7 @@ namespace Dahlia.CommandProcessor.RemoveParticipantCommandHandler
 
         protected override void Action(CurrentCommand command, Participant participant)
         {
-            participant.Remove();
+            participant.Unregister();
         }
     }
 }

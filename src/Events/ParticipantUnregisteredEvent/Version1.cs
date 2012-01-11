@@ -1,4 +1,4 @@
-namespace Dahlia.Events.ParticipantRemovedEvent
+namespace Dahlia.Events.ParticipantUnregisteredEvent
 {
     using System;
 

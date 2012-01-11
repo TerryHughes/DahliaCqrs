@@ -1,4 +1,4 @@
-namespace Dahlia.Events.ParticipantAddedEvent
+namespace Dahlia.Events.ParticipantRegisteredEvent
 {
     using System;
 

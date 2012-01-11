@@ -1,4 +1,4 @@
-namespace Dahlia.Commands.AddParticipantCommand
+namespace Dahlia.Commands.RegisterParticipantCommand
 {
     public class Version1 : Command
     {

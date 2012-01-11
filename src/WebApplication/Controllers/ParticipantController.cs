@@ -5,9 +5,9 @@ namespace Dahlia.WebApplication.Controllers
     using System.Linq;
     using System.Web.Mvc;
     using NServiceBus;
-    using CurrentAddParticipantCommand = Commands.AddParticipantCommand.Version1;
+    using CurrentRegisterCommand = Commands.RegisterParticipantCommand.Version1;
     using CurrentRenameParticipantCommand = Commands.RenameParticipantCommand.Version1;
-    using CurrentRemoveParticipantCommand = Commands.RemoveParticipantCommand.Version1;
+    using CurrentUnregisterCommand = Commands.UnregisterParticipantCommand.Version1;
     using Data.Common;
     using Framework;
 
@@ -34,9 +34,9 @@ namespace Dahlia.WebApplication.Controllers
             return View();
         }
 
-        public ActionResult Add(string name, string note)
+        public ActionResult Register(string name, string note)
         {
-            var command = new CurrentAddParticipantCommand { Name = name, Note = note };
+            var command = new CurrentRegisterCommand { Name = name, Note = note };
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
@@ -57,9 +57,9 @@ namespace Dahlia.WebApplication.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult Remove(Guid id)
+        public ActionResult Unregister(Guid id)
         {
-            var command = new CurrentRemoveParticipantCommand { AggregateRootId = id };
+            var command = new CurrentUnregisterCommand { AggregateRootId = id };
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 

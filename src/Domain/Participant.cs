@@ -1,24 +1,24 @@
 namespace Dahlia.Domain
 {
     using Framework;
-    using CurrentParticipantAddedEvent = Events.ParticipantAddedEvent.Version1;
+    using CurrentRegisteredEvent = Events.ParticipantRegisteredEvent.Version1;
     using CurrentParticipantRenamedEvent = Events.ParticipantRenamedEvent.Version1;
-    using CurrentRemovedEvent = Events.ParticipantRemovedEvent.Version1;
+    using CurrentUnregisteredEvent = Events.ParticipantUnregisteredEvent.Version1;
 
     public class Participant : AggregateRoot
     {
         public Participant()
         {
-            RegisterHandler<CurrentParticipantAddedEvent>(InternalApply);
+            RegisterHandler<CurrentRegisteredEvent>(InternalApply);
             RegisterHandler<CurrentParticipantRenamedEvent>(InternalApply);
-            RegisterHandler<CurrentRemovedEvent>(InternalApply);
+            RegisterHandler<CurrentUnregisteredEvent>(InternalApply);
         }
 
-        public void Create(string name, string note)
+        public void Register(string name, string note)
         {
             Id = SystemGuid.NewGuid();
 System.Console.WriteLine("creating: " + name + " (" + note + ")");
-            Apply(new CurrentParticipantAddedEvent { Name = name, Note = note });
+            Apply(new CurrentRegisteredEvent { Name = name, Note = note });
         }
 
         public void Rename(string name)
@@ -26,12 +26,12 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
             Apply(new CurrentParticipantRenamedEvent { Name = name });
         }
 
-        public void Remove()
+        public void Unregister()
         {
-            Apply(new CurrentRemovedEvent());
+            Apply(new CurrentUnregisteredEvent());
         }
 
-        void InternalApply(CurrentParticipantAddedEvent @event)
+        void InternalApply(CurrentRegisteredEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
             Id = @event.AggregateRootId;
@@ -43,7 +43,7 @@ System.Console.WriteLine("applying: " + @event.Id);
             //
         }
 
-        void InternalApply(CurrentRemovedEvent @event)
+        void InternalApply(CurrentUnregisteredEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
             //

@@ -1,4 +1,4 @@
-namespace Dahlia.Commands.RemoveParticipantCommand
+namespace Dahlia.Commands.UnregisterParticipantCommand
 {
     public class Version1 : Command
     {

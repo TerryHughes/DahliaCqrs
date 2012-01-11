@@ -62,6 +62,7 @@ namespace Dahlia.Domain
             where TInput : Event
             where TOutput : Event
         {
+            converters.Add(typeof(TInput), e => converter(e as TInput));
         }
 
         protected void RegisterHandler<T>(Action<T> handler)

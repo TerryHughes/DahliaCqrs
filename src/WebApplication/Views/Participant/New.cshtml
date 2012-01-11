@@ -1,10 +1,10 @@
 @{
-    ViewBag.Title = "Add a Participant";
+    ViewBag.Title = "Register a Participant";
 }
 
-<h2>Add a Participant</h2>
+<h2>Register a Participant</h2>
 
-@using (Html.BeginForm("Add", "Participant"))
+@using (Html.BeginForm("Register", "Participant"))
 {
     @Html.ValidationSummary(true)
     <fieldset>
@@ -25,7 +25,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Add" />
+            <input type="submit" value="Register" />
         </p>
     </fieldset>
 }
