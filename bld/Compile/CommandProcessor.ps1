@@ -6,6 +6,7 @@ function Compile-CommandProcessor
     $sourceFiles = "CommandProcessor" | Get-FilesToCompile
 
     $referenceAssemblies = @() + `
+        "lib\nservicebus\lib\net40\log4net.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe" + `

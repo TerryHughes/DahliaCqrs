@@ -8,7 +8,7 @@ namespace Dahlia.DataStore.Handlers.ParticipantRemovedEvent
     {
         protected override string Statement
         {
-            get { return "DELETE FROM [Participants] WHERE [Id] = @Id"; }
+            get { return "INSERT INTO [RemovedParticipants] SELECT * FROM [Participants] WHERE [Id] = @Id;DELETE FROM [Participants] WHERE [Id] = @Id"; }
         }
 
         protected override IEnumerable<KeyValuePair<string, object>> ComposePairs(CurrentEvent @event)
