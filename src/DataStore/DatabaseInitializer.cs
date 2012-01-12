@@ -18,8 +18,8 @@ namespace Dahlia.DataStore
 
         public void Run()
         {
-//            EmptyTheDatabase();
-//            PopulateTheDatabase();
+            EmptyTheDatabase();
+            PopulateTheDatabase();
         }
 
         public void Stop()
