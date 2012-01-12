@@ -2,9 +2,14 @@ namespace Dahlia.DataStore.Handlers.ParticipantRenamedEvent
 {
     using System.Collections.Generic;
     using CurrentParticipantRenamedEvent = Events.ParticipantRenamedEvent.Version1;
+    using Data.Common;
 
     public class Version1 : EventHandler<CurrentParticipantRenamedEvent>
     {
+        public Version1(WriteRepository repository) : base(repository)
+        {
+        }
+
         protected override string Statement
         {
             get { return "UPDATE [Participants] SET [Name] = @Name WHERE [Id] = @Id"; }

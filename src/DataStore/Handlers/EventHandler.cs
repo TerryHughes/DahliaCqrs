@@ -10,9 +10,9 @@ namespace Dahlia.DataStore.Handlers
     {
         readonly WriteRepository repository;
 
-        public EventHandler()
+        public EventHandler(WriteRepository repository)
         {
-            repository = new WriteRepository(new ConfigConnectionSettings("data"));
+            this.repository = repository;
         }
 
         protected abstract string Statement { get; }

@@ -7,6 +7,7 @@ function Compile-DataStore
 
     $referenceAssemblies = @() + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
+        "lib\nservicebus\lib\net40\NServiceBus.Core.dll" + `
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe" + `
         $frameworkFile + `
         $dataCommonFile + `

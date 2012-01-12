@@ -2,9 +2,14 @@ namespace Dahlia.DataStore.Handlers.RetreatRescheduledEvent
 {
     using System.Collections.Generic;
     using CurrentRetreatRescheduledEvent = Events.RetreatRescheduledEvent.Version1;
+    using Data.Common;
 
     public class Version1 : EventHandler<CurrentRetreatRescheduledEvent>
     {
+        public Version1(WriteRepository repository) : base(repository)
+        {
+        }
+
         protected override string Statement
         {
             get { return "UPDATE [Retreats] SET [Date] = @Date WHERE [Id] = @Id"; }
