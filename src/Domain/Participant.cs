@@ -4,14 +4,19 @@ namespace Dahlia.Domain
     using CurrentRegisteredEvent = Events.ParticipantRegisteredEvent.Version1;
     using CurrentParticipantRenamedEvent = Events.ParticipantRenamedEvent.Version1;
     using CurrentUnregisteredEvent = Events.ParticipantUnregisteredEvent.Version2;
+    using CurrentSnapshottedEvent = Events.ParticipantSnapshottedEvent.Version1;
 
     public class Participant : AggregateRoot
     {
+        string name;
+        string note;
+
         public Participant()
         {
             RegisterHandler<CurrentRegisteredEvent>(InternalApply);
             RegisterHandler<CurrentParticipantRenamedEvent>(InternalApply);
             RegisterHandler<CurrentUnregisteredEvent>(InternalApply);
+            RegisterHandler<CurrentSnapshottedEvent>(InternalApply);
 
             RegisterConverter<Events.ParticipantUnregisteredEvent.Version1, Events.ParticipantUnregisteredEvent.Version2>(e => new Events.ParticipantUnregisteredEvent.Version2
             {
@@ -38,22 +43,36 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
             Apply(new CurrentUnregisteredEvent());
         }
 
+        public void Snapshot()
+        {
+            Apply(new CurrentSnapshottedEvent { Name = name, Note = note });
+        }
+
         void InternalApply(CurrentRegisteredEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
             Id = @event.AggregateRootId;
+            name = @event.Name;
+            note = @event.Note;
         }
 
         void InternalApply(CurrentParticipantRenamedEvent @event)
         {
 //System.Console.WriteLine("applying: " + @event.Id);
-            //
+            name = @event.Name;
         }
 
         void InternalApply(CurrentUnregisteredEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
             //
+        }
+
+        void InternalApply(CurrentSnapshottedEvent @event)
+        {
+System.Console.WriteLine("applying: " + @event.Id);
+            name = @event.Name;
+            note = @event.Note;
         }
     }
 }

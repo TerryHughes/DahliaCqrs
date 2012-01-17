@@ -8,6 +8,7 @@ namespace Dahlia.WebApplication.Controllers
     using CurrentRegisterCommand = Commands.RegisterParticipantCommand.Version1;
     using CurrentRenameParticipantCommand = Commands.RenameParticipantCommand.Version1;
     using CurrentUnregisterCommand = Commands.UnregisterParticipantCommand.Version1;
+    using CurrentSnapshotCommand = Commands.SnapshotParticipantCommand.Version1;
     using Data.Common;
     using Framework;
 
@@ -60,6 +61,15 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Unregister(Guid id)
         {
             var command = new CurrentUnregisterCommand { AggregateRootId = id };
+            HomeController.Cache.Add(command.Id);
+            bus.Send(command);
+
+            return RedirectToAction("List");
+        }
+
+        public ActionResult Snapshot(Guid id)
+        {
+            var command = new CurrentSnapshotCommand { AggregateRootId = id };
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
