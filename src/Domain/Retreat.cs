@@ -6,6 +6,7 @@ namespace Dahlia.Domain
     using CurrentRetreatRescheduledEvent = Events.RetreatRescheduledEvent.Version1;
     using CurrentRetreatRenamedEvent = Events.RetreatRenamedEvent.Version1;
     using CurrentRetreatCanceledEvent = Events.RetreatCanceledEvent.Version1;
+    using CurrentParticipantAddedEvent = Events.ParticipantAddedToRetreatEvent.Version1;
 
     public class Retreat : AggregateRoot
     {
@@ -15,6 +16,7 @@ namespace Dahlia.Domain
             RegisterHandler<CurrentRetreatRescheduledEvent>(InternalApply);
             RegisterHandler<CurrentRetreatRenamedEvent>(InternalApply);
             RegisterHandler<CurrentRetreatCanceledEvent>(InternalApply);
+            RegisterHandler<CurrentParticipantAddedEvent>(InternalApply);
         }
 
         public void Schedule(DateTime date, string description)
@@ -39,6 +41,11 @@ System.Console.WriteLine("creating: (" + date + ") " + description);
             Apply(new CurrentRetreatCanceledEvent());
         }
 
+        public void Add(Guid participantId)
+        {
+            Apply(new CurrentParticipantAddedEvent { ParticipantId = participantId });
+        }
+
         void InternalApply(CurrentRetreatScheduledEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
@@ -58,6 +65,12 @@ System.Console.WriteLine("applying: " + @event.Id);
         }
 
         void InternalApply(CurrentRetreatCanceledEvent @event)
+        {
+System.Console.WriteLine("applying: " + @event.Id);
+            //
+        }
+
+        void InternalApply(CurrentParticipantAddedEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
             //

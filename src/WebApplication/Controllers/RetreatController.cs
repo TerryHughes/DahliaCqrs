@@ -9,6 +9,7 @@ namespace Dahlia.WebApplication.Controllers
     using CurrentRescheduleRetreatCommand = Commands.RescheduleRetreatCommand.Version1;
     using CurrentRenameRetreatCommand = Commands.RenameRetreatCommand.Version1;
     using CurrentCancelRetreatCommand = Commands.CancelRetreatCommand.Version1;
+    using CurrentAddParticipantCommand = Commands.AddParticipantToRetreatCommand.Version1;
     using Data.Common;
     using Framework;
 
@@ -51,6 +52,10 @@ namespace Dahlia.WebApplication.Controllers
                 var idpair = new KeyValuePair<string, object>("@id", id);
 
                 var retreat = repository.One("SELECT * FROM [Retreats] WHERE [Id] = @id", new[] { idpair });
+
+                var participants = repository.All("SELECT * FROM [ParticipantsAssignedToRetreat] WHERE [RetreatId] = @id", new[] { idpair });
+
+                retreat.Participants = participants;
 
                 return View(retreat);
             }
@@ -109,6 +114,20 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Cancel(Guid id)
         {
             var command = new CurrentCancelRetreatCommand { AggregateRootId = id };
+            HomeController.Cache.Add(command.Id);
+            bus.Send(command);
+
+            return RedirectToAction("GoTo");
+        }
+
+        public ActionResult AddPartic(Guid id)
+        {
+            return View();
+        }
+
+        public ActionResult AddParticipantTo(Guid id, Guid participantId)
+        {
+            var command = new CurrentAddParticipantCommand { AggregateRootId = id, ParticipantId = participantId };
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 

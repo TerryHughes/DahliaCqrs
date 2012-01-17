@@ -1,6 +1,5 @@
 namespace Dahlia.CommandProcessor.CancelRetreatCommandHandler
 {
-    using System;
     using NServiceBus;
     using Domain;
     using EventStores;

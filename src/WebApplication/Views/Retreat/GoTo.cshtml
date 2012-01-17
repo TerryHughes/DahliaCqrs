@@ -12,5 +12,16 @@
         <li>@Html.ActionLink("Reschedule", "Res", new { id = Model.Id })</li>
         <li>@Html.ActionLink("Rename", "Ren", new { id = Model.Id })</li>
         <li>@Html.ActionLink("Cancel", "Cancel", new { id = Model.Id })</li>
+        <li>@Html.ActionLink("Add Participant", "AddPartic", new { id = Model.Id })</li>
     </ul>
+
+    @if (((IDictionary<string, object>)Model).ContainsKey("Participants"))
+    {
+        <ul>
+        @foreach (var participant in Model.Participants)
+        {
+            <li>@participant.ParticipantName</li>
+        }
+        </ul>
+    }
 </p>
