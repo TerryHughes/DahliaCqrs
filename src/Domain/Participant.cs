@@ -3,7 +3,7 @@ namespace Dahlia.Domain
     using Framework;
     using CurrentRegisteredEvent = Events.ParticipantRegisteredEvent.Version1;
     using CurrentParticipantRenamedEvent = Events.ParticipantRenamedEvent.Version1;
-    using CurrentUnregisteredEvent = Events.ParticipantUnregisteredEvent.Version1;
+    using CurrentUnregisteredEvent = Events.ParticipantUnregisteredEvent.Version2;
 
     public class Participant : AggregateRoot
     {
@@ -12,6 +12,13 @@ namespace Dahlia.Domain
             RegisterHandler<CurrentRegisteredEvent>(InternalApply);
             RegisterHandler<CurrentParticipantRenamedEvent>(InternalApply);
             RegisterHandler<CurrentUnregisteredEvent>(InternalApply);
+
+            RegisterConverter<Events.ParticipantUnregisteredEvent.Version1, Events.ParticipantUnregisteredEvent.Version2>(e => new Events.ParticipantUnregisteredEvent.Version2
+            {
+                AggregateRootId = e.AggregateRootId,
+                Name = "how should i know what this was?",
+                Note = "really? again? really?"
+            });
         }
 
         public void Register(string name, string note)

@@ -2,9 +2,9 @@ namespace Dahlia.DataStore.ParticipantUnregisteredEventHandlers.RetreatsParticip
 {
     using Data.Common;
 
-    public class Version1 : ParticipantUnregisteredEventHandlers.Version1
+    public class Version2 : ParticipantUnregisteredEventHandlers.Version2
     {
-        public Version1(WriteRepository repository) : base(repository)
+        public Version2(WriteRepository repository) : base(repository)
         {
         }
 
