@@ -1,4 +1,4 @@
-namespace Dahlia.DataStore.Handlers
+namespace Dahlia.DataStore
 {
     using System.Collections.Generic;
     using NServiceBus;

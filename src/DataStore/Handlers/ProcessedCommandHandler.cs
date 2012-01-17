@@ -1,7 +1,6 @@
-namespace Dahlia.DataStore.Handlers
+namespace Dahlia.DataStore
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Data.Common;
     using Events;
 
