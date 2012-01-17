@@ -109,5 +109,13 @@ namespace Dahlia.WebApplication.Controllers
 
             return this.RedirectToAction<ParticipantController>(c => c.List());
         }
+
+        public ActionResult NameChange(Guid id)
+        {
+            for (var i = 0; i < 1000; i++)
+                bus.Send(new CurrentRenameParticipantCommand { AggregateRootId = id, Name = "NameChange" + i });
+
+            return this.RedirectToAction<ParticipantController>(c => c.List());
+        }
     }
 }

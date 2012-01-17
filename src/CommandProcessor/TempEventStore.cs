@@ -11,16 +11,24 @@ namespace Dahlia.EventStores
 
     public class TempEventStore : EventStore
     {
+        readonly ReadRepository readRepository;
+        readonly WriteRepository writeRepository;
+
+        public TempEventStore()
+        {
+            readRepository = new ReadRepository(new ConfigConnectionSettings("event"));
+            writeRepository = new WriteRepository(new ConfigConnectionSettings("event"));
+        }
+
         protected override IEnumerable<Event> EventsFor(Guid aggregateRootId)
         {
-            var repository = new ReadRepository(new ConfigConnectionSettings("event"));
-            var events = repository.All("SELECT * FROM [Events] WHERE [AggregateRootId] = @AggregateRootId ORDER BY [DateTime]", new[] { new KeyValuePair<string, object>("@AggregateRootId", aggregateRootId) });
+            var events = readRepository.All("SELECT * FROM [Events] WHERE [AggregateRootId] = @AggregateRootId ORDER BY [DateTime]", new[] { new KeyValuePair<string, object>("@AggregateRootId", aggregateRootId) });
 
             var formatter = new BinaryFormatter();
 
             foreach (var @event in events)
             {
-Console.WriteLine("deserializing: " + @event.Id);
+//Console.WriteLine("deserializing: " + @event.Id);
                 var stream = new MemoryStream((byte[])@event.Event);
 
                 yield return formatter.Deserialize(stream) as Event;
@@ -29,9 +37,7 @@ Console.WriteLine("deserializing: " + @event.Id);
 
         protected override void AddEvent(Event @event)
         {
-            var repository = new WriteRepository(new ConfigConnectionSettings("event"));
-
-            repository.Do("INSERT INTO [Events] ([Id], [AggregateRootId], [Event]) VALUES (@Id, @AggregateRootId, @Event)", Pairs(@event));
+            writeRepository.Do("INSERT INTO [Events] ([Id], [AggregateRootId], [Event]) VALUES (@Id, @AggregateRootId, @Event)", Pairs(@event));
         }
 
         IEnumerable<KeyValuePair<string, object>> Pairs(Event @event)

@@ -39,7 +39,7 @@ System.Console.WriteLine("applying: " + @event.Id);
 
         void InternalApply(CurrentParticipantRenamedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
+//System.Console.WriteLine("applying: " + @event.Id);
             //
         }
 

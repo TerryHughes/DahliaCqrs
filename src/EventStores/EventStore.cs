@@ -16,7 +16,10 @@ namespace Dahlia.EventStores
                 var eventsFor = EventsFor(against);
 
                 var aggregateRoot = new T();
+var watch = System.Diagnostics.Stopwatch.StartNew();
                 aggregateRoot.Load(eventsFor);
+watch.Stop();
+System.Console.WriteLine(aggregateRoot.Id + " took " + watch.ElapsedMilliseconds + "ms to load");
 
                 action(aggregateRoot);
 
