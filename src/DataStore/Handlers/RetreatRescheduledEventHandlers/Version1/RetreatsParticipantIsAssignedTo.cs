@@ -1,4 +1,4 @@
-namespace Dahlia.DataStore.Handlers.RetreatRescheduledEvent.RetreatsParticipantIsAssignedTo
+namespace Dahlia.DataStore.RetreatRescheduledEventHandlers.RetreatsParticipantIsAssignedTo
 {
     using Data.Common;
 
