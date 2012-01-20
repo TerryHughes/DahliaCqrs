@@ -9,12 +9,12 @@ namespace Dahlia.EventStores
     using Events;
     using Framework;
 
-    public class TempEventStore : EventStore
+    public class DahliaEventStore : EventStore
     {
         readonly ReadRepository readRepository;
         readonly WriteRepository writeRepository;
 
-        public TempEventStore()
+        public DahliaEventStore()
         {
             readRepository = new ReadRepository(new ConfigConnectionSettings("event"));
             writeRepository = new WriteRepository(new ConfigConnectionSettings("event"));

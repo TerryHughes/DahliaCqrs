@@ -7,7 +7,7 @@ namespace Dahlia.CommandProcessor
     {
         public void Init()
         {
-            Configure.Instance.Configurer.RegisterSingleton(typeof(EventStore), new TempEventStore());
+            Configure.Instance.Configurer.RegisterSingleton(typeof(EventStore), new DahliaEventStore());
         }
     }
 }

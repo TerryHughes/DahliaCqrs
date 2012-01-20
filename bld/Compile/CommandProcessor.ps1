@@ -3,7 +3,7 @@ Include bld\Utilities\Generic-Compile.ps1
 
 function Compile-CommandProcessor
 {
-    $sourceFiles = "CommandProcessor" | Get-FilesToCompile
+    $sourceFiles = "EventStores.Dahlia", "CommandProcessor" | Get-FilesToCompile
 
     $referenceAssemblies = @() + `
         "lib\nservicebus\lib\net40\log4net.dll" + `
