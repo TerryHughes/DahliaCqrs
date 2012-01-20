@@ -3,7 +3,7 @@ Include bld\Utilities\Generic-Compile.ps1
 
 function Compile-CommandProcessor
 {
-    $sourceFiles = "EventStores.Dahlia", "CommandProcessor" | Get-FilesToCompile
+    $sourceFiles = "Domain", "EventStores", "EventStores.Dahlia", "CommandProcessor" | Get-FilesToCompile
 
     $referenceAssemblies = @() + `
         "lib\nservicebus\lib\net40\log4net.dll" + `
@@ -12,8 +12,8 @@ function Compile-CommandProcessor
         "lib\nservicebus\lib\net40\NServiceBus.Host.exe" + `
         $commandsFile + `
         $eventsFile + `
-        $domainFile + `
-        $eventStoresFile + `
+#        $domainFile + `
+#        $eventStoresFile + `
         $frameworkFile + `
         $dataCommonFile
 

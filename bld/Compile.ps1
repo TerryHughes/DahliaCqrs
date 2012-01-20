@@ -4,9 +4,9 @@ Include bld\Compile\DataCommon.ps1
 Include bld\Compile\DataSqlClient.ps1
 Include bld\Compile\DataSqlite.ps1
 Include bld\Compile\DataStore.ps1
-Include bld\Compile\Domain.ps1
+#Include bld\Compile\Domain.ps1
 Include bld\Compile\Events.ps1
-Include bld\Compile\EventStores.ps1
+#Include bld\Compile\EventStores.ps1
 Include bld\Compile\Framework.ps1
 Include bld\Compile\Specs.ps1
 Include bld\Compile\WebApplication.ps1
@@ -21,9 +21,9 @@ Properties {
     $dataSqlClientFile = "bin\$applicationName.Data.SqlClient.dll"
     $dataSqliteFile = "$applicationName.Data.SQLite.dll"
     $dataStoreFile = "bin\$applicationName.DataStore.dll"
-    $domainFile = "bin\$applicationName.Domain.dll"
+#    $domainFile = "bin\$applicationName.Domain.dll"
     $eventsFile = "bin\$applicationName.Events.dll"
-    $eventStoresFile = "bin\$applicationName.EventStores.dll"
+#    $eventStoresFile = "bin\$applicationName.EventStores.dll"
     $frameworkFile = "bin\$applicationName.Framework.dll"
     $specsFile = "bin\$applicationName.Specs.dll"
     $webApplicationFile = "bin\$applicationName.WebApplication.dll"
@@ -69,8 +69,8 @@ Task Compile {
     Compile-DataCommon
     Compile-Commands
     Compile-Events
-    Compile-Domain
-    Compile-EventStores
+#    Compile-Domain
+#    Compile-EventStores
     Compile-DataSqlClient
     Compile-DataSqlite
     Compile-DataStore
