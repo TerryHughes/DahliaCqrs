@@ -22,8 +22,12 @@
 }
 
 #menucontainer {
+    background: #FFFFFF;
     border: 1px solid black;
+    margin: -20px 0px 0px 10px;
     max-width: 200px;
+    position: absolute;
+    z-index: 100;
 }
 
 #menu {
@@ -102,4 +106,68 @@
 
 .participants li:hover a {
     color: #FFFFFF;
+}
+
+.listbox {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.listbox li {
+    border: 1px solid #000000;
+    margin: 5px 0px;
+    padding: 5px;
+}
+
+.title {
+    color: #474747;
+    font-size: large;
+    font-weight: bold;
+}
+
+.mainmenuicon {
+    background-image: url(../Images/mainmenu.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    float: left;
+    height: 25px;
+    width: 25px;
+}
+
+.menuicon {
+    background-image: url(../Images/menu.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    float: right;
+    height: 10px;
+    width: 10px;
+}
+
+.menu {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    list-style-type: none;
+    max-width: 100px;
+    padding: 5px 0px 5px 0px;
+    position: absolute;
+    z-index: 75;
+}
+
+.menu a {
+    color: #474747;
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background: gray;
+    color: #FFFFFF;
+}
+
+.retreats li {
+    display: inline-block;
+    width: 250px;
 }

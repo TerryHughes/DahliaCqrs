@@ -6,9 +6,6 @@ namespace Dahlia.WebApplication.Controllers
     using System.Web.Mvc;
     using NServiceBus;
     using CurrentScheduleRetreatCommand = Commands.ScheduleRetreatCommand.Version1;
-    using CurrentRescheduleRetreatCommand = Commands.RescheduleRetreatCommand.Version1;
-    using CurrentRenameRetreatCommand = Commands.RenameRetreatCommand.Version1;
-    using CurrentCancelRetreatCommand = Commands.CancelRetreatCommand.Version1;
     using CurrentAddParticipantCommand = Commands.AddParticipantToRetreatCommand.Version1;
     using Data.Common;
     using Framework;
@@ -77,43 +74,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Schedule(DateTime date, string description)
         {
             var command = new CurrentScheduleRetreatCommand { Date = date, Description = description };
-            HomeController.Cache.Add(command.Id);
-            bus.Send(command);
-
-            return RedirectToAction("GoTo");
-        }
-
-        public ActionResult Res(Guid id)
-        {
-            return View();
-        }
-
-        public ActionResult Reschedule(Guid id, DateTime date)
-        {
-            var command = new CurrentRescheduleRetreatCommand { AggregateRootId = id, Date = date };
-            HomeController.Cache.Add(command.Id);
-            bus.Send(command);
-
-            return RedirectToAction("GoTo", new { id = id });
-        }
-
-        public ActionResult Ren(Guid id)
-        {
-            return View();
-        }
-
-        public ActionResult Rename(Guid id, string description)
-        {
-            var command = new CurrentRenameRetreatCommand { AggregateRootId = id, Description = description };
-            HomeController.Cache.Add(command.Id);
-            bus.Send(command);
-
-            return RedirectToAction("GoTo", new { id = id });
-        }
-
-        public ActionResult Cancel(Guid id)
-        {
-            var command = new CurrentCancelRetreatCommand { AggregateRootId = id };
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 

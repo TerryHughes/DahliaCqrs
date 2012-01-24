@@ -4,7 +4,7 @@
 
 <h2>Reschedule a Retreat</h2>
 
-@using (Html.BeginForm("Reschedule", "Retreat"))
+@using (Html.BeginForm("Reschedule", "ManageRetreats"))
 {
     @Html.ValidationSummary(true)
     <fieldset>
@@ -25,5 +25,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Current")
+    @Html.ActionLink("Back to List", "Index")
 </div>

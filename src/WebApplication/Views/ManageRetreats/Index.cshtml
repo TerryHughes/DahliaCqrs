@@ -1,0 +1,79 @@
+@model IEnumerable<dynamic>
+
+@{
+    ViewBag.Title = "Manage Retreats";
+}
+
+<div id="daterange"></div>
+
+<ul class="listbox retreats">
+@foreach (var retreat in Model)
+{
+    <li>
+        <span class="title">@retreat.Date.ToShortDateString()</span>
+        <span class="menuicon" retreatid="@retreat.Id"></span>
+        <div>@retreat.Description</div>
+    </li>
+}
+</ul>
+
+<ul class="menu">
+    <li>@Html.ActionLink("Rename", "Ren", new { id = "temp" })</li>
+    <li>@Html.ActionLink("Reschedule", "Res", new { id = "temp" })</li>
+    <li>@Html.ActionLink("Cancel", "Cancel", new { id = "temp" })</li>
+</ul>
+
+<link href="@Url.Content("~/Content/dev.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.16.custom.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.mousewheel.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jQAllRangeSliders-min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+    $(".menu").hide();
+
+    $(".menuicon").click(function() {
+        var thisOffset = $(this).offset();
+        var targetOffset = { top: thisOffset.top + 15, left: thisOffset.left };
+
+        var menuOffset = $(".menu").offset();
+
+        if (menuOffset.top == targetOffset.top && menuOffset.left == targetOffset.left)
+            $(".menu").toggle();
+        else {
+            $(".menu").show();
+            $(".menu").offset(targetOffset);
+
+            var links = $(".menu").find("a");
+
+            var i = 0, link;
+            for ( ; link = links[i++]; ) {
+                link.href = link.href.substr(0, link.href.lastIndexOf("/") + 1) + this.getAttribute("retreatid");
+            }
+        }
+    });
+
+    var today = new Date();
+
+    // show one year (365 days) worth [back 30 days, forward the rest]
+    var start = new Date().setDate(today.getDate() - 30);
+    var end = new Date().setDate(today.getDate() + 335);
+    
+    $("#daterange").dateRangeSlider({
+        defaultValues: { min: start, max: end },
+        bounds: { min: new Date(Date.parse("@Model.First().Date")), max: new Date(Date.parse("@Model.Last().Date")) },
+        valueLabels: "change"
+    }).bind("valuesChanging", function(event, ui) {
+        var retreats = $(".retreats li");
+
+        var i = 0, retreat;
+        for ( ; retreat = retreats[i++]; ) {
+            $(retreat).show();
+
+            var date = Date.parse($(retreat).find(".title")[0].innerText);
+            if (date < ui.values.min || ui.values.max < date) {
+                $(retreat).hide();
+            }
+        }
+    });
+});
+</script>

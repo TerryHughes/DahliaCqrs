@@ -9,6 +9,12 @@
         <script type="text/javascript">
 $(function() {
     $("abbr.timeago").timeago();
+
+    $("#menucontainer").hide();
+
+    $(".mainmenuicon").click(function() {
+        $("#menucontainer").toggle();
+    });
 });
         </script>
     </head>
@@ -16,6 +22,7 @@ $(function() {
         <div class="page">
             <div id="header">
                 <div id="title">
+                    <span class="mainmenuicon"></span>
                     <h1>Dahlia</h1>
                 </div>
 
@@ -23,6 +30,7 @@ $(function() {
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("Schedule a Retreat", "New", "Retreat")</li>
+                        <li>@Html.ActionLink("Manage Retreats", "Index", "ManageRetreats")</li>
                         <li>@Html.ActionLink("Register a Participant", "New", "Participant")</li>
                         <hr />
                         <li>@Html.ActionLink("View Participants", "List", "Participant")</li>
