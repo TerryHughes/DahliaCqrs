@@ -1,3 +1,10 @@
+@model IEnumerable<dynamic>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Events Timeline";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -5,16 +12,43 @@
         <title>@ViewBag.Title</title>
         <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
         <script src="@Url.Content("~/Scripts/jquery-1.6.1.min.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/jquery.timeago.js")" type="text/javascript"></script>
+<!-- For some reason this has to be loaded in the page's head, on the view file it throws an error -->
+<script src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" type="text/javascript"></script>
         <script type="text/javascript">
 $(function() {
-    $("abbr.timeago").timeago();
-
     $("#menucontainer").hide();
 
     $(".mainmenuicon").click(function() {
         $("#menucontainer").toggle();
     });
+
+        var eventSource = new Timeline.DefaultEventSource();
+        var now = new Date();
+        var target = new Date(new Date().setHours(now.getHours() - 3));
+
+        var bands = [
+            Timeline.createBandInfo({
+                width: "90%",
+                intervalUnit: Timeline.DateTime.HOUR,
+                intervalPixels: 120,
+                eventSource: eventSource,
+                date: target
+            }),
+            Timeline.createBandInfo({
+                width: "10%",
+                intervalUnit: Timeline.DateTime.DAY,
+                intervalPixels: 210,
+                eventSource: eventSource,
+                date: target,
+                overview: true
+            })
+        ];
+
+        bands[1].syncWith = 0;
+        bands[1].highlight = true;
+
+        Timeline.create(document.getElementById("eventstimeline"), bands);
+        Timeline.loadJSON("http://localhost/dahlia/Timeline/EventData", function(json, url) { eventSource.loadJSON(json, url); });
 });
         </script>
     </head>
@@ -40,11 +74,10 @@ $(function() {
             </div>
 
             <div id="main">
-                @RenderBody()
+                <div id="eventstimeline" style="height: 500px; border: 1px solid #AAAAAA"></div>
             </div>
 
             <div id="footer">
-                @Html.Action("Pending", "Home")
             </div>
         </div>
     </body>

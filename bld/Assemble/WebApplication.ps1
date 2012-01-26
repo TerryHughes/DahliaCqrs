@@ -17,6 +17,7 @@ function Assemble-WebApplication {
     cpi "ref\timeago\jquery.timeago.js" "app\web\Scripts"
     cpi "ref\jquery-ui-1.8.16.custom.min.js" "app\web\Scripts"
     cpi "ref\jQRangeSlider-min\jQAllRangeSliders-min.js" "app\web\Scripts"
+    cpi "ref\timeline\timeline_js\timeline-api.js" "app\web\Scripts"
 
     Make-Directory "app\web\bin"
 
