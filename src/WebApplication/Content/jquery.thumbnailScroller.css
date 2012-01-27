@@ -1,0 +1,22 @@
+.jThumbnailScroller {
+    border-bottom: 2px solid #000000;
+    border-top: 2px solid #000000;
+    overflow: hidden;
+    position: relative;
+}
+
+.jThumbnailScroller .jTscrollerContainer {
+}
+
+.jThumbnailScroller .jTscroller {
+    display: inline-block;
+    margin: 5px 0px 5px 0px;
+    position: relative;
+}
+
+.jThumbnailScroller .jTscroller a {
+    color: #474747;
+    font-weight: bold;
+    margin: 0px 5px 0px 5px;
+    text-decoration: none;
+}

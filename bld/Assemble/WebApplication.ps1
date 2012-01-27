@@ -18,6 +18,7 @@ function Assemble-WebApplication {
     cpi "ref\jquery-ui-1.8.16.custom.min.js" "app\web\Scripts"
     cpi "ref\jQRangeSlider-min\jQAllRangeSliders-min.js" "app\web\Scripts"
     cpi "ref\timeline\timeline_js\timeline-api.js" "app\web\Scripts"
+    cpi "ref\jquery_thumbnail_scroller\jquery.thumbnailScroller.js" "app\web\scripts"
 
     Make-Directory "app\web\bin"
 
