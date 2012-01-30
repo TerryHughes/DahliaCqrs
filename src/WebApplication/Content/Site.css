@@ -8,10 +8,6 @@
     width: 25px;
 }
 
-#mainmenu {
-    margin: -20px 0px 0px 10px;
-}
-
 .itemmenuicon {
     background-image: url(../Images/itemmenu.png);
     background-repeat: no-repeat;
@@ -48,6 +44,10 @@
     width: 90%;
 }
 
+#mainmenu {
+    margin: -20px 0px 0px 10px;
+}
+
 .actions {
     border: 1px solid #000000;
     list-style-type: none;
@@ -66,41 +66,6 @@
 
 .actions a:hover {
     background: #808080;
-    color: #FFFFFF;
-}
-
-.participants {
-    color: #474747;
-    list-style-type: none;
-    max-width: 500px;
-    padding-left: 0px;
-}
-
-.participants li {
-    border: 1px solid #000000;
-    margin: 5px 0px;
-    padding: 5px;
-}
-
-.name a {
-    color: #474747;
-    font-size: large;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.remove a {
-    color: #474747;
-    float: right;
-    font-size: x-small;
-    text-decoration: none;
-}
-
-.participants li:hover {
-    background: #808080;
-}
-
-.participants li:hover a {
     color: #FFFFFF;
 }
 
@@ -124,4 +89,8 @@
 .retreats li {
     display: inline-block;
     width: 250px;
+}
+
+.participants li {
+    width: 500px;
 }
