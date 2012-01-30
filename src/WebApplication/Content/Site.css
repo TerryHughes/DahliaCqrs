@@ -134,8 +134,8 @@
     width: 25px;
 }
 
-.menuicon {
-    background-image: url(../Images/menu.png);
+.itemmenuicon {
+    background-image: url(../Images/itemmenu.png);
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;

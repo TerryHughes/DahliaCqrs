@@ -11,13 +11,13 @@
 {
     <li>
         <span class="title">@retreat.Date.ToShortDateString()</span>
-        <span class="menuicon" retreatid="@retreat.Id"></span>
+        <span class="itemmenuicon" retreatid="@retreat.Id"></span>
         <div>@retreat.Description</div>
     </li>
 }
 </ul>
 
-<ul class="menu">
+<ul class="menu itemmenu">
     <li>@Html.ActionLink("Rename", "Ren", new { id = "temp" })</li>
     <li>@Html.ActionLink("Reschedule", "Res", new { id = "temp" })</li>
     <li>@Html.ActionLink("Cancel", "Cancel", new { id = "temp" })</li>
@@ -29,21 +29,21 @@
 <script src="@Url.Content("~/Scripts/jQAllRangeSliders-min.js")" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
-    $(".menu").hide();
+    $(".itemmenu").hide();
 
-    $(".menuicon").click(function() {
+    $(".itemmenuicon").click(function() {
         var thisOffset = $(this).offset();
         var targetOffset = { top: thisOffset.top + 15, left: thisOffset.left };
 
-        var menuOffset = $(".menu").offset();
+        var itemMenuOffset = $(".itemmenu").offset();
 
-        if (menuOffset.top == targetOffset.top && menuOffset.left == targetOffset.left)
-            $(".menu").toggle();
+        if (itemMenuOffset.top == targetOffset.top && itemMenuOffset.left == targetOffset.left)
+            $(".itemmenu").toggle();
         else {
-            $(".menu").show();
-            $(".menu").offset(targetOffset);
+            $(".itemmenu").show();
+            $(".itemmenu").offset(targetOffset);
 
-            var links = $(".menu").find("a");
+            var links = $(".itemmenu").find("a");
 
             var i = 0, link;
             for ( ; link = links[i++]; ) {
