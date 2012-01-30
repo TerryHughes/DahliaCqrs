@@ -29,6 +29,28 @@
     width: 90%;
 }
 
+.menu {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    list-style-type: none;
+    max-width: 100px;
+    padding: 0px;
+    position: absolute;
+    z-index: 75;
+}
+
+.menu a {
+    color: #474747;
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background: #808080;
+    color: #FFFFFF;
+}
+
 .actions {
     border: 1px solid #000000;
     list-style-type: none;
@@ -120,28 +142,6 @@
     float: right;
     height: 10px;
     width: 10px;
-}
-
-.menu {
-    background: #FFFFFF;
-    border: 1px solid #000000;
-    list-style-type: none;
-    max-width: 100px;
-    padding: 0px;
-    position: absolute;
-    z-index: 75;
-}
-
-.menu a {
-    color: #474747;
-    display: block;
-    padding: 5px;
-    text-decoration: none;
-}
-
-.menu a:hover {
-    background: #808080;
-    color: #FFFFFF;
 }
 
 .retreats li {
