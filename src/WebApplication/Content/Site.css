@@ -127,7 +127,7 @@
     border: 1px solid #000000;
     list-style-type: none;
     max-width: 100px;
-    padding: 5px 0px 5px 0px;
+    padding: 0px;
     position: absolute;
     z-index: 75;
 }
