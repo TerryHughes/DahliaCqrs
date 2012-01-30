@@ -40,7 +40,7 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
 
         public void Unregister()
         {
-            Apply(new CurrentUnregisteredEvent());
+            Apply(new CurrentUnregisteredEvent { Name = name, Note = note });
         }
 
         public void Snapshot()
