@@ -4,21 +4,56 @@
     ViewBag.Title = "Retreats";
 }
 
-<p>
-    @Html.Action("Current", "Retreat", new { selected = Model.Id })
+@Html.Action("Current", "Retreat", new { selected = Model.Id })
 
-    <h2>@Model.Description</h2>
-    <ul class="actions">
-        <li>@Html.ActionLink("Add Participant", "AddPartic", new { id = Model.Id })</li>
-    </ul>
+<h2>@Model.Description</h2>
+<ul class="actions">
+    <li>@Html.ActionLink("Add Participant", "AddPartic", new { id = Model.Id })</li>
+</ul>
 
-    @if (((IDictionary<string, object>)Model).ContainsKey("Participants"))
+@if (((IDictionary<string, object>)Model).ContainsKey("Participants"))
+{
+    <ul class="listbox participants">
+    @foreach (var participant in Model.Participants)
     {
-        <ul>
-        @foreach (var participant in Model.Participants)
-        {
-            <li>@participant.ParticipantName</li>
-        }
-        </ul>
+        <li>
+            <span class="title">@participant.ParticipantName</span>
+            <span class="itemmenuicon" participantid="@participant.ParticipantId"></span>
+        </li>
     }
-</p>
+    </ul>
+}
+
+<ul class="menu itemmenu">
+    <li>@Html.ActionLink("Schedule", "Ren", new { id = "temp" })</li>
+    <li>@Html.ActionLink("Unschedule (put back on wait list)", "Snapshot", new { id = "temp" })</li>
+    <li>@Html.ActionLink("Remove From Wait List", "Unregister", new { id = "temp" })</li>
+    <li>@Html.ActionLink("Unschedule (and remove from wait list)", "Unregister", new { id = "temp" })</li>
+</ul>
+
+<script type="text/javascript">
+$(function() {
+    $(".itemmenu").hide();
+
+    $(".itemmenuicon").click(function() {
+        var thisOffset = $(this).offset();
+        var targetOffset = { top: thisOffset.top + 15, left: thisOffset.left };
+
+        var itemMenuOffset = $(".itemmenu").offset();
+
+        if (itemMenuOffset.top == targetOffset.top && itemMenuOffset.left == targetOffset.left)
+            $(".itemmenu").toggle();
+        else {
+            $(".itemmenu").show();
+            $(".itemmenu").offset(targetOffset);
+
+            var links = $(".itemmenu").find("a");
+
+            var i = 0, link;
+            for ( ; link = links[i++]; ) {
+                link.href = link.href.substr(0, link.href.lastIndexOf("/") + 1) + this.getAttribute("participantid");
+            }
+        }
+    });
+});
+</script>
