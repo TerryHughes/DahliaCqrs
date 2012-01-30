@@ -1,6 +1,6 @@
 #menucontainer {
     background: #FFFFFF;
-    border: 1px solid black;
+    border: 1px solid #000000;
     margin: -20px 0px 0px 10px;
     max-width: 200px;
     position: absolute;
@@ -21,7 +21,7 @@
 }
 
 #menu a:hover {
-    background-color: gray;
+    background-color: #808080;
     color: #FFFFFF;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .actions a:hover {
-    background: gray;
+    background: #808080;
     color: #FFFFFF;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .participants li:hover {
-    background: gray;
+    background: #808080;
 }
 
 .participants li:hover a {
@@ -140,7 +140,7 @@
 }
 
 .menu a:hover {
-    background: gray;
+    background: #808080;
     color: #FFFFFF;
 }
 
