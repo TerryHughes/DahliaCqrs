@@ -70,12 +70,13 @@
 }
 
 .listbox {
-    list-style-type: none;
+//    list-style-type: none;
     padding-left: 0px;
 }
 
 .listbox li {
     border: 1px solid #000000;
+    display: inline-block;
     margin: 5px 0px;
     padding: 5px;
 }
@@ -87,10 +88,10 @@
 }
 
 .retreats li {
-    display: inline-block;
     width: 250px;
 }
 
 .participants li {
+    vertical-align: top;
     width: 500px;
 }
