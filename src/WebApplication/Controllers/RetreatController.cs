@@ -63,6 +63,10 @@ namespace Dahlia.WebApplication.Controllers
 
             var retreat2 = repository.All("SELECT * FROM [Retreats] WHERE @date <= [Date] ORDER BY [Date], [Description]", new[] { date }).First();
 
+            var participants2 = repository.All("SELECT * FROM [ParticipantsAssignedToRetreat] WHERE [RetreatId] = @id", new[] { new KeyValuePair<string, object>("@id", retreat2.Id) });
+
+            retreat2.Participants = participants2;
+
             return View(retreat2);
         }
 
