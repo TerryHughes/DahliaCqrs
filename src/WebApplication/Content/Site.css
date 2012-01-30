@@ -7,25 +7,25 @@
     z-index: 100;
 }
 
-#menu {
+.mainmenu {
     list-style-type: none;
     margin: 0px;
     padding-left: 0px;
 }
 
-#menu a {
+.mainmenu a {
     color: #474747;
     display: block;
     padding: 5px 10px;
     text-decoration: none;
 }
 
-#menu a:hover {
+.mainmenu a:hover {
     background-color: #808080;
     color: #FFFFFF;
 }
 
-#menu hr {
+.mainmenu hr {
     width: 90%;
 }
 
