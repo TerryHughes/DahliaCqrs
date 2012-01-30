@@ -1,54 +1,32 @@
 #menucontainer {
-    background: #FFFFFF;
-    border: 1px solid #000000;
-    margin: -20px 0px 0px 10px;
-    max-width: 200px;
+    margin: -35px 0px 0px 10px;
     position: absolute;
-    z-index: 100;
-}
-
-.mainmenu {
-    list-style-type: none;
-    margin: 0px;
-    padding-left: 0px;
-}
-
-.mainmenu a {
-    color: #474747;
-    display: block;
-    padding: 5px 10px;
-    text-decoration: none;
-}
-
-.mainmenu a:hover {
-    background-color: #808080;
-    color: #FFFFFF;
-}
-
-.mainmenu hr {
-    width: 90%;
 }
 
 .menu {
     background: #FFFFFF;
     border: 1px solid #000000;
     list-style-type: none;
-    max-width: 100px;
     padding-left: 0px;
     position: absolute;
-    z-index: 75;
+    white-space: nowrap;
+    z-index: 100;
 }
 
 .menu a {
     color: #474747;
     display: block;
-    padding: 5px;
+    padding: 5px 10px;
     text-decoration: none;
 }
 
 .menu a:hover {
     background: #808080;
     color: #FFFFFF;
+}
+
+.menu hr {
+    width: 90%;
 }
 
 .actions {
