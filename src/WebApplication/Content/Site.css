@@ -1,6 +1,25 @@
-#menucontainer {
-    margin: -35px 0px 0px 10px;
-    position: absolute;
+#mainmenuicon {
+    background-image: url(../Images/mainmenu.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    float: left;
+    height: 25px;
+    width: 25px;
+}
+
+#mainmenu {
+    margin: -20px 0px 0px 10px;
+}
+
+.itemmenuicon {
+    background-image: url(../Images/itemmenu.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    float: right;
+    height: 10px;
+    width: 10px;
 }
 
 .menu {
@@ -100,26 +119,6 @@
     color: #474747;
     font-size: large;
     font-weight: bold;
-}
-
-.mainmenuicon {
-    background-image: url(../Images/mainmenu.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    cursor: pointer;
-    float: left;
-    height: 25px;
-    width: 25px;
-}
-
-.itemmenuicon {
-    background-image: url(../Images/itemmenu.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    cursor: pointer;
-    float: right;
-    height: 10px;
-    width: 10px;
 }
 
 .retreats li {
