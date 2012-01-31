@@ -10,7 +10,7 @@ namespace Dahlia.DataStore.ParticipantUnregisteredEventHandlers.Participants
 
         protected override string Statement
         {
-            get { return "INSERT INTO [RemovedParticipants] SELECT * FROM [Participants] WHERE [Id] = @Id;DELETE FROM [Participants] WHERE [Id] = @Id"; }
+            get { return "DELETE FROM [Participants] WHERE [Id] = @Id"; }
         }
     }
 }
