@@ -31,7 +31,7 @@ namespace Dahlia.CommandProcessor
             }
         }
 
-        protected abstract void Action(TCommand command, TAggregateRoot aggregateRot);
+        protected abstract void Action(TCommand command, TAggregateRoot aggregateRoot);
 
         protected virtual Guid Against(TCommand command)
         {
