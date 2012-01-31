@@ -42,32 +42,28 @@ namespace Dahlia.WebApplication.Controllers
             return View(retreats);
         }
 
-        public ActionResult GoTo(Guid? id)
+        public ActionResult Index()
         {
-            if (id.HasValue)
-            {
-                var idpair = new KeyValuePair<string, object>("@id", id);
-
-                var retreat = repository.One("SELECT * FROM [Retreats] WHERE [Id] = @id", new[] { idpair });
-
-                var participants = repository.All("SELECT * FROM [ParticipantsAssignedToRetreat] WHERE [RetreatId] = @id", new[] { idpair });
-
-                retreat.Participants = participants;
-
-                return View(retreat);
-            }
-
             var today = DateTime.Today;
 
             var date = new KeyValuePair<string, object>("@date", today);
 
-            var retreat2 = repository.All("SELECT * FROM [Retreats] WHERE @date <= [Date] ORDER BY [Date], [Description]", new[] { date }).First();
+            var retreat = repository.One("SELECT TOP 1 * FROM [Retreats] WHERE @date <= [Date] ORDER BY [Date], [Description]", new[] { date });
 
-            var participants2 = repository.All("SELECT * FROM [ParticipantsAssignedToRetreat] WHERE [RetreatId] = @id", new[] { new KeyValuePair<string, object>("@id", retreat2.Id) });
+            return RedirectToAction("GoTo", new { id = retreat.Id });
+        }
 
-            retreat2.Participants = participants2;
+        public ActionResult GoTo(Guid id)
+        {
+            var idpair = new KeyValuePair<string, object>("@id", id);
 
-            return View(retreat2);
+            var retreat = repository.One("SELECT * FROM [Retreats] WHERE [Id] = @id", new[] { idpair });
+
+            var participants = repository.All("SELECT * FROM [ParticipantsAssignedToRetreat] WHERE [RetreatId] = @id", new[] { idpair });
+
+            retreat.Participants = participants;
+
+            return View(retreat);
         }
 
         public ActionResult New()
@@ -81,7 +77,7 @@ namespace Dahlia.WebApplication.Controllers
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
-            return RedirectToAction("GoTo");
+            return RedirectToAction("Index");
         }
 
         public ActionResult AddPartic(Guid id)
@@ -95,7 +91,7 @@ namespace Dahlia.WebApplication.Controllers
             HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
-            return RedirectToAction("GoTo");
+            return RedirectToAction("Index");
         }
     }
 }
