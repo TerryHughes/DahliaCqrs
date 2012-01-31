@@ -9,10 +9,14 @@ function Assemble-WebApplication {
 
     gci "bin\TransformWebConfig\transformed\src\WebApplication" -r | ? { !$_.PSIsContainer } | cpi -des { Join-Path "app\web" $_.FullName.Substring((rvpa "bin\TransformWebConfig\transformed\src\WebApplication").Path.Length) }
 
+    gci "ref\jQRangeSlider-min\css" -ex ".gitignore" -r | cpi -des { Join-Path "app\web\Content" $_.FullName.Substring((rvpa "ref\jQRangeSlider-min\css").Path.Length) }
+
     Make-Directory "app\web\Scripts"
 
     cpi "lib\jQuery\Content\Scripts\jquery-1.6.1.min.js" "app\web\Scripts"
     cpi "ref\timeago\jquery.timeago.js" "app\web\Scripts"
+    cpi "ref\jquery-ui-1.8.16.custom.min.js" "app\web\Scripts"
+    cpi "ref\jQRangeSlider-min\jQAllRangeSliders-min.js" "app\web\Scripts"
 
     Make-Directory "app\web\bin"
 
