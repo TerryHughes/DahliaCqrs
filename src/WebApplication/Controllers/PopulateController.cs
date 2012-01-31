@@ -56,6 +56,7 @@ namespace Dahlia.WebApplication.Controllers
             bus.Send(new CurrentRegisterParticipantCommand { Name = "Silent Bob", Note = "Doesn't talk much" });
             bus.Send(new CurrentRegisterParticipantCommand { Name = "Kal-El", Note = "Orphan" });
             bus.Send(new CurrentRegisterParticipantCommand { Name = "Humma Kavula", Note = "A semi-insane missionary living amongst the Jatravartid people of Viltvodle VI"/*, and a former space pirate*/ });
+            bus.Send(new CurrentRegisterParticipantCommand { Name = "Zezozose Zadfrack Glutz", Note = "Charles Manson's kid" });
 
             return this.RedirectToAction<ParticipantController>(c => c.List());
         }
