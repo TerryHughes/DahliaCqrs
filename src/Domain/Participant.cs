@@ -21,8 +21,8 @@ namespace Dahlia.Domain
             RegisterConverter<Events.ParticipantUnregisteredEvent.Version1, Events.ParticipantUnregisteredEvent.Version2>(e => new Events.ParticipantUnregisteredEvent.Version2
             {
                 AggregateRootId = e.AggregateRootId,
-                Name = "how should i know what this was?",
-                Note = "really? again? really?"
+                Name = name,
+                Note = note
             });
         }
 
