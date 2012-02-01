@@ -46,6 +46,10 @@ namespace Dahlia.WebApplication.Controllers
             foreach (var mnth in Enumerable.Range(-2, 16))
                 scheduleRetreat(date.AddMonths(mnth));
 
+            bus.Send(new CurrentScheduleRetreatCommand { Date = new DateTime(2011, 12, 20), Description = "the end of the world ... of warcraft" });
+            bus.Send(new CurrentScheduleRetreatCommand { Date = new DateTime(2012, 12, 21), Description = "simply the start of the next b'ak'tun" });
+            bus.Send(new CurrentScheduleRetreatCommand { Date = new DateTime(1999, 12, 31), Description = "it's the final countdown" });
+
             bus.Send(new CurrentRegisterParticipantCommand { Name = "Eddie Adams", Note = "Mostly an average kid, mostly" });
             bus.Send(new CurrentRegisterParticipantCommand { Name = "First Doctor", Note = "Always changing ... keep an eye on him" });
             bus.Send(new CurrentRegisterParticipantCommand { Name = "Ms Yolanda", Note = "yosaffbridge" });

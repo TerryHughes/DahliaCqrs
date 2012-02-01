@@ -1,6 +1,5 @@
-namespace Dahlia.TryOutableSpecifications
+namespace Dahlia.Framework.TryOutableSpecs
 {
-    using Dahlia.Framework;
     using Machine.Specifications;
 
     public class when_creating

@@ -1,10 +1,9 @@
-namespace Dahlia.DictionaryExtensionSpecifications
+namespace Dahlia.Framework.DictionaryExtensionSpecs
 {
     using System.Collections.Generic;
-    using Dahlia.Framework;
     using Machine.Specifications;
 
-    public class when_trying_to_get_a_value_that_does_not_exist
+    public class when_trying_to_get_a_value_that_exists
     {
         Establish context =()=>
         {
@@ -13,11 +12,11 @@ namespace Dahlia.DictionaryExtensionSpecifications
             dictionary = new Dictionary<int, string> { { key, value } };
         };
 
-        Because of =()=> @try = dictionary.TryGetValue(key + 1);
+        Because of =()=> @try = dictionary.TryGetValue(key);
 
-        It should_have_failed =()=> @try.Failed.ShouldBeTrue();
+        It should_have_succeeded =()=> @try.Succeeded.ShouldBeTrue();
 
-        It should_not_have_a_value =()=> @try.Value.ShouldBeNull();
+        It should_have_a_value =()=> @try.Value.ShouldEqual(value);
 
         static int key;
         static string value;
