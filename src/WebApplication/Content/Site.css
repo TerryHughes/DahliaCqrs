@@ -95,3 +95,18 @@
     vertical-align: top;
     width: 500px;
 }
+
+.inARetreat {
+    padding-left: 0px;
+}
+
+.inARetreatContainer {
+    display: inline-block;
+    margin: 0px 10px;
+    vertical-align: top;
+    width: 250px;
+}
+
+.participantsInARetreat li {
+    width: 238px;
+}

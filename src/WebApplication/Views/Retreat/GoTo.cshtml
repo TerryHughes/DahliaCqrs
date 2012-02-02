@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Retreats";
+
+    var beds = Enumerable.Range(1, 6).Select(i => "bed " + i);
+    var partics = Enumerable.Range(1, 2).Select(i => new { ParticipantId = -1, ParticipantName = "partic " + i, BedName = "bed -1" });
 }
 
 @Html.Action("Current", "Retreat", new { selected = Model.Id })
@@ -11,24 +14,48 @@
     <li>@Html.ActionLink("Add Participant", "AddPartic", new { id = Model.Id })</li>
 </ul>
 
+<ul class="inARetreat">
+    <li class="inARetreatContainer">
+        <ul class="listbox participantsInARetreat">
+@foreach (var participant in partics)
+{
+            <li>
+                <span class="title">@participant.ParticipantName</span>
+                <span class="itemmenuicon" participantid="@participant.ParticipantId" subset="assigned"></span>
+                <div>@participant.BedName</div
+            </li>
+}
+        </ul>
+    </li>
+    <li class="inARetreatContainer">
+        <ul class="listbox participantsInARetreat">
 @if (((IDictionary<string, object>)Model).ContainsKey("Participants"))
 {
-    <ul class="listbox participants">
-    @foreach (var participant in Model.Participants)
+    foreach (var participant in Model.Participants)
     {
-        <li>
-            <span class="title">@participant.ParticipantName</span>
-            <span class="itemmenuicon" participantid="@participant.ParticipantId"></span>
-        </li>
+            <li>
+                <span class="title">@participant.ParticipantName</span>
+                <span class="itemmenuicon" participantid="@participant.ParticipantId" subset="waitlist"></span>
+            </li>
     }
-    </ul>
 }
+        </ul>
+    </li>
+    <li class="inARetreatContainer">
+        <ul class="listbox bedsInARetreat">
+@foreach (var bed in beds)
+{
+            <li>@bed</li>
+}
+        </ul>
+    </li>
+</ul>
 
 <ul class="menu itemmenu">
-    <li>@Html.ActionLink("Schedule", "Ren", new { id = "temp" })</li>
-    <li>@Html.ActionLink("Unschedule (put back on wait list)", "Snapshot", new { id = "temp" })</li>
-    <li>@Html.ActionLink("Remove From Wait List", "Unregister", new { id = "temp" })</li>
-    <li>@Html.ActionLink("Unschedule (and remove from wait list)", "Unregister", new { id = "temp" })</li>
+    <li class="assigned">@Html.ActionLink("Unassign (put back on wait list)", "Unassign", new { id = "temp" })</li>
+    <li class="assigned">@Html.ActionLink("Unassign (and remove from wait list)", "UnassignAndRemove", new { id = "temp" })</li>
+    <li class="waitlist">@Html.ActionLink("Assign", "Ass", new { id = "temp" })</li>
+    <li class="waitlist">@Html.ActionLink("Remove From Wait List", "RemoveParticipantFrom", new { id = "temp" })</li>
 </ul>
 
 <script type="text/javascript">
@@ -53,6 +80,9 @@ $(function() {
             for ( ; link = links[i++]; ) {
                 link.href = link.href.substr(0, link.href.lastIndexOf("/") + 1) + this.getAttribute("participantid");
             }
+
+            $(".itemmenu li").hide();
+            $("." + this.getAttribute("subset")).show();
         }
     });
 });
