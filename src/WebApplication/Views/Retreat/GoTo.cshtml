@@ -52,10 +52,10 @@
 </ul>
 
 <ul class="menu itemmenu">
-    <li class="assigned">@Html.ActionLink("Unassign (put back on wait list)", "Unassign", new { id = "temp" })</li>
-    <li class="assigned">@Html.ActionLink("Unassign (and remove from wait list)", "UnassignAndRemove", new { id = "temp" })</li>
-    <li class="waitlist">@Html.ActionLink("Assign", "Ass", new { id = "temp" })</li>
-    <li class="waitlist">@Html.ActionLink("Remove From Wait List", "RemoveParticipantFrom", new { id = "temp" })</li>
+    <li class="assigned">@Html.ActionLink("Unassign (put back on wait list)", "Unassign", new { id = @Model.Id, participantId = "temp" })</li>
+    <li class="assigned">@Html.ActionLink("Unassign (and remove from wait list)", "UnassignAndRemove", new { id = @Model.Id, participantId = "temp" })</li>
+    <li class="waitlist">@Html.ActionLink("Assign", "Ass", new { id = @Model.Id, participantId = "temp" })</li>
+    <li class="waitlist">@Html.ActionLink("Remove From Wait List", "RemoveParticipantFrom", new { id = @Model.Id, participantId = "temp" })</li>
 </ul>
 
 <script type="text/javascript">
@@ -78,7 +78,8 @@ $(function() {
 
             var i = 0, link;
             for ( ; link = links[i++]; ) {
-                link.href = link.href.substr(0, link.href.lastIndexOf("/") + 1) + this.getAttribute("participantid");
+//                link.href = link.href.substr(0, link.href.lastIndexOf("/") + 1) + this.getAttribute("participantid");
+                link.href = link.href.substr(0, link.href.lastIndexOf("=") + 1) + this.getAttribute("participantid");
             }
 
             $(".itemmenu li").hide();

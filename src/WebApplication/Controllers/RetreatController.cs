@@ -7,6 +7,10 @@ namespace Dahlia.WebApplication.Controllers
     using NServiceBus;
     using CurrentScheduleRetreatCommand = Commands.ScheduleRetreatCommand.Version1;
     using CurrentAddParticipantCommand = Commands.AddParticipantToRetreatCommand.Version1;
+    using CurrentRemoveParticipantCommand = Commands.RemoveParticipantFromRetreatCommand.Version1;
+    using CurrentAssignParticipantCommand = Commands.AssignParticipantToRetreatCommand.Version1;
+    using CurrentUnassignParticipantCommand = Commands.UnassignParticipantFromRetreatCommand.Version1;
+    using CurrentUnassignAndRemoveParticipantCommand = Commands.UnassignAndRemoveParticipantFromRetreatCommand.Version1;
     using Data.Common;
     using Framework;
 
@@ -89,7 +93,44 @@ namespace Dahlia.WebApplication.Controllers
             var command = new CurrentAddParticipantCommand { AggregateRootId = id, ParticipantId = participantId };
             bus.Send(command);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("GoTo", new { id = id });
+        }
+
+        public ActionResult Unassign(Guid id, Guid participantId)
+        {
+            var command = new CurrentUnassignParticipantCommand { AggregateRootId = id, ParticipantId = participantId };
+            bus.Send(command);
+
+            return RedirectToAction("GoTo", new { id = id });
+        }
+
+        public ActionResult UnassignAndRemove(Guid id, Guid participantId)
+        {
+            var command = new CurrentUnassignAndRemoveParticipantCommand { AggregateRootId = id, ParticipantId = participantId };
+            bus.Send(command);
+
+            return RedirectToAction("GoTo", new { id = id });
+        }
+
+        public ActionResult Ass(Guid id, Guid participantId)
+        {
+            return View();
+        }
+
+        public ActionResult Assign(Guid id, Guid participantId, Guid bedId)
+        {
+            var command = new CurrentAssignParticipantCommand { AggregateRootId = id, ParticipantId = participantId, BedId = bedId };
+            bus.Send(command);
+
+            return RedirectToAction("GoTo", new { id = id });
+        }
+
+        public ActionResult RemoveParticipantFrom(Guid id, Guid participantId)
+        {
+            var command = new CurrentRemoveParticipantCommand { AggregateRootId = id, ParticipantId = participantId };
+            bus.Send(command);
+
+            return RedirectToAction("GoTo", new { id = id });
         }
     }
 }

@@ -7,6 +7,9 @@ namespace Dahlia.Domain
     using CurrentRetreatRenamedEvent = Events.RetreatRenamedEvent.Version1;
     using CurrentRetreatCanceledEvent = Events.RetreatCanceledEvent.Version1;
     using CurrentParticipantAddedEvent = Events.ParticipantAddedToRetreatEvent.Version2;
+    using CurrentParticipantRemovedEvent = Events.ParticipantRemovedFromRetreatEvent.Version1;
+    using CurrentParticipantAssignedEvent = Events.ParticipantAssignedToRetreatEvent.Version1;
+    using CurrentParticipantUnassignedEvent = Events.ParticipantUnassignedFromRetreatEvent.Version1;
 
     public class Retreat : AggregateRoot
     {
@@ -19,6 +22,9 @@ namespace Dahlia.Domain
             RegisterHandler<CurrentRetreatRenamedEvent>(InternalApply);
             RegisterHandler<CurrentRetreatCanceledEvent>(InternalApply);
             RegisterHandler<CurrentParticipantAddedEvent>(InternalApply);
+            RegisterHandler<CurrentParticipantRemovedEvent>(InternalApply);
+            RegisterHandler<CurrentParticipantAssignedEvent>(InternalApply);
+            RegisterHandler<CurrentParticipantUnassignedEvent>(InternalApply);
 
             RegisterConverter<Events.ParticipantAddedToRetreatEvent.Version1, Events.ParticipantAddedToRetreatEvent.Version2>(e => new Events.ParticipantAddedToRetreatEvent.Version2
             {
@@ -56,6 +62,21 @@ System.Console.WriteLine("creating: (" + date + ") " + description);
             Apply(new CurrentParticipantAddedEvent { RetreatDate = date, ParticipantId = participantId, ParticipantName = "how could i know?" });
         }
 
+        public void Remove(Guid participantId)
+        {
+            Apply(new CurrentParticipantRemovedEvent { RetreatDate = date, ParticipantId = participantId, ParticipantName = "how could i know?" });
+        }
+
+        public void Assign(Guid participantId, Guid bedId)
+        {
+            Apply(new CurrentParticipantAssignedEvent { ParticipantId = participantId, ParticipantName = "how could i know?", BedId = bedId, BedName = "its comfy?" });
+        }
+
+        public void Unassign(Guid participantId)
+        {
+            Apply(new CurrentParticipantUnassignedEvent { ParticipantId = participantId, ParticipantName = "how could i know?"/*, BedId = bedId*/, BedName = "its comfy?" });
+        }
+
         void InternalApply(CurrentRetreatScheduledEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
@@ -82,6 +103,24 @@ System.Console.WriteLine("applying: " + @event.Id);
         }
 
         void InternalApply(CurrentParticipantAddedEvent @event)
+        {
+System.Console.WriteLine("applying: " + @event.Id);
+            //
+        }
+
+        void InternalApply(CurrentParticipantRemovedEvent @event)
+        {
+System.Console.WriteLine("applying: " + @event.Id);
+            //
+        }
+
+        void InternalApply(CurrentParticipantAssignedEvent @event)
+        {
+System.Console.WriteLine("applying: " + @event.Id);
+            //
+        }
+
+        void InternalApply(CurrentParticipantUnassignedEvent @event)
         {
 System.Console.WriteLine("applying: " + @event.Id);
             //
