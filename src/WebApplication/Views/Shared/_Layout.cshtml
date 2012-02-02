@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 
+@{
+    var loaded = DateTime.Now;
+}
+
 <html>
     <head>
         <title>@ViewBag.Title</title>
@@ -42,7 +46,7 @@ $(function() {
             </div>
 
             <div id="footer">
-                @Html.Action("Pending", "Home")
+                This page loaded <abbr class="timeago" title="@loaded">@loaded</abbr>.
             </div>
         </div>
     </body>

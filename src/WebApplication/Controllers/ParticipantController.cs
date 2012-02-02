@@ -38,7 +38,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Register(string name, string note)
         {
             var command = new CurrentRegisterCommand { Name = name, Note = note };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("List");
@@ -52,7 +51,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Rename(Guid id, string name)
         {
             var command = new CurrentRenameParticipantCommand { AggregateRootId = id, Name = name };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("List");
@@ -61,7 +59,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Unregister(Guid id)
         {
             var command = new CurrentUnregisterCommand { AggregateRootId = id };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("List");
@@ -70,7 +67,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Snapshot(Guid id)
         {
             var command = new CurrentSnapshotCommand { AggregateRootId = id };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("List");

@@ -37,7 +37,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Reschedule(Guid id, DateTime date)
         {
             var command = new CurrentRescheduleRetreatCommand { AggregateRootId = id, Date = date };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("Index");
@@ -51,7 +50,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Rename(Guid id, string description)
         {
             var command = new CurrentRenameRetreatCommand { AggregateRootId = id, Description = description };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("Index");
@@ -60,7 +58,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Cancel(Guid id)
         {
             var command = new CurrentCancelRetreatCommand { AggregateRootId = id };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("Index");

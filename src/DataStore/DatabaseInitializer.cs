@@ -30,7 +30,6 @@ namespace Dahlia.DataStore
         {
             var repository = new WriteRepository(new ConfigConnectionSettings("data"));
 
-            repository.Do("TRUNCATE TABLE [ProcessedCommands]", Enumerable.Empty<KeyValuePair<string, object>>());
             repository.Do("TRUNCATE TABLE [Retreats]", Enumerable.Empty<KeyValuePair<string, object>>());
             repository.Do("TRUNCATE TABLE [Participants]", Enumerable.Empty<KeyValuePair<string, object>>());
             repository.Do("TRUNCATE TABLE [ParticipantsAssignedToRetreat]", Enumerable.Empty<KeyValuePair<string, object>>());

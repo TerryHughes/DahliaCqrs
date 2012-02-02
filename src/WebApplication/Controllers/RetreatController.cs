@@ -74,7 +74,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult Schedule(DateTime date, string description)
         {
             var command = new CurrentScheduleRetreatCommand { Date = date, Description = description };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("Index");
@@ -88,7 +87,6 @@ namespace Dahlia.WebApplication.Controllers
         public ActionResult AddParticipantTo(Guid id, Guid participantId)
         {
             var command = new CurrentAddParticipantCommand { AggregateRootId = id, ParticipantId = participantId };
-            HomeController.Cache.Add(command.Id);
             bus.Send(command);
 
             return RedirectToAction("Index");
