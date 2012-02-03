@@ -1,8 +1,7 @@
-namespace Dahlia.HandlerNotRegisteredExceptionSpecifications
+namespace Dahlia.Domain.HandlerNotRegisteredExceptionSpecs
 {
-    using Dahlia.Domain;
-    using Dahlia.Events;
     using Machine.Specifications;
+    using Events;
 
     public class when_initializing_a_HandlerNotRegisteredException
     {

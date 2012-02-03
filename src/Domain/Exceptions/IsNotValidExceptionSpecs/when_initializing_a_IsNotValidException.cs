@@ -1,6 +1,5 @@
-namespace Dahlia.IsNotValidExceptionSpecifications
+namespace Dahlia.Domain.IsNotValidExceptionSpecs
 {
-    using Dahlia.Domain;
     using Machine.Specifications;
 
     public class when_initializing_a_IsNotValidException

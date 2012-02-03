@@ -1,6 +1,5 @@
-namespace Dahlia.AggregateRootNotCreatedExceptionSpecifications
+namespace Dahlia.Domain.AggregateRootNotCreatedExceptionSpecs
 {
-    using Dahlia.Domain;
     using Machine.Specifications;
 
     public class when_initializing_a_AggregateRootNotCreatedException
@@ -16,7 +15,7 @@ namespace Dahlia.AggregateRootNotCreatedExceptionSpecifications
         static TestAggregateRoot aggregateRoot;
         static AggregateRootNotCreatedException exception;
 
-        private class TestAggregateRoot : AggregateRoot
+        private class TestAggregateRoot : Dahlia.Domain.AggregateRoot
         {
         }
     }
