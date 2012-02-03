@@ -4,7 +4,6 @@
     ViewBag.Title = "Retreats";
 
     var beds = Enumerable.Range(1, 6).Select(i => "bed " + i);
-    var partics = Enumerable.Range(1, 2).Select(i => new { ParticipantId = -1, ParticipantName = "partic " + i, BedName = "bed -1" });
 }
 
 @Html.Action("Current", "Retreat", new { selected = Model.Id })
@@ -17,7 +16,7 @@
 <ul class="inARetreat">
     <li class="inARetreatContainer">
         <ul class="listbox participantsInARetreat">
-@foreach (var participant in partics)
+@foreach (var participant in Model.AssignedParticipants)
 {
             <li>
                 <span class="title">@participant.ParticipantName</span>
