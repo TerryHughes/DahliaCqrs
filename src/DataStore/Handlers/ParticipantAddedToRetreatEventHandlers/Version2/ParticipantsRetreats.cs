@@ -1,4 +1,4 @@
-namespace Dahlia.DataStore.ParticipantAddedToRetreatEventHandlers.RetreatsParticipantIsAssignedTo
+namespace Dahlia.DataStore.ParticipantAddedToRetreatEventHandlers.ParticipantsRetreats
 {
     using Data.Common;
 
@@ -10,7 +10,7 @@ namespace Dahlia.DataStore.ParticipantAddedToRetreatEventHandlers.RetreatsPartic
 
         protected override string Statement
         {
-            get { return "INSERT INTO [RetreatsParticipantIsAssignedTo] ([ParticipantId], [RetreatId], [RetreatDate]) VALUES (@ParticipantId, @RetreatId, @RetreatDate)"; }
+            get { return "INSERT INTO [ParticipantsRetreats] ([ParticipantId], [RetreatId], [RetreatDate]) VALUES (@ParticipantId, @RetreatId, @RetreatDate)"; }
         }
     }
 }

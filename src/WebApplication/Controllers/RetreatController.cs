@@ -63,9 +63,9 @@ namespace Dahlia.WebApplication.Controllers
 
             var retreat = repository.One("SELECT * FROM [Retreats] WHERE [Id] = @id", new[] { idpair });
 
-            var participants = repository.All("SELECT * FROM [ParticipantsAssignedToRetreat] WHERE [RetreatId] = @id", new[] { idpair });
+            var waitListParticipants = repository.All("SELECT * FROM [RetreatsWaitList] WHERE [RetreatId] = @id", new[] { idpair });
 
-            retreat.Participants = participants;
+            retreat.WaitListParticipants = waitListParticipants;
 
             return View(retreat);
         }

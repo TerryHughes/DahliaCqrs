@@ -29,15 +29,12 @@
     </li>
     <li class="inARetreatContainer">
         <ul class="listbox participantsInARetreat">
-@if (((IDictionary<string, object>)Model).ContainsKey("Participants"))
+@foreach (var participant in Model.WaitListParticipants)
 {
-    foreach (var participant in Model.Participants)
-    {
             <li>
                 <span class="title">@participant.ParticipantName</span>
                 <span class="itemmenuicon" participantid="@participant.ParticipantId" subset="waitlist"></span>
             </li>
-    }
 }
         </ul>
     </li>

@@ -1,4 +1,4 @@
-namespace Dahlia.DataStore.RetreatRescheduledEventHandlers.RetreatsParticipantIsAssignedTo
+namespace Dahlia.DataStore.RetreatRescheduledEventHandlers.ParticipantsRetreats
 {
     using Data.Common;
 
@@ -10,7 +10,7 @@ namespace Dahlia.DataStore.RetreatRescheduledEventHandlers.RetreatsParticipantIs
 
         protected override string Statement
         {
-            get { return "UPDATE [RetreatsParticipantIsAssignedTo] SET [RetreatDate] = @Date WHERE [RetreatId] = @Id"; }
+            get { return "UPDATE [ParticipantsRetreats] SET [RetreatDate] = @Date WHERE [RetreatId] = @Id"; }
         }
     }
 }

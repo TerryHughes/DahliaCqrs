@@ -1,4 +1,4 @@
-namespace Dahlia.DataStore.RetreatCanceledEventHandlers.ParticipantsAssignedToRetreat
+namespace Dahlia.DataStore.RetreatCanceledEventhandlers.ParticipantsRetreats
 {
     using Data.Common;
 
@@ -10,7 +10,7 @@ namespace Dahlia.DataStore.RetreatCanceledEventHandlers.ParticipantsAssignedToRe
 
         protected override string Statement
         {
-            get { return "DELETE FROM [ParticipantsAssignedToRetreat] WHERE [RetreatId] = @Id"; }
+            get { return "DELETE FROM [ParticipantsRetreats] WHERE [RetreatId] = @Id"; }
         }
     }
 }

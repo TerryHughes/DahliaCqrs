@@ -1,4 +1,4 @@
-namespace Dahlia.DataStore.ParticipantUnregisteredEventHandlers.RetreatsParticipantIsAssignedTo
+namespace Dahlia.DataStore.ParticipantUnregisteredEventHandlers.RetreatsWaitList
 {
     using Data.Common;
 
@@ -10,7 +10,7 @@ namespace Dahlia.DataStore.ParticipantUnregisteredEventHandlers.RetreatsParticip
 
         protected override string Statement
         {
-            get { return "DELETE FROM [RetreatsParticipantIsAssignedTo] WHERE [ParticipantId] = @Id"; }
+            get { return "DELETE FROM [RetreatsWaitList] WHERE [ParticipantId] = @Id"; }
         }
     }
 }
