@@ -32,8 +32,10 @@ namespace Dahlia.DataStore
 
             repository.Do("TRUNCATE TABLE [Retreats]", Enumerable.Empty<KeyValuePair<string, object>>());
             repository.Do("TRUNCATE TABLE [Participants]", Enumerable.Empty<KeyValuePair<string, object>>());
+            repository.Do("TRUNCATE TABLE [RetreatsAssigned]", Enumerable.Empty<KeyValuePair<string, object>>());
             repository.Do("TRUNCATE TABLE [RetreatsWaitList]", Enumerable.Empty<KeyValuePair<string, object>>());
             repository.Do("TRUNCATE TABLE [ParticipantsRetreats]", Enumerable.Empty<KeyValuePair<string, object>>());
+            repository.Do("TRUNCATE TABLE [Beds]", Enumerable.Empty<KeyValuePair<string, object>>());
         }
 
         void PopulateTheDatabase()
