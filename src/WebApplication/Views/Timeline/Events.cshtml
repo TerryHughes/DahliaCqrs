@@ -62,11 +62,13 @@ $(function() {
 
                 <ul id="mainmenu" class="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <hr />
                     <li>@Html.ActionLink("Schedule a Retreat", "New", "Retreat")</li>
                     <li>@Html.ActionLink("Manage Retreats", "Index", "ManageRetreats")</li>
-                    <li>@Html.ActionLink("Register a Participant", "New", "Participant")</li>
                     <hr />
+                    <li>@Html.ActionLink("Register a Participant", "New", "Participant")</li>
                     <li>@Html.ActionLink("View Participants", "List", "Participant")</li>
+                    <hr />
                     <li>@Html.ActionLink("Events Timeline", "Events", "Timeline")</li>
                 </ul>
             </div>
