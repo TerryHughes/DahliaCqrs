@@ -14,7 +14,8 @@ function Compile-Specs
 #        $domainFile + `
         $commandsFile + `
         $commandProcessorFile + `
-        $webApplicationFile
+        $webApplicationFile + `
+        $testingFile
 
     Generic-Compile $specsFile $sourceFiles $referenceAssemblies
 }

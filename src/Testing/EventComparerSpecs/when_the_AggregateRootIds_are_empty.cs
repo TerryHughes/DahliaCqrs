@@ -1,6 +1,5 @@
-namespace Dahlia.EventComparerSpecifications
+namespace Dahlia.Events.EventComparerSpecs
 {
-    using Dahlia.Events;
     using Machine.Specifications;
 
     public class when_the_AggregateRootIds_are_empty

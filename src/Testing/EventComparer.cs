@@ -4,7 +4,6 @@ namespace Dahlia.Events
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using Dahlia.Events;
 
     public class EventComparer : IEqualityComparer<Event>
     {

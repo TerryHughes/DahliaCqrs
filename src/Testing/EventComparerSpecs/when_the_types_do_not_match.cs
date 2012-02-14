@@ -1,7 +1,6 @@
-namespace Dahlia.EventComparerSpecifications
+namespace Dahlia.Events.EventComparerSpecs
 {
     using System;
-    using Dahlia.Events;
     using Machine.Specifications;
 
     public class when_the_types_do_not_match

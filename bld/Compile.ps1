@@ -8,6 +8,7 @@ Include bld\Compile\DataStore.ps1
 Include bld\Compile\Events.ps1
 #Include bld\Compile\EventStores.ps1
 Include bld\Compile\Framework.ps1
+Include bld\Compile\Testing.ps1
 Include bld\Compile\Specs.ps1
 Include bld\Compile\WebApplication.ps1
 Include bld\Utilities\Make-Directory.ps1
@@ -25,6 +26,7 @@ Properties {
     $eventsFile = "bin\$applicationName.Events.dll"
 #    $eventStoresFile = "bin\$applicationName.EventStores.dll"
     $frameworkFile = "bin\$applicationName.Framework.dll"
+    $testingFile = "bin\$applicationName.Testing.dll"
     $specsFile = "bin\$applicationName.Specs.dll"
     $webApplicationFile = "bin\$applicationName.WebApplication.dll"
 }
@@ -76,5 +78,6 @@ Task Compile {
     Compile-DataStore
     Compile-CommandProcessor
     Compile-WebApplication
+    Compile-Testing
     Compile-Specs
 }
