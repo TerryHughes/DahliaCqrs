@@ -46,7 +46,6 @@ System.Console.WriteLine("creating: " + name);
 
         void InternalApply(CurrentRemovedEvent @event)
         {
-            //
         }
     }
 }

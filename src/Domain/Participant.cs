@@ -62,7 +62,6 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
 
         void InternalApply(CurrentUnregisteredEvent @event)
         {
-            //
         }
 
         void InternalApply(CurrentSnapshottedEvent @event)

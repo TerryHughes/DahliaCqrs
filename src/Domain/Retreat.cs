@@ -90,32 +90,26 @@ System.Console.WriteLine("creating: (" + date + ") " + description);
 
         void InternalApply(CurrentRetreatRenamedEvent @event)
         {
-            //description = @event.Description;
         }
 
         void InternalApply(CurrentRetreatCanceledEvent @event)
         {
-            //
         }
 
         void InternalApply(CurrentParticipantAddedEvent @event)
         {
-            //
         }
 
         void InternalApply(CurrentParticipantRemovedEvent @event)
         {
-            //
         }
 
         void InternalApply(CurrentParticipantAssignedEvent @event)
         {
-            //
         }
 
         void InternalApply(CurrentParticipantUnassignedEvent @event)
         {
-            //
         }
     }
 }
