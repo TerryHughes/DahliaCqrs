@@ -35,20 +35,17 @@ System.Console.WriteLine("creating: " + name);
 
         void InternalApply(CurrentAddedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             Id = @event.AggregateRootId;
             name = @event.Name;
         }
 
         void InternalApply(CurrentRenamedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             name = @event.Name;
         }
 
         void InternalApply(CurrentRemovedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //
         }
     }

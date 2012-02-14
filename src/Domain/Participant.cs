@@ -50,7 +50,6 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
 
         void InternalApply(CurrentRegisteredEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             Id = @event.AggregateRootId;
             name = @event.Name;
             note = @event.Note;
@@ -58,19 +57,16 @@ System.Console.WriteLine("applying: " + @event.Id);
 
         void InternalApply(CurrentParticipantRenamedEvent @event)
         {
-//System.Console.WriteLine("applying: " + @event.Id);
             name = @event.Name;
         }
 
         void InternalApply(CurrentUnregisteredEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //
         }
 
         void InternalApply(CurrentSnapshottedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             name = @event.Name;
             note = @event.Note;
         }

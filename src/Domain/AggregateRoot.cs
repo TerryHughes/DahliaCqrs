@@ -88,6 +88,7 @@ namespace Dahlia.Domain
             if (@try.Failed)
                 throw new HandlerNotRegisteredException(this, @event);
 
+System.Console.WriteLine("applying: " + @event.Id);
             @try.Value(@event);
         }
 

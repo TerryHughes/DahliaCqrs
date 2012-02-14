@@ -79,50 +79,42 @@ System.Console.WriteLine("creating: (" + date + ") " + description);
 
         void InternalApply(CurrentRetreatScheduledEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             Id = @event.AggregateRootId;
             date = @event.Date;
         }
 
         void InternalApply(CurrentRetreatRescheduledEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             date = @event.Date;
         }
 
         void InternalApply(CurrentRetreatRenamedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //description = @event.Description;
         }
 
         void InternalApply(CurrentRetreatCanceledEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //
         }
 
         void InternalApply(CurrentParticipantAddedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //
         }
 
         void InternalApply(CurrentParticipantRemovedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //
         }
 
         void InternalApply(CurrentParticipantAssignedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //
         }
 
         void InternalApply(CurrentParticipantUnassignedEvent @event)
         {
-System.Console.WriteLine("applying: " + @event.Id);
             //
         }
     }
