@@ -7,7 +7,10 @@ function Compile-Testing
 
     $referenceAssemblies = @() + `
         "lib\nservicebus\lib\net40\NServiceBus.dll" + `
-        $eventsFile
+        "lib\NUnit\lib\nunit.framework.dll" + `
+        $frameworkFile + `
+        $eventsFile + `
+        $domainFile
 
     Generic-Compile $testingFile $sourceFiles $referenceAssemblies
 }

@@ -11,7 +11,7 @@ function Compile-Specs
         "lib\Machine.Specifications\lib\Machine.Specifications.dll" + `
         $frameworkFile + `
         $eventsFile + `
-#        $domainFile + `
+        $domainFile + `
         $commandsFile + `
         $commandProcessorFile + `
         $webApplicationFile + `
