@@ -21,21 +21,32 @@ namespace Dahlia.CommandProcessor
 
         public void Handle(TCommand command)
         {
-            var events = eventStore.Perform<TAggregateRoot>(r => Action(command, r), Against(command));
+            // we just lost locking and syncing
 
-            foreach (var @event in events)
+            var eventsFor = eventStore.EventsFor(Against(command));
+
+            var aggregateRoot = new TAggregateRoot();
+var watch = System.Diagnostics.Stopwatch.StartNew();
+            aggregateRoot.Load(eventsFor);
+watch.Stop();
+System.Console.WriteLine(aggregateRoot.Id + " took " + watch.ElapsedMilliseconds + "ms to load");
+
+            Action(command, aggregateRoot);
+
+            foreach (var extractedEvent in aggregateRoot.ExtractEvents())
             {
-                @event.CommandId = command.Id;
+                extractedEvent.CommandId = command.Id;
 
-                bus.Publish(@event);
+                eventStore.AddEvent(extractedEvent);
+                bus.Publish(extractedEvent);
             }
         }
-
-        protected abstract void Action(TCommand command, TAggregateRoot aggregateRoot);
 
         protected virtual Guid Against(TCommand command)
         {
             return command.AggregateRootId;
         }
+
+        protected abstract void Action(TCommand command, TAggregateRoot aggregateRoot);
     }
 }
