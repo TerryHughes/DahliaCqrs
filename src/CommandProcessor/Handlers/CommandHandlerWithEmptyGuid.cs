@@ -14,8 +14,7 @@ namespace Dahlia.CommandProcessor
         {
         }
 
-        // sealing not recomended? http://stackoverflow.com/questions/4673967/is-it-possible-to-finalize-a-virtual-method-in-c
-        protected override sealed Guid Against(TCommand command)
+        protected override Guid Against(TCommand command)
         {
             return Guid.Empty;
         }

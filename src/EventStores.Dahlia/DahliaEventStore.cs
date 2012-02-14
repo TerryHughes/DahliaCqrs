@@ -20,7 +20,7 @@ namespace Dahlia.EventStores
             writeRepository = new WriteRepository(new ConfigConnectionSettings("event"));
         }
 readonly DateTime epoch = new DateTime(1979, 07, 09);
-        protected override IEnumerable<Event> EventsFor(Guid aggregateRootId)
+        public IEnumerable<Event> EventsFor(Guid aggregateRootId)
         {
             var idpair = new KeyValuePair<string, object>("@AggregateRootId", aggregateRootId);
 
@@ -46,7 +46,7 @@ readonly DateTime epoch = new DateTime(1979, 07, 09);
             }
         }
 
-        protected override void AddEvent(Event @event)
+        public void AddEvent(Event @event)
         {
             var snapshot = @event as Events.ParticipantSnapshottedEvent.Version1;
 
