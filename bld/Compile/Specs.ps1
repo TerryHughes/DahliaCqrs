@@ -12,6 +12,7 @@ function Compile-Specs
         $frameworkFile + `
         $eventsFile + `
 #        $domainFile + `
+        $commandsFile + `
         $commandProcessorFile + `
         $webApplicationFile
 

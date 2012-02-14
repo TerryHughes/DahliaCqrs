@@ -2,7 +2,7 @@ namespace Dahlia.Events.EventSpecs
 {
     using System;
     using Machine.Specifications;
-    using Dahlia.Framework;
+    using Framework;
 
     public class when_initializing_an_event
     {

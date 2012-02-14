@@ -1,9 +1,8 @@
-namespace Dahlia.CommandSpecifications
+namespace Dahlia.Commands.CommandSpecs
 {
     using System;
-    using Dahlia.Commands;
-    using Dahlia.Framework;
     using Machine.Specifications;
+    using Framework;
 
     public class when_initializing_a_command
     {
@@ -17,7 +16,7 @@ namespace Dahlia.CommandSpecifications
 
         It should_set_its_Id =()=> command.Id.ShouldEqual(guid);
 
-        Cleanup mess =()=> SystemGuid.FromNowOnGenerateNew();
+        Cleanup after =()=> SystemGuid.FromNowOnGenerateNew();
 
         static Guid guid;
         static Command command;

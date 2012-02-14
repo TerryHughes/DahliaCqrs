@@ -9,6 +9,7 @@ Task Giles {
     cpi "bin\Dahlia.Framework.dll" "tst"
     cpi "bin\Dahlia.Events.dll" "tst"
 #    cpi "bin\Dahlia.Domain.dll" "tst"
+    cpi "bin\Dahlia.Commands.dll" "tst"
     cpi "bin\Dahlia.CommandProcessor.dll" "tst"
     cpi "bin\Dahlia.Specs.dll" "tst"
 }
