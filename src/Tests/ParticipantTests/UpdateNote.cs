@@ -1,18 +1,18 @@
-namespace Dahlia.ParticipantTests
+/*
+namespace Dahlia.Domain.ParticipantTests
 {
     using System;
     using System.Collections.Generic;
-    using Dahlia.Domain;
-    using Dahlia.Events;
+    using Events;
 
     public class UpdateNote : AggregateRootTestFixture<Participant>
     {
-        private Guid id = Guid.NewGuid();
-        private string note = "note";
+        readonly Guid id = Guid.NewGuid();
+        readonly string note = "note";
 
         protected override IEnumerable<Event> GivenTheseEvents()
         {
-            yield return new Events.ParticipantCreatedEvent.Version1("firstName", "lastName", new DateTime(2010, 04, 05)) { AggregateRootId = id };
+            yield return new Events.ParticipantRegisteredEvent.Version2 { AggregateRootId = id, Name = "name", DateRecieved = new DateTime(2010, 04, 05) };
         }
 
         protected override void WhenThisHappens()
@@ -26,3 +26,4 @@ namespace Dahlia.ParticipantTests
         }
     }
 }
+*/

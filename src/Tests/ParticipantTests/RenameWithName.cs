@@ -1,26 +1,24 @@
-namespace Dahlia.ParticipantTests
+namespace Dahlia.Domain.ParticipantTests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Dahlia.Domain;
-    using Dahlia.Events;
+    using Events;
 
-    public abstract class RenameWithFirstName : AggregateRootTestFixture<Participant>
+    public abstract class RenameWithName : AggregateRootTestFixture<Participant>
     {
-        private Guid id = Guid.NewGuid();
-        private string lName = "lName";
+        readonly Guid id = Guid.NewGuid();
 
-        protected abstract string FirstName { get; }
+        protected abstract string Name { get; }
 
         protected override IEnumerable<Event> GivenTheseEvents()
         {
-            yield return new Events.ParticipantCreatedEvent.Version1("fName", lName, new DateTime(2011, 04, 05)) { AggregateRootId = id };
+            yield return new Events.ParticipantRegisteredEvent.Version2 { AggregateRootId = id, Name = "name", DateRecieved = new DateTime(2011, 04, 05) };
         }
 
         protected override void WhenThisHappens()
         {
-            SystemUnderTest.Rename(FirstName, lName);
+            SystemUnderTest.Rename(Name);
         }
 
         protected override IEnumerable<Event> ExpectTheseEvents()

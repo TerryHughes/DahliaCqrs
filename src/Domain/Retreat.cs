@@ -40,7 +40,6 @@ namespace Dahlia.Domain
             EnsureDescriptionIsValid(description);
 
             Id = SystemGuid.NewGuid();
-System.Console.WriteLine("creating: (" + date + ") " + description);
 
             Apply(new CurrentRetreatScheduledEvent { Date = date, Description = description });
         }

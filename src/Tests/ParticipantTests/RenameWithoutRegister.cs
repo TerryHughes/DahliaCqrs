@@ -1,11 +1,10 @@
-namespace Dahlia.ParticipantTests
+namespace Dahlia.Domain.ParticipantTests
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Dahlia.Domain;
-    using Dahlia.Events;
+    using Events;
 
-    public class RenameWithoutCreate : AggregateRootTestFixture<Participant>
+    public class RenameWithoutRegister : AggregateRootTestFixture<Participant>
     {
         protected override IEnumerable<Event> GivenTheseEvents()
         {
@@ -14,7 +13,7 @@ namespace Dahlia.ParticipantTests
 
         protected override void WhenThisHappens()
         {
-            SystemUnderTest.Rename("firstName", "lastName");
+            SystemUnderTest.Rename("name");
         }
 
         protected override System.Type ExpectThisException()

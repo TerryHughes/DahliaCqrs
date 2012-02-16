@@ -1,18 +1,16 @@
-namespace Dahlia.ParticipantTests
+namespace Dahlia.Domain.ParticipantTests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Dahlia.Domain;
-    using Dahlia.Events;
+    using Events;
 
-    public abstract class CreateWithFirstName : AggregateRootTestFixtureWithControlledGuid<Participant>
+    public abstract class RegisterWithName : AggregateRootTestFixtureWithControlledGuid<Participant>
     {
-        private Guid guid = Guid.NewGuid();
-        private string lastName = "lastName";
-        private DateTime dateRecieved = new DateTime(2011, 03, 23);
+        readonly Guid guid = Guid.NewGuid();
+        readonly DateTime dateRecieved = new DateTime(2011, 03, 23);
 
-        protected abstract string FirstName { get; }
+        protected abstract string Name { get; }
 
         protected override Guid ControlGuid
         {
@@ -26,7 +24,7 @@ namespace Dahlia.ParticipantTests
 
         protected override void WhenThisHappensWithControlledGuid()
         {
-            SystemUnderTest.Create(FirstName, lastName, dateRecieved);
+            SystemUnderTest.Register(Name, null, dateRecieved);
         }
 
         protected override IEnumerable<Event> ExpectTheseEvents()

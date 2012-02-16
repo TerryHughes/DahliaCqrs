@@ -51,6 +51,8 @@ namespace Dahlia.Domain
 
         public void Register(string name, string note, DateTime dateRecieved)
         {
+            EnsureNameIsValid(name);
+
             Id = SystemGuid.NewGuid();
 
             Apply(new CurrentRegisteredEvent { Name = name, Note = note, DateRecieved = dateRecieved });
@@ -58,7 +60,11 @@ namespace Dahlia.Domain
 
         public void Rename(string name)
         {
-            Apply(new CurrentParticipantRenamedEvent { Name = name });
+            Gaurd();
+            EnsureNameIsValid(name);
+
+            if (NameIsDifferent(name))
+                Apply(new CurrentParticipantRenamedEvent { Name = name });
         }
 
         public void Unregister()
@@ -69,6 +75,41 @@ namespace Dahlia.Domain
         public void Snapshot()
         {
             Apply(new CurrentSnapshottedEvent { Name = name, Note = note, DateRecieved = dateRecieved });
+        }
+
+        static void EnsureNameIsValid(string name)
+        {
+            EnsureNameIsNotNull(name);
+            EnsureNameIsNotEmpty(name);
+            EnsureNameIsNotOnlyWhiteSpace(name);
+        }
+
+        static void EnsureNameIsNotNull(string name)
+        {
+            if (name == null)
+                NameIsNotValid("null");
+        }
+
+        static void EnsureNameIsNotEmpty(string name)
+        {
+            if (String.IsNullOrEmpty(name))
+                NameIsNotValid("empty");
+        }
+
+        static void EnsureNameIsNotOnlyWhiteSpace(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                NameIsNotValid("only white space");
+        }
+
+        static void NameIsNotValid(string reason)
+        {
+            throw new IsNotValidException("Participant's name", "it is " + reason);
+        }
+
+        bool NameIsDifferent(string name)
+        {
+            return this.name != name;
         }
 
         void InternalApply(CurrentRegisteredEvent @event)
