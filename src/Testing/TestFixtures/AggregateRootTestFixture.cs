@@ -36,9 +36,9 @@ namespace Dahlia.Domain
         [Test]
         public void TheActualExceptionMatchesWhatWasExpected()
         {
-            if (caughtException == null)
+            if (ExpectThisException() == null)
             {
-                Assert.IsNull(ExpectThisException());
+                Assert.IsNull(caughtException);
             }
             else
             {

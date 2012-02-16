@@ -9,7 +9,7 @@ function Assemble-CommandProcessor {
     cpi "lib\nservicebus\lib\net40\NServiceBus.Host.exe" "app\cmd"
     cpi "bin\Dahlia.Framework.*" "app\cmd"
     cpi "bin\Dahlia.Events.*" "app\cmd"
-#    cpi "bin\Dahlia.Domain.*" "app\cmd"
+    cpi "bin\Dahlia.Domain.*" "app\cmd"
 #    cpi "bin\Dahlia.EventStores.*" "app\cmd"
     cpi "bin\Dahlia.Data.Common.*" "app\cmd"
     cpi "bin\Dahlia.Data.SqlClient.*" "app\cmd"

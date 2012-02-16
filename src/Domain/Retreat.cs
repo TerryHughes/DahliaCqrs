@@ -37,8 +37,11 @@ namespace Dahlia.Domain
 
         public void Schedule(DateTime date, string description)
         {
+            EnsureDescriptionIsValid(description);
+
             Id = SystemGuid.NewGuid();
 System.Console.WriteLine("creating: (" + date + ") " + description);
+
             Apply(new CurrentRetreatScheduledEvent { Date = date, Description = description });
         }
 
@@ -75,6 +78,36 @@ System.Console.WriteLine("creating: (" + date + ") " + description);
         public void Unassign(Guid participantId)
         {
             Apply(new CurrentParticipantUnassignedEvent { ParticipantId = participantId, ParticipantName = "how could i know?"/*, BedId = bedId*/, BedName = "its comfy?" });
+        }
+
+        static void EnsureDescriptionIsValid(string description)
+        {
+            EnsureDescriptionIsNotNull(description);
+            EnsureDescriptionIsNotEmpty(description);
+            EnsureDescriptionIsNotOnlyWhiteSpace(description);
+        }
+
+        static void EnsureDescriptionIsNotNull(string description)
+        {
+            if (description == null)
+                DescriptionIsNotValid("null");
+        }
+
+        static void EnsureDescriptionIsNotEmpty(string description)
+        {
+            if (String.IsNullOrEmpty(description))
+                DescriptionIsNotValid("empty");
+        }
+
+        static void EnsureDescriptionIsNotOnlyWhiteSpace(string description)
+        {
+            if (String.IsNullOrWhiteSpace(description))
+                DescriptionIsNotValid("only white space");
+        }
+
+        static void DescriptionIsNotValid(string reason)
+        {
+            throw new IsNotValidException("Retreat's description", "it is " + reason);
         }
 
         void InternalApply(CurrentRetreatScheduledEvent @event)

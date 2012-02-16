@@ -1,16 +1,15 @@
-namespace Dahlia.RetreatTests
+namespace Dahlia.Domain.RetreatTests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Dahlia.Domain;
-    using Dahlia.Events;
+    using Events;
 
-    public class Create : AggregateRootTestFixtureWithControlledGuid<Retreat>
+    public class Schedule : AggregateRootTestFixtureWithControlledGuid<Retreat>
     {
-        private Guid guid = Guid.NewGuid();
-        private string name = "name";
-        private DateTime date = new DateTime(2011, 04, 04);
+        readonly Guid guid = Guid.NewGuid();
+        readonly DateTime date = new DateTime(2011, 04, 04);
+        readonly string description = "description";
 
         protected override Guid ControlGuid
         {
@@ -24,12 +23,12 @@ namespace Dahlia.RetreatTests
 
         protected override void WhenThisHappensWithControlledGuid()
         {
-            SystemUnderTest.Create(name, date);
+            SystemUnderTest.Schedule(date, description);
         }
 
         protected override IEnumerable<Event> ExpectTheseEvents()
         {
-            yield return new Events.RetreatCreatedEvent.Version1(name, date) { AggregateRootId = guid };
+            yield return new Events.RetreatScheduledEvent.Version1 { AggregateRootId = guid, Date = date, Description = description };
         }
     }
 }
