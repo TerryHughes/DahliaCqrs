@@ -1,4 +1,3 @@
-/*
 namespace Dahlia.Events.ParticipantRegisteredEvent
 {
     using System;
@@ -11,4 +10,3 @@ namespace Dahlia.Events.ParticipantRegisteredEvent
         public DateTime DateRecieved { get; set; }
     }
 }
-*/

@@ -1,8 +1,9 @@
-namespace Dahlia.Commands.RegisterParticipantCommand
+namespace Dahlia.Events.ParticipantUnregisteredEvent
 {
     using System;
 
-    public class Version2 : Command
+    [Serializable]
+    public class Version3 : Event
     {
         public string Name { get; set; }
         public string Note { get; set; }

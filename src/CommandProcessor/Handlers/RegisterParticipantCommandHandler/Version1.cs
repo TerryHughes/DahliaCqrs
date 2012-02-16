@@ -14,7 +14,7 @@ namespace Dahlia.CommandProcessor.RegisterParticipantCommandHandler
 
         protected override void Action(CurrentCommand command, Participant participant)
         {
-            participant.Register(command.Name, command.Note);
+            participant.Register(command.Name, command.Note, new DateTime(1950, 01, 01));
         }
     }
 }

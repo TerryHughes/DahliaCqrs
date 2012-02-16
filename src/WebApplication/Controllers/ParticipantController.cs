@@ -5,7 +5,7 @@ namespace Dahlia.WebApplication.Controllers
     using System.Linq;
     using System.Web.Mvc;
     using NServiceBus;
-    using CurrentRegisterCommand = Commands.RegisterParticipantCommand.Version1;
+    using CurrentRegisterCommand = Commands.RegisterParticipantCommand.Version2;
     using CurrentRenameParticipantCommand = Commands.RenameParticipantCommand.Version1;
     using CurrentUnregisterCommand = Commands.UnregisterParticipantCommand.Version1;
     using CurrentSnapshotCommand = Commands.SnapshotParticipantCommand.Version1;
@@ -37,7 +37,7 @@ namespace Dahlia.WebApplication.Controllers
 
         public ActionResult Register(string name, string note)
         {
-            var command = new CurrentRegisterCommand { Name = name, Note = note };
+            var command = new CurrentRegisterCommand { Name = name, Note = note, DateRecieved = DateTime.Now };
             bus.Send(command);
 
             return RedirectToAction("List");

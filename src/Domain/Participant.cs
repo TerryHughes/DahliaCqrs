@@ -1,15 +1,17 @@
 namespace Dahlia.Domain
 {
+    using System;
     using Framework;
-    using CurrentRegisteredEvent = Events.ParticipantRegisteredEvent.Version1;
+    using CurrentRegisteredEvent = Events.ParticipantRegisteredEvent.Version2;
     using CurrentParticipantRenamedEvent = Events.ParticipantRenamedEvent.Version1;
-    using CurrentUnregisteredEvent = Events.ParticipantUnregisteredEvent.Version2;
-    using CurrentSnapshottedEvent = Events.ParticipantSnapshottedEvent.Version1;
+    using CurrentUnregisteredEvent = Events.ParticipantUnregisteredEvent.Version3;
+    using CurrentSnapshottedEvent = Events.ParticipantSnapshottedEvent.Version2;
 
     public class Participant : AggregateRoot
     {
         string name;
         string note;
+        DateTime dateRecieved;
 
         public Participant()
         {
@@ -18,19 +20,40 @@ namespace Dahlia.Domain
             RegisterHandler<CurrentUnregisteredEvent>(InternalApply);
             RegisterHandler<CurrentSnapshottedEvent>(InternalApply);
 
+            RegisterConverter<Events.ParticipantRegisteredEvent.Version1, Events.ParticipantRegisteredEvent.Version2>(e => new Events.ParticipantRegisteredEvent.Version2
+            {
+                AggregateRootId = e.AggregateRootId,
+                Name = e.Name,
+                Note = e.Note,
+                DateRecieved = new DateTime(1950, 01, 01)
+            });
             RegisterConverter<Events.ParticipantUnregisteredEvent.Version1, Events.ParticipantUnregisteredEvent.Version2>(e => new Events.ParticipantUnregisteredEvent.Version2
             {
                 AggregateRootId = e.AggregateRootId,
                 Name = name,
                 Note = note
             });
+            RegisterConverter<Events.ParticipantUnregisteredEvent.Version2, Events.ParticipantUnregisteredEvent.Version3>(e => new Events.ParticipantUnregisteredEvent.Version3
+            {
+                AggregateRootId = e.AggregateRootId,
+                Name = e.Name,
+                Note = e.Note,
+                DateRecieved = dateRecieved
+            });
+            RegisterConverter<Events.ParticipantSnapshottedEvent.Version1, Events.ParticipantSnapshottedEvent.Version2>(e => new Events.ParticipantSnapshottedEvent.Version2
+            {
+                AggregateRootId = e.AggregateRootId,
+                Name = e.Name,
+                Note = e.Note,
+                DateRecieved = new DateTime(1950, 01, 01)
+            });
         }
 
-        public void Register(string name, string note)
+        public void Register(string name, string note, DateTime dateRecieved)
         {
             Id = SystemGuid.NewGuid();
-System.Console.WriteLine("creating: " + name + " (" + note + ")");
-            Apply(new CurrentRegisteredEvent { Name = name, Note = note });
+
+            Apply(new CurrentRegisteredEvent { Name = name, Note = note, DateRecieved = dateRecieved });
         }
 
         public void Rename(string name)
@@ -40,12 +63,12 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
 
         public void Unregister()
         {
-            Apply(new CurrentUnregisteredEvent { Name = name, Note = note });
+            Apply(new CurrentUnregisteredEvent { Name = name, Note = note, DateRecieved = dateRecieved });
         }
 
         public void Snapshot()
         {
-            Apply(new CurrentSnapshottedEvent { Name = name, Note = note });
+            Apply(new CurrentSnapshottedEvent { Name = name, Note = note, DateRecieved = dateRecieved });
         }
 
         void InternalApply(CurrentRegisteredEvent @event)
@@ -53,6 +76,7 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
             Id = @event.AggregateRootId;
             name = @event.Name;
             note = @event.Note;
+            dateRecieved = @event.DateRecieved;
         }
 
         void InternalApply(CurrentParticipantRenamedEvent @event)
@@ -68,6 +92,7 @@ System.Console.WriteLine("creating: " + name + " (" + note + ")");
         {
             name = @event.Name;
             note = @event.Note;
+            dateRecieved = @event.DateRecieved;
         }
     }
 }

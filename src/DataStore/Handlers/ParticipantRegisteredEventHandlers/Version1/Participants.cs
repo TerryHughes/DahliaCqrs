@@ -10,7 +10,7 @@ namespace Dahlia.DataStore.ParticipantRegisteredEventHandlers.Participants
 
         protected override string Statement
         {
-            get { return "INSERT INTO [Participants] ([Id], [Name], [Note]) VALUES (@Id, @Name, @Note)"; }
+            get { return "INSERT INTO [Participants] ([Id], [Name], [Note], [DateRecieved]) VALUES (@Id, @Name, @Note, '01/01/1950')"; }
         }
     }
 }

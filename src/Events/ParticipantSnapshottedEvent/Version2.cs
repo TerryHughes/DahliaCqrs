@@ -1,8 +1,9 @@
-namespace Dahlia.Commands.RegisterParticipantCommand
+namespace Dahlia.Events.ParticipantSnapshottedEvent
 {
     using System;
 
-    public class Version2 : Command
+    [Serializable]
+    public class Version2 : Event
     {
         public string Name { get; set; }
         public string Note { get; set; }
