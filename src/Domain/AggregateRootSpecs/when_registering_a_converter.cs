@@ -1,10 +1,9 @@
-namespace Dahlia.AggregateRootSpecifications
+namespace Dahlia.Domain.AggregateRootSpecs
 {
     using System;
     using System.Collections.Generic;
-    using Dahlia.Domain;
-    using Dahlia.Events;
     using Machine.Specifications;
+    using Events;
 
     public class when_registering_a_converter
     {
@@ -18,7 +17,7 @@ namespace Dahlia.AggregateRootSpecifications
 
         static TestAggregateRoot aggregateRoot;
 
-        private class TestAggregateRoot : AggregateRoot
+        class TestAggregateRoot : AggregateRoot
         {
             internal void CallRegisterConverter<TInput, TOutput>(Func<TInput, TOutput> converter) where TInput : Event where TOutput : Event
             {
@@ -26,7 +25,7 @@ namespace Dahlia.AggregateRootSpecifications
             }
         }
 
-        private class TestEvent : Event
+        class TestEvent : Event
         {
         }
     }

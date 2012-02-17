@@ -1,10 +1,9 @@
-namespace Dahlia.AggregateRootSpecifications
+namespace Dahlia.Domain.AggregateRootSpecs
 {
     using System;
     using System.Linq;
-    using Dahlia.Domain;
-    using Dahlia.Events;
     using Machine.Specifications;
+    using Events;
 
     public class when_applying_an_event
     {
@@ -37,7 +36,7 @@ namespace Dahlia.AggregateRootSpecifications
         static TestEvent @event;
         static bool executed;
 
-        private class TestAggregateRoot : AggregateRoot
+        class TestAggregateRoot : AggregateRoot
         {
             internal TestAggregateRoot()
             {
@@ -55,7 +54,7 @@ namespace Dahlia.AggregateRootSpecifications
             }
         }
 
-        private class TestEvent : Event
+        class TestEvent : Event
         {
         }
     }

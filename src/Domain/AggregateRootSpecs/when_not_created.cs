@@ -1,6 +1,5 @@
-namespace Dahlia.AggregateRootSpecifications
+namespace Dahlia.Domain.AggregateRootSpecs
 {
-    using Dahlia.Domain;
     using Machine.Specifications;
 
     public class when_not_created
@@ -14,7 +13,7 @@ namespace Dahlia.AggregateRootSpecifications
         static TestAggregateRoot aggregateRoot;
         static AggregateRootNotCreatedException exception;
 
-        private class TestAggregateRoot : AggregateRoot
+        class TestAggregateRoot : AggregateRoot
         {
             internal void CallGuard()
             {

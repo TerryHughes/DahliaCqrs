@@ -1,11 +1,10 @@
-namespace Dahlia.AggregateRootSpecifications
+namespace Dahlia.Domain.AggregateRootSpecs
 {
     using System;
     using System.Collections.Generic;
-    using Dahlia.Domain;
-    using Dahlia.Events;
-    using Dahlia.Events.RegisterHandlerEvents;
     using Machine.Specifications;
+    using Events;
+    using Events.RegisterHandlerEvents;
 
     public class when_registering_a_handler
     {
@@ -25,7 +24,7 @@ namespace Dahlia.AggregateRootSpecifications
         static TestAggregateRoot aggregateRoot;
         static bool executed;
 
-        private class TestAggregateRoot : AggregateRoot
+        class TestAggregateRoot : AggregateRoot
         {
             internal void CallRegisterHandler<T>(Action<T> handler) where T : Event
             {

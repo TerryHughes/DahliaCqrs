@@ -1,8 +1,7 @@
-namespace Dahlia.AggregateRootSpecifications
+namespace Dahlia.Domain.AggregateRootSpecs
 {
-    using Dahlia.Domain;
-    using Dahlia.Events.MultipleVersionEvents;
     using Machine.Specifications;
+    using Events.MultipleVersionEvents;
 
     public class when_multiple_versions_of_an_event_exist
     {
@@ -33,7 +32,7 @@ namespace Dahlia.AggregateRootSpecifications
         static TestAggregateRoot aggregateRoot;
         static NewerVersion appliedEvent;
 
-        private class TestAggregateRoot : AggregateRoot
+        class TestAggregateRoot : AggregateRoot
         {
             internal TestAggregateRoot()
             {

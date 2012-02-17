@@ -1,8 +1,7 @@
-namespace Dahlia.AggregateRootSpecifications
+namespace Dahlia.Domain.AggregateRootSpecs
 {
-    using Dahlia.Domain;
-    using Dahlia.Events;
     using Machine.Specifications;
+    using Events;
 
     public class when_applying_an_unregistered_event
     {
@@ -15,7 +14,7 @@ namespace Dahlia.AggregateRootSpecifications
         static TestAggregateRoot aggregateRoot;
         static HandlerNotRegisteredException exception;
 
-        private class TestAggregateRoot : AggregateRoot
+        class TestAggregateRoot : AggregateRoot
         {
             internal void ApplyAnUnregisteredEvent()
             {
@@ -23,7 +22,7 @@ namespace Dahlia.AggregateRootSpecifications
             }
         }
 
-        private class TestEvent : Event
+        class TestEvent : Event
         {
         }
     }
