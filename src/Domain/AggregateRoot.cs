@@ -53,7 +53,7 @@ namespace Dahlia.Domain
                 appliedEvents.Add(@event);
         }
 
-        protected virtual void Gaurd()
+        protected virtual void Guard()
         {
             EnsureAggregateRootIsCreated();
         }

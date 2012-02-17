@@ -60,7 +60,7 @@ namespace Dahlia.Domain
 
         public void Rename(string name)
         {
-            Gaurd();
+            Guard();
             EnsureNameIsValid(name);
 
             if (NameIsDifferent(name))
