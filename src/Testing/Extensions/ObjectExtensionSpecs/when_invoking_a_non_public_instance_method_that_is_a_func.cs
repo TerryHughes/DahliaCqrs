@@ -1,4 +1,4 @@
-namespace Dahlia.ObjectExtensionSpecifications
+namespace Dahlia.Testing.Extensions.ObjectExtensionSpecs
 {
     using System;
     using Machine.Specifications;
@@ -24,7 +24,7 @@ namespace Dahlia.ObjectExtensionSpecifications
         static TestClass @class;
         static string result;
 
-        private class TestClass
+        class TestClass
         {
             internal string Input;
 

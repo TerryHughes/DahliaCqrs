@@ -1,4 +1,4 @@
-namespace Dahlia.ObjectExtensionSpecifications
+namespace Dahlia.Testing.Extensions.ObjectExtensionSpecs
 {
     using System;
     using Machine.Specifications;
@@ -18,10 +18,10 @@ namespace Dahlia.ObjectExtensionSpecifications
         static TestClass @class;
         static string value;
 
-        private class TestClass
+        class TestClass
         {
 #pragma warning disable 649
-            private string value;
+            string value;
 #pragma warning restore 649
 
             internal string GetValue()

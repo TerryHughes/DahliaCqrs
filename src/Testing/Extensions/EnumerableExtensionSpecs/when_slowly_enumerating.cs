@@ -1,4 +1,4 @@
-namespace Dahlia.EnumerableExtensionSpecifications
+namespace Dahlia.Testing.Extensions.EnumerableExtensionSpecs
 {
     using System.Collections.Generic;
     using System.Diagnostics;

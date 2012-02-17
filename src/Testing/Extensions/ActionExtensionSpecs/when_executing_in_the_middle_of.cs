@@ -1,4 +1,4 @@
-namespace Dahlia.ActionExtensionSpecifications
+namespace Dahlia.Testing.Extensions.ActionExtensionSpecs
 {
     using System;
     using System.Threading;
