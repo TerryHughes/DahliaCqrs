@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.CommandHandlers
 {
     using Dahlia.Commands;
@@ -26,3 +27,4 @@ namespace Dahlia.CommandHandlers
         }
     }
 }
+*/

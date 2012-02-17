@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.Domain
 {
     using System;
@@ -18,3 +19,4 @@ namespace Dahlia.Domain
         }
     }
 }
+*/

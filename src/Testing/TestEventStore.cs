@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.EventStores
 {
     using System;
@@ -20,3 +21,4 @@ namespace Dahlia.EventStores
         }
     }
 }
+*/

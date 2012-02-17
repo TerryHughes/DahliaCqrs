@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.Events.CreateParticipantFailedEvent
 {
     public class Version1 : Event
@@ -10,3 +11,4 @@ namespace Dahlia.Events.CreateParticipantFailedEvent
         }
     }
 }
+*/

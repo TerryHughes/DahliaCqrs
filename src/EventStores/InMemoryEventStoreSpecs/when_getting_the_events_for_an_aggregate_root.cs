@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.InMemoryEventStoreSpecifications
 {
     using System;
@@ -35,3 +36,4 @@ namespace Dahlia.InMemoryEventStoreSpecifications
         }
     }
 }
+*/

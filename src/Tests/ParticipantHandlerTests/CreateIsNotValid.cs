@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.ParticipantHandlerTests
 {
     using System;
@@ -7,26 +8,20 @@ namespace Dahlia.ParticipantHandlerTests
     using Dahlia.Commands;
     using Dahlia.Events;
 
-    public class Create : HandlerTestFixtureWithControlledGuid<CreateParticipantCommandHandler, CreateParticipantCommand>
+    public class CreateIsNotValid : HandlerTestFixture<CreateParticipantCommandIsNotValidHandler, CreateParticipantCommand>
     {
-        private Guid guid = Guid.NewGuid();
         private string firstName = "firstName";
         private string lastName = "lastName";
-        private DateTime dateRecieved = new DateTime(2011, 03, 23);
-
-        protected override Guid ControlGuid
-        {
-            get { return guid; }
-        }
+        private DateTime dateRecieved = new DateTime(2011, 04, 20);
 
         protected override IEnumerable<Event> GivenTheseEvents()
         {
             return Enumerable.Empty<Event>();
         }
 
-        protected override CreateParticipantCommandHandler WhenThisHandlerIsCalled()
+        protected override CreateParticipantCommandIsNotValidHandler WhenThisHandlerIsCalled()
         {
-            return new CreateParticipantCommandHandler(EventStore);
+            return new CreateParticipantCommandIsNotValidHandler(new CreateParticipantCommandHandler(EventStore));
         }
 
         protected override CreateParticipantCommand WithThisCommand()
@@ -36,7 +31,8 @@ namespace Dahlia.ParticipantHandlerTests
 
         protected override IEnumerable<Event> ExpectTheseEvents()
         {
-            yield return new Events.ParticipantCreatedEvent.Version1(firstName, lastName, dateRecieved) { AggregateRootId = guid };
+            yield return new Events.CreateParticipantFailedEvent.Version1("reason");
         }
     }
 }
+*/

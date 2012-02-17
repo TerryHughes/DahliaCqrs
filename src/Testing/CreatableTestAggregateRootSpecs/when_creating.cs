@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.CreatableTestAggregateRootSpecifications
 {
     using System;
@@ -25,3 +26,4 @@ namespace Dahlia.CreatableTestAggregateRootSpecifications
         }
     }
 }
+*/

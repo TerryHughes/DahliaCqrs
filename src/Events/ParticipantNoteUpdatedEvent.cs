@@ -1,3 +1,4 @@
+/*
 namespace Dahlia.Events.ParticipantNoteUpdatedEvent
 {
     public class Version1 : Event
@@ -10,3 +11,4 @@ namespace Dahlia.Events.ParticipantNoteUpdatedEvent
         }
     }
 }
+*/
