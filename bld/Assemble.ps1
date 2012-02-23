@@ -1,5 +1,6 @@
 Include bld\Assemble\CommandProcessor.ps1
 Include bld\Assemble\DataStore.ps1
+Include bld\Assemble\RelationalStore.ps1
 Include bld\Assemble\WebApplication.ps1
 Include bld\Utilities\Make-Directory.ps1
 
@@ -22,6 +23,7 @@ Task Assemble {
     Make-Directory "app"
 
     Assemble-DataStore
+    Assemble-RelationalStore
     Assemble-CommandProcessor
     Assemble-WebApplication
 }
